@@ -31,14 +31,16 @@ class Programme
     #[ORM\Column(type: Types::TEXT)]
     private ?string $image = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => 'TRUE'])]
     private ?bool $isValid = null;
 
-    #[ORM\ManyToOne(inversedBy: 'programmes')]
-    private ?CategorieProgramme $categorie = null;
 
     #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Module::class)]
     private Collection $modules;
+
+    #[ORM\ManyToOne(inversedBy: 'programmes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
 
     public function __construct()
     {
@@ -122,17 +124,6 @@ class Programme
         return $this;
     }
 
-    public function getCategorie(): ?CategorieProgramme
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?CategorieProgramme $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Module>
@@ -160,6 +151,18 @@ class Programme
                 $module->setProgramme(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
