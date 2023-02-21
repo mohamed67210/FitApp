@@ -27,6 +27,7 @@ class Module
     private ?string $documentPDF = null;
 
     #[ORM\ManyToOne(inversedBy: 'modules')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Programme $programme = null;
 
     public function getId(): ?int
