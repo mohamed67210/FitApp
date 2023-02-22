@@ -17,13 +17,24 @@
             </h2>
             {# <h3>Plus de 250 Entraineurs </h3>
             <h3>Plus de 390 Programmes </h3> #}
+            <a href=""><i class="fa-solid fa-chevron-down"></i></i></a>
         </div>
+
     </div>
-    <h1>categorie</h1>
-    <ul>
-        {% for categorie in categories %}
-        <li>{{ categorie.intitule}}</li>
-        {% endfor %}
-    </ul>
+    <section id="categories">
+        <h2>Nous vous proposons plusieurs <span>Categories</span> d'activités</h2>
+
+        <div id="categories_container">
+            {% for categorie in categories %}
+            <a href="">
+                <div class="categorie_cart">{{ categorie.intitule}}</div>
+            </a>
+            {% endfor %}
+        </div>
+
+
+
+    </section>
+
 </main>
 {% endblock %}
