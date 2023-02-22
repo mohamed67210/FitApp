@@ -8,7 +8,7 @@
     <div class="banniere">
 
         <div class="image">
-            <img src="{{asset('assets/images/banniereimg.jpg')}}" alt="image">
+            <img src="{{asset('assets/images/banniere/banniereimg.jpg')}}" alt="image">
         </div>
         <div class="contenu">
             <h2>Vous cherchez à atteindre vos objectifs sportifs et à vous sentir en meilleure forme ?
@@ -27,7 +27,12 @@
         <div id="categories_container">
             {% for categorie in categories %}
             <a href="">
-                <div class="categorie_cart">{{ categorie.intitule}}</div>
+                <div class="categorie_cart">
+                    <h3>{{ categorie.intitule|upper}}</h3>
+                    <div class="categorie_image">
+                        <img src="{{ asset('assets/images/categories/'~ categorie.image ~'') }}" alt="image">
+                    </div>
+                </div>
             </a>
             {% endfor %}
         </div>
