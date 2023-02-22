@@ -5,6 +5,21 @@
 {% block body %}
 {# <img src="" alt=""> #}
 <main class="container">
+    <div class="banniere">
+
+        <div class="image">
+            <img src="{{asset('assets/images/banniereimg.jpg')}}" alt="image">
+        </div>
+        <div class="contenu">
+            <h2>Vous cherchez à atteindre vos objectifs sportifs et à vous sentir en meilleure forme ?
+                Trouvez votre coach sportif personnel, prêt à vous accompagner dans votre quête de la performance et du
+                bien-être
+            </h2>
+            {# <h3>Plus de 250 Entraineurs </h3>
+            <h3>Plus de 390 Programmes </h3> #}
+        </div>
+    </div>
+    <h1>categorie</h1>
     <ul>
         {% for categorie in categories %}
         <li>{{ categorie.intitule}}</li>
