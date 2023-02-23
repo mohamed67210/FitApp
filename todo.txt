@@ -1,2 +1,3 @@
 -(fait) affichage des programmes d'une categorie (quand on clique sur une categorie dans le home page on se derige vers la page qui affiche ses programmes)
 - affichage tous les programmes en cliquant sur programmes au menu
+- page detail d'un programme

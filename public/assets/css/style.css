@@ -250,12 +250,16 @@ a .fa-solid {
 }
 
 .programme_contenu {
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     padding: 0 0.5rem;
     gap: 0.5rem;
+    position: absolute;
+    top: 49%;
+    /* background-color: #467326; */
 }
 
 .programme_contenu p {
