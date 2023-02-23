@@ -31,7 +31,7 @@ class Programme
     #[ORM\Column(type: Types::TEXT)]
     private ?string $image = null;
 
-    #[ORM\Column(options: ['default' => 'TRUE'])]
+    #[ORM\Column(options: ['default' => 'FALSE'])]
     private ?bool $isValid = null;
 
 

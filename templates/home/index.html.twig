@@ -17,7 +17,7 @@
             </h2>
             {# <h3>Plus de 250 Entraineurs </h3>
             <h3>Plus de 390 Programmes </h3> #}
-            <a href=""><i class="fa-solid fa-chevron-down"></i></i></a>
+            {# <a href=""><i class="fa-solid fa-chevron-down"></i></i></a> #}
         </div>
 
     </div>
@@ -26,7 +26,7 @@
 
         <div id="categories_container">
             {% for categorie in categories %}
-            <a href="">
+            <a href="{{ path('categorie_programmes', { 'id': categorie.id }) }}">
                 <div class="categorie_cart">
                     <h3>{{ categorie.intitule|upper}}</h3>
                     <div class="categorie_image">

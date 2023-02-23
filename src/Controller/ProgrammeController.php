@@ -12,9 +12,9 @@ class ProgrammeController extends AbstractController
     #[Route('/programme', name: 'app_programme')]
     public function index(ProgrammeRepository $programmeRepository): Response
     {
-        progra
         return $this->render('programme/allProgrammes.html.twig', [
             'controller_name' => 'ProgrammeController',
         ]);
     }
+
 }
