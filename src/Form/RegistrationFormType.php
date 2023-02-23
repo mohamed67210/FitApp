@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true,
                 // 'expanded' => false,
                 'choices'  => [
-                    'User' => 'ROLE_USER',
+                    'membre' => 'ROLE_MEMBRE',
                     'Coach' => 'ROLE_COACH'
                 ],
             ])
