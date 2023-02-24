@@ -43,7 +43,16 @@
                 {% endif %}
                 {# si le compte connecté est validé #}
                 {% if app.user.isVerified %}
-                <li><a href="">Compte</a> </li>
+                <li>
+                    <div class="dropdown">
+                        <button>Mon espace</button> 
+                        <div class="dropdown-content">
+                            <a href="#">Profile</a>
+                            <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        </div>
+                    </div>
+                   
+                </li>
 
                 {# fin de if app.user.isverified #}
                 {% endif %}
