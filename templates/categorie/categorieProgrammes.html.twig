@@ -4,7 +4,7 @@
 
 {% block body %}
 <main class="container">
-    <h2>Les programmes de la categorie <span>{{categorie.intitule}}</span></h2>
+    <h2>Les programmes de la categorie <span>{{categorie.intitule|upper}}</span></h2>
     <div class="programmes_container">
         {% for programme in categorie.programmes %}
         <div class="programme_cart">

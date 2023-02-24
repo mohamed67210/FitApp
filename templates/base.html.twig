@@ -24,21 +24,38 @@
     {% block nav %}
     <nav>
         <div id="left">
-            {# logo #}
+            <div class="logo_container">
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('assets/images/logo/logo.png') }}" alt="logo" class="logo">
+                </a>
+            </div>
         </div>
         <div id="right">
             <ul>
                 <li><a href="{{ path('app_home') }}">Accueil</a> </li>
                 <li><a href="">Coachs</a> </li>
                 <li><a href="">Programmes</a> </li>
+                {# si il y'a un user connecté #}
                 {% if app.user %}
-                    <li><a href="">Compte</a> </li>
-                    <li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
-                {% else %}
-                    <li><a href="{{ path('app_login') }}">Connexion</a> </li>
-                    <li><a href="{{ path('app_register') }}">Inscription</a> </li>
+                {# si on est connecté entant que admin #}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="">Admin</a> </li>
                 {% endif %}
-                
+                {# si le compte connecté est validé #}
+                {% if app.user.isVerified %}
+                <li><a href="">Compte</a> </li>
+
+                {# fin de if app.user.isverified #}
+                {% endif %}
+
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
+
+                {% else %}
+                <li><a href="{{ path('app_login') }}">Connexion</a> </li>
+                <li><a href="{{ path('app_register') }}">Inscription</a> </li>
+                {# fin de if app.user #}
+                {% endif %}
+
 
             </ul>
         </div>
