@@ -15,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -22,20 +23,20 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'label' => 'Vous etes :',
-                'required' => true,
+                'label' => false,
+                'required' => false,
                 'multiple' => true,
-                // 'expanded' => false,
+                'expanded' => true,
                 'choices'  => [
-                    'membre' => 'ROLE_MEMBRE',
                     'Coach' => 'ROLE_COACH'
                 ],
             ])
             ->add('image', HiddenType::class, ['data' => 'defaultUser.png',])
-            ->add('nom', TextType::class, ['label' => 'Votre Nom :'])
-            ->add('prenom', TextType::class, ['label' => 'Votre Prénom :'])
-            ->add('email', EmailType::class, ['label' => 'Votre Email :'])
+            ->add('nom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Nom']])
+            ->add('prenom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Prenom']])
+            ->add('email', EmailType::class, ['label' => false,'attr'=>['placeholder'=>'VotreEmail']])
             ->add('agreeTerms', CheckboxType::class, [
+                'label'=>"Conditions d'utilisateur",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -43,22 +44,15 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('plainPassword', RepeatedType::class, [
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => false,'attr'=>['placeholder'=>'Votre mot de passe']],
+                'second_options' => ['label' => false,'attr'=>['placeholder'=>'validation de mot de passe']],
+                
             ]);
     }
 
