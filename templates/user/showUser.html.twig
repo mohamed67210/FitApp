@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail de {{ user.nom}}{% endblock %}
+
+{% block body %}
+<main class="container_user">
+
+    {% for role in user.roles %}
+    {% if role == "ROLE_COACH" %}
+
+    <section id="user_details_container">
+        {# {{ dump(user) }} #}
+        <figure class="coach_container">
+            <img src="{{ asset('assets/images/user/'~ user.image ~'') }}" alt="{{user.image}}">
+        </figure>
+        <article id="user_statics">
+            <p>Coach</p>
+            <p>Nombre d'abonnées : 256</p>
+            <p>Avis : 105 </p>
+        </article>
+        <article id="user_discreption">
+            
+        </article>
+    </section>
+
+    {% elseif role == "ROLE_ADMIN" %}
+    erreur
+    {% endif %}
+    {% endfor %}
+</main>
+{% endblock %}
