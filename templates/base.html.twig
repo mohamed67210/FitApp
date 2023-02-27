@@ -53,11 +53,13 @@
                     </div>
                    
                 </li>
+                {# si le compte n'est pas valider  #}
+                {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
 
                 {# fin de if app.user.isverified #}
                 {% endif %}
 
-                <li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
+                
 
                 {% else %}
                 <li><a href="{{ path('app_login') }}">Connexion</a> </li>

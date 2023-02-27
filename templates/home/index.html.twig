@@ -5,24 +5,25 @@
 {% block body %}
 {# <img src="" alt=""> #}
 <main class="container">
-    <div class="banniere">
+    <section class="banniere">
 
         <div class="image">
             <img src="{{asset('assets/images/banniere/banniereimg.jpg')}}" alt="image">
         </div>
         <div class="contenu">
-            <h2>Vous cherchez à atteindre vos objectifs sportifs et à vous sentir en meilleure forme ?
-                Trouvez votre coach sportif personnel, prêt à vous accompagner dans votre quête de la performance et du
-                bien-être
+            <h2>Vous cherchez à atteindre vos objectifs sportifs et à vous sentir en meilleure <strong>forme</strong> ?
+                Trouvez votre <strong>coach sportif personnel</strong> , prêt à vous accompagner dans votre quête de la
+                performance et du
+                <strong>bien-être</strong>
             </h2>
             {# <h3>Plus de 250 Entraineurs </h3>
             <h3>Plus de 390 Programmes </h3> #}
             {# <a href=""><i class="fa-solid fa-chevron-down"></i></i></a> #}
         </div>
 
-    </div>
+    </section>
     <section id="categories">
-        <h2>Nous vous proposons plusieurs <span>Categories</span> d'activités</h2>
+        <h3>Nous proposons une large gamme de catégories d'activités pour répondre à tous les goûts et niveaux</h3>
 
         <div id="categories_container">
             {% for categorie in categories %}
