@@ -4,7 +4,17 @@
 
 {% block body %}
 <main class="container">
-    hello
-    {{ dump(coachs) }}
+    <h2>Découvrez nos <strong>coachs sportifs</strong> inscrits sur notre site web !</h2>
+    <section id="coachs_container">
+        {% for coach in coachs %}
+        <a href="">
+            <figure class="coach_container">
+                <img src="{{ asset('assets/images/user/'~ coach.image ~'') }}" alt="{{coach.image}}">
+                <figcaption>{{coach.prenom|upper }} {{coach.nom|upper}}</figcaption>
+            </figure>
+        </a>
+        {% endfor %}
+    </section>
+
 </main>
 {% endblock %}

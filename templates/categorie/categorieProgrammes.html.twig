@@ -9,7 +9,7 @@
         {% for programme in categorie.programmes %}
         <div class="programme_cart">
             <div class="programme_image">
-                <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.image}}">
+                <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
             </div>
             <div class="programme_contenu">
                 <h4>{{programme.intitule|upper}}</h4>
