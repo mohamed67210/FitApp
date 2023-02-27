@@ -57,6 +57,7 @@ h2 span {
 body {
     width: 100vw;
     min-height: 100vh;
+    position: relative;
 }
 
 /* nav abr */
@@ -143,7 +144,7 @@ nav {
 
 /* footer */
 footer {
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -151,6 +152,8 @@ footer {
     align-items: center;
     height: 3rem;
     background-color: #011826;
+    position: absolute;
+    bottom: 0;
 }
 
 footer a {
@@ -224,10 +227,16 @@ footer a {
 .contenu {
     z-index: 4;
     color: white;
-    width: 70%;
+    width: 80%;
     text-align: center;
     display: flex;
     flex-direction: column;
+    background-color: #01101ad0;
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
 }
 
 a .fa-solid {
@@ -408,3 +417,25 @@ a .fa-solid {
     border-radius: 50%;
     object-fit: cover;
 }
+
+/* user profile */
+.container_user{
+    min-height: 95vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-items: center; */
+    gap: 1.5rem;
+    /* background-color: #467326; */
+}
+#user_details_container{
+    width: 30%;
+    min-height: 100%;
+    background-color: #D9D9D9;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+

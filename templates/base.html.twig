@@ -33,7 +33,7 @@
         <div id="right">
             <ul>
                 <li><a href="{{ path('app_home') }}">Accueil</a> </li>
-                <li><a href="">Coachs</a> </li>
+                <li><a href="{{ path('show_caochs') }}">Coachs</a> </li>
                 <li><a href="">Programmes</a> </li>
                 {# si il y'a un user connecté #}
                 {% if app.user %}
@@ -74,13 +74,13 @@
     </nav>
     {% endblock nav %}
     {% block body %}{% endblock %}
-    {% block footer %}
+    {# {% block footer %}
     <footer>
         <a href="">Mentions légale</a>
         <a href="">Conditions générales de vente</a>
         <a href="">© 2022 By Mohamed</a>
     </footer>
-    {% endblock footer %}
+    {% endblock footer %} #}
 </body>
 
 </html>

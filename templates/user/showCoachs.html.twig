@@ -7,7 +7,7 @@
     <h2>Découvrez nos <strong>coachs sportifs</strong> inscrits sur notre site web !</h2>
     <section id="coachs_container">
         {% for coach in coachs %}
-        <a href="">
+        <a href="{{ path('show_user', {'id': coach.id}) }}">
             <figure class="coach_container">
                 <img src="{{ asset('assets/images/user/'~ coach.image ~'') }}" alt="{{coach.image}}">
                 <figcaption>{{coach.prenom|upper }} {{coach.nom|upper}}</figcaption>
