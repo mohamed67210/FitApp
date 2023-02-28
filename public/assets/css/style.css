@@ -3,6 +3,14 @@
     margin: 0;
     box-sizing: border-box;
 }
+html{
+    /* scroll-behavior: smooth; */
+}
+body {
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
 
 /* en commun */
 .prix {
@@ -54,11 +62,7 @@ h2 span {
     cursor: pointer;
 }
 
-body {
-    width: 100vw;
-    min-height: 100vh;
-    position: relative;
-}
+
 
 /* nav abr */
 nav {
@@ -231,7 +235,7 @@ footer a {
     text-align: center;
     display: flex;
     flex-direction: column;
-    background-color: #01101ad0;
+    /* background-color: #01101ad0; */
     height: 60%;
     justify-content: center;
     align-items: center;
