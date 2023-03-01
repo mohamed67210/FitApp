@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -40,6 +42,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Programme::class, orphanRemoval: true)]
+    private Collection $programmesCreated;
+
+    #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'users')]
+    private Collection $programmesPurchased;
+
+    public function __construct()
+    {
+        $this->programmesCreated = new ArrayCollection();
+        $this->programmesPurchased = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,6 +169,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammesCreated(): Collection
+    {
+        return $this->programmesCreated;
+    }
+
+    public function addProgrammesCreated(Programme $programmesCreated): self
+    {
+        if (!$this->programmesCreated->contains($programmesCreated)) {
+            $this->programmesCreated->add($programmesCreated);
+            $programmesCreated->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgrammesCreated(Programme $programmesCreated): self
+    {
+        if ($this->programmesCreated->removeElement($programmesCreated)) {
+            // set the owning side to null (unless already changed)
+            if ($programmesCreated->getUser() === $this) {
+                $programmesCreated->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammesPurchased(): Collection
+    {
+        return $this->programmesPurchased;
+    }
+
+    public function addProgrammesPurchased(Programme $programmesPurchased): self
+    {
+        if (!$this->programmesPurchased->contains($programmesPurchased)) {
+            $this->programmesPurchased->add($programmesPurchased);
+        }
+
+        return $this;
+    }
+
+    public function removeProgrammesPurchased(Programme $programmesPurchased): self
+    {
+        $this->programmesPurchased->removeElement($programmesPurchased);
 
         return $this;
     }
