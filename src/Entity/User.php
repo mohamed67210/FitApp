@@ -43,17 +43,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Programme::class, orphanRemoval: true)]
-    private Collection $programmesCreated;
-
-    #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'users')]
-    private Collection $programmesPurchased;
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Programme::class)]
+    private Collection $programsCreated;
 
     public function __construct()
     {
-        $this->programmesCreated = new ArrayCollection();
-        $this->programmesPurchased = new ArrayCollection();
+        $this->programsCreated = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -176,54 +173,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Programme>
      */
-    public function getProgrammesCreated(): Collection
+    public function getProgramsCreated(): Collection
     {
-        return $this->programmesCreated;
+        return $this->programsCreated;
     }
 
-    public function addProgrammesCreated(Programme $programmesCreated): self
+    public function addProgramsCreated(Programme $programsCreated): self
     {
-        if (!$this->programmesCreated->contains($programmesCreated)) {
-            $this->programmesCreated->add($programmesCreated);
-            $programmesCreated->setUser($this);
+        if (!$this->programsCreated->contains($programsCreated)) {
+            $this->programsCreated->add($programsCreated);
+            $programsCreated->setCoach($this);
         }
 
         return $this;
     }
 
-    public function removeProgrammesCreated(Programme $programmesCreated): self
+    public function removeProgramsCreated(Programme $programsCreated): self
     {
-        if ($this->programmesCreated->removeElement($programmesCreated)) {
+        if ($this->programsCreated->removeElement($programsCreated)) {
             // set the owning side to null (unless already changed)
-            if ($programmesCreated->getUser() === $this) {
-                $programmesCreated->setUser(null);
+            if ($programsCreated->getCoach() === $this) {
+                $programsCreated->setCoach(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Programme>
-     */
-    public function getProgrammesPurchased(): Collection
-    {
-        return $this->programmesPurchased;
-    }
 
-    public function addProgrammesPurchased(Programme $programmesPurchased): self
-    {
-        if (!$this->programmesPurchased->contains($programmesPurchased)) {
-            $this->programmesPurchased->add($programmesPurchased);
-        }
 
-        return $this;
-    }
 
-    public function removeProgrammesPurchased(Programme $programmesPurchased): self
-    {
-        $this->programmesPurchased->removeElement($programmesPurchased);
-
-        return $this;
-    }
 }
