@@ -47,7 +47,7 @@ class Programme
     private ?User $coach = null;
 
 
-    
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
@@ -184,5 +184,8 @@ class Programme
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->intitule;
+    }
 }

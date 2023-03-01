@@ -19,8 +19,26 @@
             <p>Avis : 105 </p>
         </article>
         <article id="user_discreption">
-            
+
         </article>
+    </section>
+    <section id="user_programmes">
+        <div class="programmes_container">
+            {% for programme in user.programsCreated %}
+            <div class="programme_cart">
+                <div class="programme_image">
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                        alt="{{programme.intitule}}">
+                </div>
+                <div class="programme_contenu">
+                    <h5>{{programme.intitule|upper}}</h5>
+                    <p>{{programme.description}}</p>
+                    <span class="prix">{{programme.prix}} €</span>
+                </div>
+                <a href="" class="btn_achat">Acheter maintenant</a>
+            </div>
+            {% endfor %}
+        </div>
     </section>
 
     {% elseif role == "ROLE_ADMIN" %}
