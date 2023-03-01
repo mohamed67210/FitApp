@@ -45,7 +45,9 @@
                     <div class="dropdown">
                         <button>Mon espace</button> 
                         <div class="dropdown-content">
-                            <a href="#">Profile</a>
+                            <a href="{{ path('show_user',{'id': app.user.id}) }}">Profile</a>
+                            <a href="{{ path('add_programme') }}">Nouveau Programme</a>
+
                             <a href="{{ path('app_logout') }}">Déconnexion</a>
                         </div>
                     </div>

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<main class="container">
+    <h3>Nouveau Programme</h3>
+    <div id="inputes_container">
+        {{form_start (formProgramme)}}
+        {# {{form_row(formAddFormation.intituleFormation)}} #}
+        {{form_end (formProgramme)}}
+    </div>
+</main>
+{% endblock body %}

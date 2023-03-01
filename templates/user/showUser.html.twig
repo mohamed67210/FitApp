@@ -4,9 +4,10 @@
 
 {% block body %}
 <main class="container_user">
+    {# {{ dump(app.user) }} #}
 
-    {% for role in user.roles %}
-    {% if role == "ROLE_COACH" %}
+    {# {% for role in user.roles %} #}
+    {% if user.roles.0 == "ROLE_COACH" %}
 
     <section id="user_details_container">
         {# {{ dump(user) }} #}
@@ -23,6 +24,10 @@
         </article>
     </section>
     <section id="user_programmes">
+        {% if app.user == user %}
+            <h2>Mes programmes</h2>
+            {% else %} <h2>Les programmes</h2>
+        {% endif %}
         <div class="programmes_container">
             {% for programme in user.programsCreated %}
             <div class="programme_cart">
@@ -35,15 +40,15 @@
                     <p>{{programme.description}}</p>
                     <span class="prix">{{programme.prix}} €</span>
                 </div>
-                <a href="" class="btn_achat">Acheter maintenant</a>
+                <a href="" class="btn_achat">Voir detail</a>
             </div>
             {% endfor %}
         </div>
     </section>
 
-    {% elseif role == "ROLE_ADMIN" %}
+    {% elseif user.roles.0 == "ROLE_ADMIN" %}
     erreur
     {% endif %}
-    {% endfor %}
+    {# {% endfor %} #}
 </main>
 {% endblock %}

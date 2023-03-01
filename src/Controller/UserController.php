@@ -26,8 +26,6 @@ class UserController extends AbstractController
     public function showUser(UserRepository $userRepository, $id): Response
     {
 
-
-
         $user = $userRepository->findOneBy(['id' => $id]);
         // if (($user->getRoles()) != "ROLE_COACH") {
 
