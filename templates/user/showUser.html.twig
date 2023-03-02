@@ -10,6 +10,9 @@
     {% if user.roles.0 == "ROLE_COACH" %}
 
     <section id="user_details_container">
+        <div class="btn_panel">
+            <a href="{{ path('edit_user',{'id':user.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+        </div>
         {# {{ dump(user) }} #}
         <figure class="coach_container">
             <img src="{{ asset('assets/images/user/'~ user.image ~'') }}" alt="{{user.image}}">
@@ -32,7 +35,7 @@
             {% for programme in user.programsCreated %}
             <div class="programme_cart">
                 {% if app.user == user %}
-                <div id="btn_panel"> 
+                <div class="btn_panel"> 
                     
                     <a href="{{ path('edit_programme',{'id': programme.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="{{ path('delete_programme',{'id': programme.id}) }}"><i class="fa-solid fa-trash"></i></a>

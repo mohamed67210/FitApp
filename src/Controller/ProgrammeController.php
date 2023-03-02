@@ -31,6 +31,7 @@ class ProgrammeController extends AbstractController
         return  $this->redirectToRoute('app_home');
 
     }
+    
     //ajouter une session ou editer
     #[Route('/programme/edit/{id}', name: 'edit_programme')]
     #[Route('/programme/add', name: 'add_programme')]

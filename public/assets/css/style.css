@@ -453,6 +453,7 @@ footer a {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    position: relative;
 }
 
 #user_programmes {
@@ -463,7 +464,7 @@ footer a {
     align-items: center;
 }
 
-#btn_panel {
+.btn_panel {
     padding: 0.3rem;
     width: 30%;
     height: 1.5rem;
@@ -479,7 +480,7 @@ footer a {
     gap: 0.5rem;
     border-radius: 5px;
 }
-#btn_panel a{
+.btn_panel a{
     text-decoration: none;
     color: white;
     font-size: x-small;

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
 {
@@ -30,9 +33,20 @@ class UserController extends AbstractController
         // if (($user->getRoles()) != "ROLE_COACH") {
 
         // } else {
-            return $this->render('user/showUser.html.twig', [
-                'user' => $user,
-            ]);
+        return $this->render('user/showUser.html.twig', [
+            'user' => $user,
+        ]);
         // }
+    }
+
+    // editer user
+    #[Route('/user/edit/{id}', name: 'edit_user')]
+    public function edit(ManagerRegistry $doctrine, User $user, Request $request, SluggerInterface $slugger): Response
+    {
+        // si l'id de l'user envoyer par l'url est le meme id de l'user connecté 
+        if (($this->getUser()) == $user) {
+            dd($user);
+        };
+        return $this->render('user/editUser.html.twig');
     }
 }
