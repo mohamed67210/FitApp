@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Programme;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -25,9 +27,9 @@ class ProgrammeType extends AbstractType
             ->add('prixPromo', NumberType::class, [
                 'required'   => false,
             ])
-            ->add('image', FileType::class, ['mapped' => true, 'constraints' => [
+            ->add('image', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
                 new File([
-                    'maxSize' => '1M',
+                    'maxSize' => '150k',
                     'mimeTypes' => [
                         'image/jpeg',
                     ],
@@ -36,8 +38,8 @@ class ProgrammeType extends AbstractType
             ],])
             ->add('isValid', HiddenType::class, ['data' => '0'])
             ->add('categorie')
-            ->add('coach')
-            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);;
+            // ->add('coach')
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

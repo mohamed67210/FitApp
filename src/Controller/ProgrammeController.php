@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Programme;
+use App\Entity\User;
 use App\Form\ProgrammeType;
 use App\Repository\ProgrammeRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -16,19 +19,35 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgrammeController extends AbstractController
 {
+
+    // supprission d'un programme
+    #[Route('/programme/delete/{id}', name: 'delete_programme')]
+    public function deleteProgramme(ManagerRegistry $doctrine,Programme $programme):Response 
+    {
+        $entityManager =$doctrine->getManager();
+        $programme =  $entityManager->getRepository(Programme::class)->remove($programme);
+        $entityManager->flush();
+        $this->addFlash('success', 'le programme est supprimé !');
+        return  $this->redirectToRoute('app_home');
+
+    }
     //ajouter une session ou editer
     #[Route('/programme/edit/{id}', name: 'edit_programme')]
     #[Route('/programme/add', name: 'add_programme')]
-    public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
+    public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_COACH');
+
         if (!$programme) {
             $programme = new programme;
         }
+        // dd($programme);
+
+        $programme->setCoach($this->getUser());
         // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
         $form = $this->createForm(ProgrammeType::class, $programme);
         $form->handleRequest($request);
-
+        // dd($form['image']->getData());
         if ($form->isSubmitted() && $form->isValid()) {
 
             // upload image

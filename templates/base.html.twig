@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {# css #}
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    
+
     {# fontawesome #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -43,23 +43,22 @@
                 {% if app.user.isVerified %}
                 <li>
                     <div class="dropdown">
-                        <button>Mon espace</button> 
+                        <button>Mon espace</button>
                         <div class="dropdown-content">
                             <a href="{{ path('show_user',{'id': app.user.id}) }}">Profile</a>
                             <a href="{{ path('add_programme') }}">Nouveau Programme</a>
-
                             <a href="{{ path('app_logout') }}">Déconnexion</a>
                         </div>
                     </div>
-                   
+
                 </li>
-                {# si le compte n'est pas valider  #}
+                {# si le compte n'est pas valider #}
                 {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
 
                 {# fin de if app.user.isverified #}
                 {% endif %}
 
-                
+
 
                 {% else %}
                 <li><a href="{{ path('app_login') }}">Connexion</a> </li>
