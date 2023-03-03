@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class UserController extends AbstractController
 {
     // recuperer tt les users qui ont le role COACH
-    #[Route('/Coachs', name: 'show_caochs')]
+    #[Route('/Coachs', name: 'show_coachs')]
     public function showCoachs(UserRepository $userRepository): Response
     {
         $coachs = $userRepository->findByRole('ROLE_COACH');
@@ -26,13 +26,26 @@ class UserController extends AbstractController
         ]);
     }
 
-    // recuperer detail d'un user
+    // afficher profile user connecté
+    #[Route('/user/profile', name: 'show_profile')]
+    public function showProfile(UserRepository $userRepository): Response
+    {
+        $this->getUser();
+        return $this->render('user/showUser.html.twig', [
+            'user' => $this->getUser(),
+        ]);
+        // }
+    }
+
+    // recuperer detail d'un Coach
     #[Route('/user/{id}', name: 'show_user')]
     public function showUser(UserRepository $userRepository, $id): Response
     {
-
         $user = $userRepository->findOneBy(['id' => $id]);
-
+        if (($user->getRoles()[0]) == "ROLE_ADMIN") {
+            dd('erreur');
+            // $this->redirectToRoute('app_home');
+        };
         return $this->render('user/showUser.html.twig', [
             'user' => $user,
         ]);

@@ -35,7 +35,7 @@ class Programme
     private ?bool $isValid = null;
 
 
-    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Module::class)]
+    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Module::class,orphanRemoval:true)]
     private Collection $modules;
 
     #[ORM\ManyToOne(inversedBy: 'programmes')]

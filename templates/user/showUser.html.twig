@@ -6,8 +6,7 @@
 <main class="container_user">
     {# {{ dump(app.user) }} #}
 
-    {# {% for role in user.roles %} #}
-    {% if user.roles.0 == "ROLE_COACH" %}
+    {# {% if user.roles.0 == "ROLE_COACH" %} #}
 
     <section id="user_details_container">
         {% if app.user == user %}
@@ -19,21 +18,25 @@
         {# {{ dump(user) }} #}
         <figure class="coach_container">
             <img src="{{ asset('assets/images/user/'~ user.image ~'') }}" alt="{{user.image}}">
-            <figcaption>{{user|upper}}</figcaption>
         </figure>
+        <strong>{{user|upper}}</strong>
         <article id="user_statics">
             {% if user.roles.0 == "ROLE_COACH" %}
                 <p>Coach</p>
                 {% elseif user.roles.0 == "ROLE_ADMIN"  %}
                 <p>Admin</p>
+                {% else %}
+                <p>Membre</p>
             {% endif %}
             <p>Nombre de programmes : {{user.programsCreated|length}}</p>
             <p>Avis : 105 </p>
         </article>
+        {% if user.roles.0 == "ROLE_COACH" %}
         <article id="user_bio">
             <h4>Biographie :</h4>
             <p>{{user.biographie|capitalize}}</p>
         </article>
+        {% endif %}
         <article id="user_discreption">
 
         </article>
@@ -70,9 +73,9 @@
         </div>
     </section>
 
-    {% elseif user.roles.0 == "ROLE_ADMIN" %}
-    erreur
-    {% endif %}
+    {# {% elseif user.roles.0 == "ROLE_ADMIN" %} #}
+    {# erreur #}
+    {# {% endif %} #}
     {# {% endfor %} #}
 </main>
 {% endblock %}

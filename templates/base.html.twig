@@ -31,7 +31,7 @@
         <div id="right">
             <ul>
                 <li><a href="{{ path('app_home') }}">Accueil</a> </li>
-                <li><a href="{{ path('show_caochs') }}">Coachs</a> </li>
+                <li><a href="{{ path('show_coachs') }}">Coachs</a> </li>
                 <li><a href="">Programmes</a> </li>
                 {# si il y'a un user connecté #}
                 {% if app.user %}
@@ -45,7 +45,7 @@
                     <div class="dropdown">
                         <button>Mon espace</button>
                         <div class="dropdown-content">
-                            <a href="{{ path('show_user',{'id': app.user.id}) }}">Profile</a>
+                            <a href="{{ path('show_profile')}}">Profile</a>
                             {% if is_granted('ROLE_COACH') %}
                             <a href="{{ path('add_programme') }}">Nouveau Programme</a>
                             {% endif %}

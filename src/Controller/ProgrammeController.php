@@ -97,7 +97,8 @@ class ProgrammeController extends AbstractController
             return $this->redirectToRoute('show_user', ['id' => $userId]);
         }
         return $this->render('programme/formulaire.html.twig', [
-            'formProgramme' => $form->createView()
+            'formProgramme' => $form->createView(),
+            'programme' =>$programme
         ]);
     }
 

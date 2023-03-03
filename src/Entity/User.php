@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Programme::class,orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Programme::class, orphanRemoval: true)]
     private Collection $programsCreated;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -207,7 +207,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString()
     {
-        return $this->prenom .' '. $this->nom;
+        return $this->prenom . ' ' . $this->nom;
     }
 
     public function getBiographie(): ?string
