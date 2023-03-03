@@ -22,16 +22,16 @@ class ProgrammeController extends AbstractController
 
     // supprission d'un programme
     #[Route('/programme/delete/{id}', name: 'delete_programme')]
-    public function deleteProgramme(ManagerRegistry $doctrine,Programme $programme):Response 
+    public function deleteProgramme(ManagerRegistry $doctrine, Programme $programme): Response
     {
-        $entityManager =$doctrine->getManager();
+        $userId = $programme->getCoach()->getId();
+        $entityManager = $doctrine->getManager();
         $programme =  $entityManager->getRepository(Programme::class)->remove($programme);
         $entityManager->flush();
         $this->addFlash('success', 'le programme est supprimé !');
-        return  $this->redirectToRoute('app_home');
-
+        return  $this->redirectToRoute('show_user', ['id' => $userId]);
     }
-    
+
     //ajouter une session ou editer
     #[Route('/programme/edit/{id}', name: 'edit_programme')]
     #[Route('/programme/add', name: 'add_programme')]
@@ -69,7 +69,7 @@ class ProgrammeController extends AbstractController
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
-                    
+
                 }
 
                 // updates the 'brochureFilename' property to store the PDF file name

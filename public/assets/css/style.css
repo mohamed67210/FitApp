@@ -455,6 +455,9 @@ footer a {
     gap: 1rem;
     position: relative;
 }
+#user_details_container .coach_container{
+    margin-top: 2rem;
+}
 
 #user_programmes {
     width: 80%;

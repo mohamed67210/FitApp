@@ -10,12 +10,16 @@
     {% if user.roles.0 == "ROLE_COACH" %}
 
     <section id="user_details_container">
+        {% if app.user == user %}
         <div class="btn_panel">
             <a href="{{ path('edit_user',{'id':user.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
         </div>
+        {% endif %}
+        
         {# {{ dump(user) }} #}
         <figure class="coach_container">
             <img src="{{ asset('assets/images/user/'~ user.image ~'') }}" alt="{{user.image}}">
+            <figcaption>{{user}}</figcaption>
         </figure>
         <article id="user_statics">
             <p>Coach</p>
