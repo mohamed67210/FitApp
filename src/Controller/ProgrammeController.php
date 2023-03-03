@@ -45,6 +45,7 @@ class ProgrammeController extends AbstractController
         // dd($programme);
 
         $programme->setCoach($this->getUser());
+        $userId = $programme->getCoach()->getId();
         // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
         $form = $this->createForm(ProgrammeType::class, $programme);
         $form->handleRequest($request);
@@ -93,7 +94,7 @@ class ProgrammeController extends AbstractController
             $this->addFlash('success', 'Le Programme est enregistré !');
 
             // on  retourne vers la page accueil
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('show_user', ['id' => $userId]);
         }
         return $this->render('programme/formulaire.html.twig', [
             'formProgramme' => $form->createView()

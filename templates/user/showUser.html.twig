@@ -15,16 +15,24 @@
             <a href="{{ path('edit_user',{'id':user.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
         </div>
         {% endif %}
-        
+
         {# {{ dump(user) }} #}
         <figure class="coach_container">
             <img src="{{ asset('assets/images/user/'~ user.image ~'') }}" alt="{{user.image}}">
-            <figcaption>{{user}}</figcaption>
+            <figcaption>{{user|upper}}</figcaption>
         </figure>
         <article id="user_statics">
-            <p>Coach</p>
-            <p>Nombre d'abonnées : 256</p>
+            {% if user.roles.0 == "ROLE_COACH" %}
+                <p>Coach</p>
+                {% elseif user.roles.0 == "ROLE_ADMIN"  %}
+                <p>Admin</p>
+            {% endif %}
+            <p>Nombre de programmes : {{user.programsCreated|length}}</p>
             <p>Avis : 105 </p>
+        </article>
+        <article id="user_bio">
+            <h4>Biographie :</h4>
+            <p>{{user.biographie|capitalize}}</p>
         </article>
         <article id="user_discreption">
 
@@ -32,20 +40,21 @@
     </section>
     <section id="user_programmes">
         {% if app.user == user %}
-            <h2>Mes programmes</h2>
-            {% else %} <h2>Les programmes</h2>
+        <h2>Mes programmes</h2>
+        {% else %} <h2>Les programmes</h2>
         {% endif %}
         <div class="programmes_container">
             {% for programme in user.programsCreated %}
             <div class="programme_cart">
                 {% if app.user == user %}
-                <div class="btn_panel"> 
-                    
-                    <a href="{{ path('edit_programme',{'id': programme.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <div class="btn_panel">
+
+                    <a href="{{ path('edit_programme',{'id': programme.id}) }}"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
                     <a href="{{ path('delete_programme',{'id': programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
                 </div>
                 {% endif %}
-                
+
                 <div class="programme_image">
                     <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
                         alt="{{programme.intitule}}">

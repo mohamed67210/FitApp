@@ -32,6 +32,7 @@ class UserController extends AbstractController
     {
 
         $user = $userRepository->findOneBy(['id' => $id]);
+
         return $this->render('user/showUser.html.twig', [
             'user' => $user,
         ]);
@@ -46,7 +47,7 @@ class UserController extends AbstractController
         if (($this->getUser()) == $user) {
 
             // construire le formulaire 
-            $form = $this->createForm(UserType::class, $user);
+            $form = $this->createForm(UserType::class, $user)->remove('password');;
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 // recuperer l'image

@@ -46,7 +46,9 @@
                         <button>Mon espace</button>
                         <div class="dropdown-content">
                             <a href="{{ path('show_user',{'id': app.user.id}) }}">Profile</a>
+                            {% if is_granted('ROLE_COACH') %}
                             <a href="{{ path('add_programme') }}">Nouveau Programme</a>
+                            {% endif %}
                             <a href="{{ path('app_logout') }}">Déconnexion</a>
                         </div>
                     </div>
