@@ -46,7 +46,7 @@ h2 span {
 }
 
 .btn_achat {
-    width: 200px;
+    width: 70%;
     height: 35px;
     background-color: #467326;
     color: white;
@@ -327,7 +327,7 @@ footer a {
 /* page categorie programmes */
 .programmes_container {
     width: 90%;
-    min-height: 70vh;
+    /* min-height: 70vh; */
     background-color: #D9D9D9;
     border-radius: 10px;
     padding: 1.5rem;
@@ -590,4 +590,33 @@ footer a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* page all programmes */
+#programmes_categ{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    height: 50vh;
+    padding: 1rem;
+}
+ .programmes_container{
+    display: flex;
+    flex-direction: row;
+    height: 95%;
+    padding: 0.5rem;
+}
+#programmes_categ .programmes_container .programme_cart{
+    height: 100%;
+    width: 12rem;
+    gap: 0;
+}
+#programmes_categ .programme_cart .programme_contenu{
+    height: auto;
+}
+#programmes_categ .programme_cart .programme_contenu h5{
+    font-size: x-small;
 }

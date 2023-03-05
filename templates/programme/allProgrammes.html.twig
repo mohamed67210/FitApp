@@ -3,5 +3,31 @@
 {% block title %}Programmes{% endblock %}
 
 {% block body %}
+<main class="container">
+    {% for categorie in categories %}
+    <section id="programmes_categ">
+        <strong>{{categorie.intitule}}</strong>
+        <div class="programmes_container">
+            {# {{ dump(categorie.programmes) }} #}
+            {% for programme in categorie.programmes %}
+            <div class="programme_cart">
+                <div class="programme_image">
+                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                        alt="{{programme.intitule}}">
+                </div>
+                <div class="programme_contenu">
+                    <h5>{{programme.intitule|upper}}</h5>
+                    <span class="prix">{{programme.prix}} €</span>
+                </div>
+                <a href="" class="btn_achat">Voir detail</a>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+</main>
 
 {% endblock %}

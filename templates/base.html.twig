@@ -32,7 +32,7 @@
             <ul>
                 <li><a href="{{ path('app_home') }}">Accueil</a> </li>
                 <li><a href="{{ path('show_coachs') }}">Coachs</a> </li>
-                <li><a href="">Programmes</a> </li>
+                <li><a href="{{ path('show_programmes')}}">Programmes</a> </li>
                 {# si il y'a un user connecté #}
                 {% if app.user %}
                 {# si on est connecté entant que admin #}

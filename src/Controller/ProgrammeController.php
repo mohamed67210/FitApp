@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Programme;
 use App\Entity\User;
 use App\Form\ProgrammeType;
+use App\Repository\CategorieRepository;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProgrammeController extends AbstractController
 {
 
+    #[Route('/programmes', name: 'show_programmes')]
+    public function allProgrammesByCateg(CategorieRepository $categorieRepository): Response
+    {
+        $categories = $categorieRepository->findBy([], ['id' => 'asc']);
+        return $this->render('programme/allProgrammes.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
     // supprission d'un programme
     #[Route('/programme/delete/{id}', name: 'delete_programme')]
     public function deleteProgramme(ManagerRegistry $doctrine, Programme $programme): Response
@@ -32,7 +42,7 @@ class ProgrammeController extends AbstractController
         return  $this->redirectToRoute('show_user', ['id' => $userId]);
     }
 
-    //ajouter une session ou editer
+    //ajouter un programme ou editer
     #[Route('/programme/edit/{id}', name: 'edit_programme')]
     #[Route('/programme/add', name: 'add_programme')]
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger, UserRepository $userRepository): Response

@@ -7,20 +7,19 @@
     <h2>Les programmes de la categorie <span>{{categorie.intitule|upper}}</span></h2>
     <div class="programmes_container">
         {% for programme in categorie.programmes %}
-        <div class="programme_cart">
-            
-            <div class="programme_image">
-                <span>By : {{programme.coach}}</span>
-                <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
+            <div class="programme_cart">
+                
+                <div class="programme_image">
+                    <span>By : {{programme.coach}}</span>
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
+                </div>
+                <div class="programme_contenu">
+                    <h5>{{programme.intitule|upper}}</h5>
+                    <p>{{programme.description}}</p>
+                    <span class="prix">{{programme.prix}} €</span>
+                </div>
+                <a href="" class="btn_achat">Voir detail</a>
             </div>
-            <div class="programme_contenu">
-                <h5>{{programme.intitule|upper}}</h5>
-                <p>{{programme.description}}</p>
-                <span class="prix">{{programme.prix}} €</span>
-            </div>
-            <a href="" class="btn_achat">Voir detail</a>
-        </div>
-
         {% endfor %}
     </div>
 
