@@ -7,9 +7,14 @@
         
         {{form_end (formProgramme)}}
     </div>
+    {% if programme.image == null %}
+    
+    {% else %}
     <h3>Image de programme</h3>
     <div class="programme_img_container">
         <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="programme.intitule">
     </div>
+    {% endif %}
+    
 </main>
 {% endblock body %}
