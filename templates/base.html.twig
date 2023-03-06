@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {# css #}
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-
+    {# hamburger menu #}
+    <link rel="stylesheet" href="{{asset('assets/css/hamburger.css')}}">
     {# fontawesome #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -29,47 +30,55 @@
             </div>
         </div>
         <div id="right">
-            <ul>
-                <li><a href="{{ path('app_home') }}">Accueil</a> </li>
-                <li><a href="{{ path('show_coachs') }}">Coachs</a> </li>
-                <li><a href="{{ path('show_programmes')}}">Programmes</a> </li>
-                {# si il y'a un user connecté #}
-                {% if app.user %}
-                {# si on est connecté entant que admin #}
-                {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="">Admin</a> </li>
-                {% endif %}
-                {# si le compte connecté est validé #}
-                {% if app.user.isVerified %}
-                <li>
-                    <div class="dropdown">
-                        <button>Mon espace</button>
-                        <div class="dropdown-content">
-                            <a href="{{ path('show_profile')}}">Profile</a>
-                            {% if is_granted('ROLE_COACH') %}
-                            <a href="{{ path('add_programme') }}">Nouveau Programme</a>
-                            {% endif %}
-                            <a href="{{ path('app_logout') }}">Déconnexion</a>
+
+            <button id="hamburger" class="hamburger--spin" type="button">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+            <div id="nav-links">
+                <ul>
+                    <li><a href="{{ path('app_home') }}">Accueil</a> </li>
+                    <li><a href="{{ path('show_coachs') }}">Coachs</a> </li>
+                    <li><a href="{{ path('show_programmes')}}">Programmes</a> </li>
+                    {# si il y'a un user connecté #}
+                    {% if app.user %}
+                    {# si on est connecté entant que admin #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="">Admin</a> </li>
+                    {% endif %}
+                    {# si le compte connecté est validé #}
+                    {% if app.user.isVerified %}
+                    <li>
+                        <div class="dropdown">
+                            <button> Mon espace</button>
+                            <div class="dropdown-content">
+                                <a href="{{ path('show_profile')}}">Profile</a>
+                                {% if is_granted('ROLE_COACH') %}
+                                <a href="{{ path('add_programme') }}">Nouveau Programme</a>
+                                {% endif %}
+                                <a href="{{ path('app_logout') }}">Déconnexion</a>
+                            </div>
                         </div>
-                    </div>
 
-                </li>
-                {# si le compte n'est pas valider #}
-                {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
+                    </li>
+                    {# si le compte n'est pas valider #}
+                    {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
 
-                {# fin de if app.user.isverified #}
-                {% endif %}
-
+                    {# fin de if app.user.isverified #}
+                    {% endif %}
 
 
-                {% else %}
-                <li><a href="{{ path('app_login') }}">Connexion</a> </li>
-                <li><a href="{{ path('app_register') }}">Inscription</a> </li>
-                {# fin de if app.user #}
-                {% endif %}
+
+                    {% else %}
+                    <li><a href="{{ path('app_login') }}">Connexion</a> </li>
+                    <li><a href="{{ path('app_register') }}">Inscription</a> </li>
+                    {# fin de if app.user #}
+                    {% endif %}
 
 
-            </ul>
+                </ul>
+            </div>
         </div>
 
     </nav>
