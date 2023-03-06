@@ -99,11 +99,13 @@
 }
 
 #nav-links{
+    display: none;
     position: absolute;
     top: 2.rem;
     right: -100%;
 }
 #nav-links.open{
+    display: block;
     transition: 0.8s;
     top: 2.5rem;
     right: 0.5rem;
