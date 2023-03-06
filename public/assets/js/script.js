@@ -11,12 +11,17 @@ sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
 var navLinks = document.getElementById("nav-links");
 var btnMenu = document.getElementById("hamburger");
 var body = document.body
-// for (var i = 0; i < btnMenu.length; i++) {
 
-    
-    btnMenu.addEventListener('click', function () {
-        console.log(btnMenu)
-        btnMenu.classList.toggle('is-active');
-        navLinks.classList.toggle('open')
-    });
-// 
+btnMenu.addEventListener('click', function () {
+    console.log(btnMenu)
+    btnMenu.classList.toggle('is-active');
+    navLinks.classList.toggle('open')
+});
+
+// pour le bouton au milieu du nav
+var userBtn = document.getElementById('menu_user')
+var userBtnLinks = document.getElementById('user_links')
+console.log(userBtnLinks)
+userBtn.addEventListener('click',function(){
+    userBtnLinks.classList.toggle('open')
+})

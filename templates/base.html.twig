@@ -29,8 +29,24 @@
                 </a>
             </div>
         </div>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COACH') %}
+        <div id="middle">
+            <div id='menu_user'>
+                <img src="{{  asset('assets/images/user/'~ app.user.image ~'')  }}" alt="{{app.user}}">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+            <ul id="user_links">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('add_programme') }}"> Membres</a></li>
+                    <li><a href="{{ path('add_programme') }}"> Coachs</a></li>
+                    <li><a href="{{ path('add_programme') }}"> Programmes a valider</a></li>
+                    {% else %}<li><a href="{{ path('add_programme') }}"> + Nouveau Programme</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        
         <div id="right">
-
             <button id="hamburger" class="hamburger--spin" type="button">
                 <span class="hamburger-box">
                     <span class="hamburger-inner"></span>
@@ -43,23 +59,29 @@
                     <li><a href="{{ path('show_programmes')}}">Programmes</a> </li>
                     {# si il y'a un user connecté #}
                     {% if app.user %}
-                    {# si on est connecté entant que admin #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="">Admin</a> </li>
-                    {% endif %}
                     {# si le compte connecté est validé #}
                     {% if app.user.isVerified %}
+                    <li><a href="{{ path('show_profile')}}">{{app.user}}</a></li>
+                    {% if is_granted('ROLE_COACH') %}
+                    <li><a href="{{ path('add_programme') }}">Nouveau Programme</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                     <li>
-                        <div class="dropdown">
-                            <button> Mon espace</button>
+                        {# <div class="dropdown"> #}
+                            {# <div class="user_image_nav">
+                                <img src="{{  asset('assets/images/user/'~ app.user.image ~'')  }}" alt="{{app.user}}">
+                                <button> Mon espace</button>
+                            </div>
+
                             <div class="dropdown-content">
                                 <a href="{{ path('show_profile')}}">Profile</a>
                                 {% if is_granted('ROLE_COACH') %}
                                 <a href="{{ path('add_programme') }}">Nouveau Programme</a>
                                 {% endif %}
                                 <a href="{{ path('app_logout') }}">Déconnexion</a>
-                            </div>
-                        </div>
+                            </div> #}
+                            {#
+                        </div> #}
 
                     </li>
                     {# si le compte n'est pas valider #}
