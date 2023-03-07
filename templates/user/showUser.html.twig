@@ -33,7 +33,7 @@
         </article>
         {% if user.roles.0 == "ROLE_COACH" %}
         <article id="user_bio">
-            <h4>Biographie :</h4>
+            <h5>À propos de {{user.prenom}}</h5>
             <p>{{user.biographie|capitalize}}</p>
         </article>
         {% endif %}
@@ -43,7 +43,7 @@
     </section>
     <section id="user_programmes">
         {% if app.user == user %}
-        <h2>Mes programmes</h2>
+        {# <h2>Mes programmes</h2> #}
         {% else %} <h2>Les programmes</h2>
         {% endif %}
         <div class="programmes_container">

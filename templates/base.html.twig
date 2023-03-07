@@ -29,6 +29,7 @@
                 </a>
             </div>
         </div>
+        {% if app.user %}
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COACH') %}
         <div id="middle">
             <div id='menu_user'>
@@ -45,7 +46,9 @@
             </ul>
         </div>
         {% endif %}
-        
+        {% endif %}
+
+    
         <div id="right">
             <button id="hamburger" class="hamburger--spin" type="button">
                 <span class="hamburger-box">
@@ -62,27 +65,9 @@
                     {# si le compte connecté est validé #}
                     {% if app.user.isVerified %}
                     <li><a href="{{ path('show_profile')}}">{{app.user}}</a></li>
-                    {% if is_granted('ROLE_COACH') %}
-                    <li><a href="{{ path('add_programme') }}">Nouveau Programme</a></li>
-                    {% endif %}
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                     <li>
-                        {# <div class="dropdown"> #}
-                            {# <div class="user_image_nav">
-                                <img src="{{  asset('assets/images/user/'~ app.user.image ~'')  }}" alt="{{app.user}}">
-                                <button> Mon espace</button>
-                            </div>
-
-                            <div class="dropdown-content">
-                                <a href="{{ path('show_profile')}}">Profile</a>
-                                {% if is_granted('ROLE_COACH') %}
-                                <a href="{{ path('add_programme') }}">Nouveau Programme</a>
-                                {% endif %}
-                                <a href="{{ path('app_logout') }}">Déconnexion</a>
-                            </div> #}
-                            {#
-                        </div> #}
-
+                        <a href="{{ path('delete_compte') }}">Supprimer Compte</a>
                     </li>
                     {# si le compte n'est pas valider #}
                     {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>

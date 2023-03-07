@@ -10,7 +10,7 @@
         <a href="{{ path('show_user', {'id': coach.id}) }}">
             <figure class="coach_container">
                 <img src="{{ asset('assets/images/user/'~ coach.image ~'') }}" alt="{{coach.image}}">
-                <figcaption>{{coach.prenom|upper }} {{coach.nom|upper}}</figcaption>
+                <figcaption>{{(coach.prenom|slice(0,1))|upper }}.{{coach.nom|upper}}</figcaption>
             </figure>
         </a>
         {% endfor %}

@@ -15,6 +15,23 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
 {
+    // supprission de compte
+    #[Route('/delete', name: 'delete_compte')]
+    public function deleteProgramme(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $user = $this->getUser();
+        $entityManager = $doctrine->getManager();
+        $compte =  $entityManager->getRepository(User::class)->remove($user);
+        $entityManager->flush();
+        $this->addFlash('success', 'le compte est supprimé !');
+
+        $request->getSession()->invalidate();
+        $this->container->get('security.token_storage')->setToken(null);
+
+        return  $this->redirectToRoute('app_home');
+    }
+
+
     // recuperer tt les users qui ont le role COACH
     #[Route('/Coachs', name: 'show_coachs')]
     public function showCoachs(UserRepository $userRepository): Response

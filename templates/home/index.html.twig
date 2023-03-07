@@ -4,11 +4,10 @@
 
 {% block body %}
 {# <img src="" alt=""> #}
-<main class="container">
+<main class="container_home">
     <section class="banniere">
-
         <div class="image">
-            <img src="{{asset('assets/images/banniere/banniereimg-min.jpg')}}" alt="image">
+            <img src="{{asset('assets/images/banniere/baniere2-min.jpg')}}" alt="image">
         </div>
         <div class="contenu">
             <h2>Vous cherchez à atteindre vos objectifs sportifs et à vous sentir en meilleure <strong>forme</strong> ?
@@ -16,15 +15,23 @@
                 performance et du
                 <strong>bien-être</strong>
             </h2>
-            {# <h3>Plus de 250 Entraineurs </h3>
-            <h3>Plus de 390 Programmes </h3> #}
-            {# <a href=""><i class="fa-solid fa-chevron-down"></i></i></a> #}
         </div>
+    </section>
 
+    <section id="about_section">
+        <article class="about_text">
+            <h2>à propos de nous</h2>
+            <p>Nous avons créé <strong>JUSTRAINE</strong> pour aider les <strong>Coachs</strong> à partager leurs connaissances avec un
+                public plus large. Nous croyons que tout le monde peut bénéficier d'un <strong>Coaching</strong> de qualité, et nous
+                voulons rendre cela accessible à tous.
+            </p>
+        </article>
+        <figure class="about_image">
+            <img src="{{asset('assets/images/banniere/imagehome.jpg')}}" alt="">
+        </figure>
     </section>
     <section id="categories">
-        <h3 class="about_categorie">Nous proposons une large gamme de catégories d'activités pour répondre à tous les goûts et niveaux</h3>
-
+        <h3 class="about_categorie">Decouvrez nos  plusieurs Categories d’activités  </h3>
         <div id="categories_container">
             {% for categorie in categories %}
             <a href="{{ path('categorie_programmes', { 'id': categorie.id }) }}">
