@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&family=Sofia+Sans:wght@200&display=swap');
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 html {
@@ -12,7 +14,7 @@ body {
     width: 100vw;
     min-height: 100vh;
     position: relative;
-    /* background-color: #00010D; */
+    
 }
 
 /* en commun */
@@ -74,14 +76,13 @@ h2 span {
 
 /* nav abr */
 nav {
-    background-color: transparent;
+    /* background-color: #467326; */
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     padding: 1rem;
-    width: 90%;
-    margin: 0 5%;
+    width: 100%;
     height: 2.5rem;
     position: fixed;
     top: 0;
@@ -257,6 +258,7 @@ footer a {
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
+    /* background-color: #06080D; */
 }
 .container {
     padding-top: 2.5rem;
@@ -277,7 +279,12 @@ footer a {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+}
+.banniere video{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .contenu {
@@ -313,6 +320,22 @@ footer a {
     filter: grayscale(40%);
 }
 
+/* section statics */
+#statics_section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 8rem;
+    gap: 5rem;
+    background-color: white;
+    padding: 1rem;
+}
+#statics_section article h2{
+}
+
+
 /* section about */
 #about_section{
     display: flex;
@@ -321,12 +344,12 @@ footer a {
     align-items: center;
     /* background-color: #467326; */
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
 }
 #about_section figure{
-    width: 350px;
-    height: 400px;
+    width: 21rem;
+    height: 25rem;
 }
 .about_text{
     background-color: #011826;
@@ -352,11 +375,49 @@ footer a {
     height: 100%;
     object-fit: cover;
 }
+/* section comment ça marche */
+#commentcamarche_section{
+    background-color: #011826;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 3rem;
+    gap: 3rem;
+}
+#commentcamarche_section h2{
+    background-color: #9b8f8f;
+    color: #5c0808;
+}
+#commentcamarche_section div{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
+}
+#commentcamarche_section div article{
+    width: 25rem;
+    padding: 1.5rem;
+    background-color: #9b8f8f;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
+#commentcamarche_section div article p{
+    font-size: x-small;
+    color: #011826;
+}
+#commentcamarche_section div article a{
+    background-color: #011826;
+    color: #B1ACAC;
+    width: 5rem;
+}
 /* section categories */
 #categories {
-    width: 100%;
-    /* background-color: #011826; */
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
