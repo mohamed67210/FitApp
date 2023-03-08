@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Programme::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: Programme::class, orphanRemoval: true, cascade: ["persist", "remove"])]
     private Collection $programsCreated;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

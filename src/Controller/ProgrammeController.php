@@ -45,7 +45,7 @@ class ProgrammeController extends AbstractController
     //ajouter un programme ou editer
     #[Route('/programme/edit/{id}', name: 'edit_programme')]
     #[Route('/programme/add', name: 'add_programme')]
-    public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger, UserRepository $userRepository): Response
+    public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('ROLE_COACH');
 

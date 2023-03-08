@@ -4,17 +4,24 @@
     <h3>Nouveau Programme</h3>
     <div id="inputes_container">
         {{form_start (formProgramme)}}
-        
+
         {{form_end (formProgramme)}}
     </div>
     {% if programme.image == null %}
-    
+
     {% else %}
     <h3>Image de programme</h3>
     <div class="programme_img_container">
         <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="programme.intitule">
     </div>
+    {% if programme %}
+    <h3><a class="btn_achat" href="{{ path('add_module',{'id':programme.id}) }}">Ajouter un cour</a></h3>
+
     {% endif %}
-    
+    <section>
+
+    </section>
+    {% endif %}
+
 </main>
 {% endblock body %}
