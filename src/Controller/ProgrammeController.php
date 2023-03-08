@@ -34,6 +34,16 @@ class ProgrammeController extends AbstractController
     #[Route('/programme/delete/{id}', name: 'delete_programme')]
     public function deleteProgramme(ManagerRegistry $doctrine, Programme $programme): Response
     {
+        // supprission d'imade de dossier image
+        $image = $programme->getImage();
+        if($image){
+            // le chemin de l'image
+            $nomImage = $this->getParameter('programmeImage_directory').'/'.$image;
+            // verifier si le file existe dans le dossier
+            if(file_exists($nomImage)){
+                unlink($nomImage);
+            }
+        }
         $userId = $programme->getCoach()->getId();
         $entityManager = $doctrine->getManager();
         $programme =  $entityManager->getRepository(Programme::class)->remove($programme);
