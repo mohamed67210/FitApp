@@ -14,7 +14,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(CategorieRepository $categorieRepository, UserRepository $userRepository,ProgrammeRepository $programmeRepository): Response
     {
-        $role = null;
+        // recuperer les dernier 5 programmes 
+        $lastFive = $programmeRepository->findBy([],['id'=>'DESC'],5,0);
         $programmes = $programmeRepository->findAll();
         $coachs = $userRepository->findByRole('ROLE_COACH');
         $membres = $userRepository->findByRole('[]');
@@ -23,7 +24,8 @@ class HomeController extends AbstractController
             'categories' => $categories,
             'coachs' => $coachs,
             'membres' => $membres,
-            'programmes' => $programmes
+            'programmes' => $programmes,
+            'lastProgrammes' => $lastFive
         ]);
     }
 }

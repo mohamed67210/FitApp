@@ -19,6 +19,10 @@
                 <strong>bien-être</strong>
             </h2>
         </div>
+        <div class="banniere_btn_container">
+        <a class="contact_btn" href="">Contactez Nous</a>
+        <a class="info_btn" href="#commentcamarche_section">Plus d'infos</a>
+        </div>
     </section>
     <section id="statics_section">
         <h2>Accélérez votre succès avec nous</h2>
@@ -71,6 +75,26 @@
                 <a href="{{path('app_register')}}">Let's Go </a>
             </article>
         </div>
+    </section>
+    <section id="last5_programmes_section">
+        <h2>Nouveauté !</h2>
+        <article id="last5_programmes_container">
+            {% for programme in lastProgrammes %}
+            <div class="programme_cart">
+                <div class="programme_image">
+                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                        alt="{{programme.intitule}}">
+                </div>
+                <div class="programme_contenu">
+                    <h5>{{programme.intitule|upper}}</h5>
+                    <span class="prix">{{programme.prix}} €</span>
+                </div>
+                <a href=""><i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            {% endfor %}
+        </article>
+        {{ dump(lastProgrammes) }}
     </section>
     <section id="categories">
         <h2>Decouvrez nos plusieurs Categories d’activités </h2>
