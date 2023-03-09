@@ -24,13 +24,13 @@
         <h2>Accélérez votre succès avec nous</h2>
         <div>
             <article>
-                <h2>+{{coachs|length}} Coachs</h2>
+                <h2>{{coachs|length}}+<br> Coachs</h2>
             </article>
             <article>
-                <h2>+{{ membres|length}} Membres</h2>
+                <h2>{{ membres|length}}+<br> Membres</h2>
             </article>
             <article>
-                <h2>+{{programmes|length}} Programmes</h2>
+                <h2>{{programmes|length}}+<br> Programmes</h2>
             </article>
         </div>
     </section>
@@ -49,24 +49,26 @@
         </figure>
     </section>
     <section id="commentcamarche_section">
+        <div class="gradien_top"></div>
+        <div class="gradien_bottom"></div>
         <h2>Comment ça marche ?</h2>
         <div>
-            <article>
+            <article id="coach">
                 <h3>Vous etes Coach ?</h3>
                 <p>Pour devenir coach sur notre plateforme de fitness en ligne, veuillez remplir le formulaire
                     d'inscription sur notre page dédiée .une fois vous etes inscrit vous devez completé vos informations
                     pour validé votre compte.quand votre compte sera validé vous pouvez mettre en ligne vos programmes.
                 </p>
-                <a href="">Let's Go </a>
+                <a href="{{path('app_register')}}">Let's Go </a>
             </article>
-            <article>
+            <article id="membre">
                 <h3>Vous cherchez un programme ?</h3>
                 <p>Il vous suffit de vous inscrire et de vous
                     connecter à votre compte et de naviguer jusqu'à la section "Programmes". Choisissez le programme qui
                     vous convient, ajoutez-le à votre panier et suivez les instructions pour finaliser votre commande en
                     toute sécurité.
                 </p>
-                <a href="">Let's Go </a>
+                <a href="{{path('app_register')}}">Let's Go </a>
             </article>
         </div>
     </section>

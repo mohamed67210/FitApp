@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biographie = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $adressePostale = null;
+
     public function __construct()
     {
         $this->programsCreated = new ArrayCollection();
@@ -218,6 +221,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBiographie(?string $biographie): self
     {
         $this->biographie = $biographie;
+
+        return $this;
+    }
+
+    public function getAdressePostale(): ?string
+    {
+        return $this->adressePostale;
+    }
+
+    public function setAdressePostale(?string $adressePostale): self
+    {
+        $this->adressePostale = $adressePostale;
 
         return $this;
     }

@@ -25,7 +25,7 @@ class UserType extends AbstractType
             ->add('nom', TextType::class)
             ->add('image', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
                 new File([
-                    'maxSize' => '150k',
+                    'maxSize' => '5000k',
                     'mimeTypes' => [
                         'image/jpeg',
                     ],

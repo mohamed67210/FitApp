@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,700&family=Sofia+Sans:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -15,7 +16,7 @@ body {
     width: 100vw;
     min-height: 100vh;
     position: relative;
-    
+    background-color: #011826;
 }
 
 /* en commun */
@@ -25,7 +26,7 @@ body {
 }
 
 strong {
-    color: #5c0808;
+    color: #5E308C;
 }
 
 a {
@@ -34,6 +35,7 @@ a {
 
 h2 {
     margin-top: 1.5rem;
+    color: white;
 }
 
 h3 {
@@ -46,7 +48,7 @@ h5 {
 
 h2 span {
     font-weight: bold;
-    color: #5c0808;
+    color: #5E308C;
 }
 
 .btn_achat {
@@ -89,7 +91,8 @@ nav {
     top: 0;
     z-index: 900;
 }
-nav.nav-active{
+
+nav.nav-active {
     transition: 0.5s;
     background-color: #011826;
 }
@@ -261,6 +264,7 @@ footer a {
     gap: 1.5rem;
     /* background-color: #06080D; */
 }
+
 .container {
     padding-top: 2.5rem;
     min-height: 100vh;
@@ -281,7 +285,8 @@ footer a {
     justify-content: center;
     align-items: center;
 }
-.banniere video{
+
+.banniere video {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -322,14 +327,15 @@ footer a {
 }
 
 /* section statics */
-#statics_section{
+#statics_section {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
 }
-#statics_section div{
+
+#statics_section div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -340,12 +346,13 @@ footer a {
     background-color: white;
     padding: 1rem;
 }
-#statics_section article{
+
+#statics_section article {
     width: 15rem;
-    
+
 }
 
-#statics_section article h2{
+#statics_section article h2 {
     font-family: 'Rampart One', cursive;
     color: #D9D9D9;
     font-size: x-large;
@@ -355,11 +362,10 @@ footer a {
     text-align: center;
 }
 
-
 /* section about */
-#about_section{
+#about_section {
     display: flex;
-    flex-wrap:wrap ;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     /* background-color: #467326; */
@@ -367,11 +373,13 @@ footer a {
     min-height: 100vh;
     position: relative;
 }
-#about_section figure{
+
+#about_section figure {
     width: 21rem;
     height: 25rem;
 }
-.about_text{
+
+.about_text {
     background-color: #011826;
     width: 350px;
     padding: 2rem;
@@ -379,25 +387,33 @@ footer a {
     flex-direction: column;
     gap: 1rem;
 }
-.about_text h2{
+
+.about_text h2 {
     color: #5E308C;
 }
-.about_text p{
+
+.about_text p {
     color: #D9D9D9;
     font-size: small;
 }
-.about_text p strong{
+
+.about_text p strong {
     color: #D9D9D9;
     font-size: small;
 }
-#about_section figure img{
+
+#about_section figure img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 /* section comment ça marche */
-#commentcamarche_section{
+#commentcamarche_section {
     background-color: #011826;
+    background-image: url('/assets/images/banniere/ssscribble.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -405,36 +421,94 @@ footer a {
     width: 100%;
     padding: 3rem;
     gap: 3rem;
+    position: relative;
 }
-#commentcamarche_section h2{
+
+#commentcamarche_section h2 {
     background-color: #9b8f8f;
     color: #5c0808;
 }
-#commentcamarche_section div{
+
+#commentcamarche_section div {
     width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 5rem;
 }
-#commentcamarche_section div article{
+
+#commentcamarche_section div article {
     width: 25rem;
     padding: 1.5rem;
     background-color: #9b8f8f;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    position: relative;
 }
 
-#commentcamarche_section div article p{
-    font-size: x-small;
+#commentcamarche_section div article p {
+    font-size: small;
     color: #011826;
+
+    text-shadow: 0 0 10px #FFFFFF;
 }
-#commentcamarche_section div article a{
+
+#commentcamarche_section div article a {
     background-color: #011826;
     color: #B1ACAC;
     width: 5rem;
 }
+
+#commentcamarche_section div #membre {
+    background-image: url('/assets/images/banniere/Pilates-amico.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 90%;
+}
+
+#commentcamarche_section div article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccccccab;
+    filter: blur(5px);
+    z-index: 0;
+}
+
+#commentcamarche_section div article p,
+h3,
+a {
+    z-index: 1;
+}
+
+#commentcamarche_section div #coach {
+    background-image: url('/assets/images/gif/OnlinePersonalTrainer.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: contain;
+    background-position: 90%;
+}
+
+.gradien_top {
+    position: absolute;
+    min-width: 100vw;
+    top: 0;
+    height: 4rem;
+    background-image: linear-gradient(#011826, #011826a6, #0118267e);
+}
+
+.gradien_bottom {
+    position: absolute;
+    min-width: 100vw;
+    bottom: 0;
+    height: 2rem;
+    background-image: linear-gradient(#01182649, #011826cb, #011826);
+}
+
 /* section categories */
 #categories {
     width: 80%;
@@ -710,7 +784,7 @@ footer a {
     /* justify-content: center; */
     align-items: center;
     gap: 3rem;
-    
+
     width: 100%;
 }
 
