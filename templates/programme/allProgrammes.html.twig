@@ -12,7 +12,8 @@
             {% for programme in categorie.programmes %}
             <div class="programme_cart">
                 <div class="programme_image">
-                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
+                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
+                            {{programme.coach}}</span></a>
                     <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
                         alt="{{programme.intitule}}">
                 </div>
@@ -20,9 +21,9 @@
                     <h5>{{programme.intitule|upper}}</h5>
                     <span class="prix">{{programme.prix}} €</span>
                 </div>
-                <a href=""><i class="fa-solid fa-arrow-right"></i></a>
+                <a href="{{path('show_programme',{'id':programme.id})}}"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            
+
             {% endfor %}
         </div>
     </section>

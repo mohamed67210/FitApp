@@ -22,7 +22,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgrammeController extends AbstractController
 {
-
+    // afficher detail d'un programme
+    #[Route('/programme/{id}', name: 'show_programme')]
+    public function showProgramme(ProgrammeRepository $programmeRepository,Programme $programme): Response
+    {
+        return $this->render('programme/showProgramme.html.twig', [
+            'programme' => $programme,
+        ]);
+    }
+    // afficher tout les programmes
     #[Route('/programmes', name: 'show_programmes')]
     public function allProgrammesByCateg(CategorieRepository $categorieRepository): Response
     {

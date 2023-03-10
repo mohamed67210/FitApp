@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Programmes{% endblock %}
+
+{% block body %}
+<main id="container_show_programme">
+    <section id="programme_infos_avis_section">
+        <article id="programme_infos_container">
+            <h4>Categorie : {{programme.categorie}}</h4>
+            <h2>{{programme.intitule}}</h2>
+            <p>{{programme.description}}</p>
+            <span>Avis({{programme.commentaires|length}}) 216 participants</span>
+            <span>Creé par : <a href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
+        </article>
+        <article id="programme_avis_container">
+            {% for commentaire in programme.commentaires %}
+            {# {{ dump(commentaire.createAt) }} #}
+                <div id="commentaire_container">
+                    <div id="user_infos_container">
+                        <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
+                        <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("m/d/Y à h:m")}}</span></h5>
+                    </div>
+                    <div id="commentaire_message_container">
+                        <p>{{commentaire.message}}</p>
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </article>
+    </section>
+    <section id="programme_card_container_section">
+        <div class="image_container">
+            <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
+        </div>
+        <div class="programme_card_info">
+            <h2>{{programme.prix}} €</h2>
+            <p>Garantie satisfait ou remboursé de 30 jours, Accès complet illimité</p>
+        </div>
+        <div class="programme_card_btns">
+            <a class="btn panier" href="">Ajouter au panier</a>
+            <a class="btn acheter"  href="">Acheter maintenant</a>
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}
