@@ -18,7 +18,7 @@ class Commentaire
     private ?string $message = null;
 
     #[ORM\Column(options:["default"=>"CURRENT_TIMESTAMP"])]
-    private ?\DateTimeImmutable $create_at = null;
+    private ?\DateTimeImmutable $create_at;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?User $user = null;

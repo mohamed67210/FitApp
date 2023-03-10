@@ -24,9 +24,11 @@
                         <p>{{commentaire.message}}</p>
                     </div>
                 </div>
-                
             {% endfor %}
         </article>
+        {{form_start (commentaireForm)}}
+        
+        {{form_end (commentaireForm)}}
     </section>
     <section id="programme_card_container_section">
         <div class="image_container">

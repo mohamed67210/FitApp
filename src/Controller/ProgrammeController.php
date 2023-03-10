@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Programme;
 use App\Entity\User;
+use App\Form\CommentaireType;
 use App\Form\ProgrammeType;
 use App\Repository\CategorieRepository;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -22,7 +25,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgrammeController extends AbstractController
 {
-    
+
     // afficher tout les programmes
     #[Route('/programmes', name: 'show_programmes')]
     public function allProgrammesByCateg(CategorieRepository $categorieRepository): Response
@@ -39,11 +42,11 @@ class ProgrammeController extends AbstractController
     {
         // supprission d'imade de dossier image
         $image = $programme->getImage();
-        if($image){
+        if ($image) {
             // le chemin de l'image
-            $nomImage = $this->getParameter('programmeImage_directory').'/'.$image;
+            $nomImage = $this->getParameter('programmeImage_directory') . '/' . $image;
             // verifier si le file existe dans le dossier
-            if(file_exists($nomImage)){
+            if (file_exists($nomImage)) {
                 unlink($nomImage);
             }
         }
@@ -121,16 +124,37 @@ class ProgrammeController extends AbstractController
         }
         return $this->render('programme/formulaire.html.twig', [
             'formProgramme' => $form->createView(),
-            'programme' =>$programme
+            'programme' => $programme
         ]);
     }
 
-    // afficher detail d'un programme
+    // afficher detail d'un programme,avec affichage de formulaire de commentaire
     #[Route('/programme/{id}', name: 'show_programme')]
-    public function showProgramme(ProgrammeRepository $programmeRepository,Programme $programme): Response
+    public function showProgramme(ManagerRegistry $doctrine, Programme $programme, Commentaire $commentaire = null, Request $request): Response
     {
+        $commentaire = new Commentaire;
+
+        $form = $this->createForm(CommentaireType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $commentaire = $form->getData();
+            $commentaire->setProgramme($programme);
+            $commentaire->setUser($this->getUser());
+            $commentaire->setCreateAt(new DateTimeImmutable('now'));
+            $entityManager = $doctrine->getManager();
+            // persist remplace prepare en pdo , on prepare l'objet Programmme 
+            $entityManager->persist($commentaire);
+            //on execute 
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le commentaire est enregistré !');
+            // on  retourne vers la page accueil
+            return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+        }
         return $this->render('programme/showProgramme.html.twig', [
             'programme' => $programme,
+            'commentaireForm' => $form->createView()
         ]);
     }
     // #[Route('/programme', name: 'app_programme')]
