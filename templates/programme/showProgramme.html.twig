@@ -18,7 +18,7 @@
                 <div id="commentaire_container">
                     <div id="user_infos_container">
                         <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
-                        <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("m/d/Y à h:m")}}</span></h5>
+                        <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
                     </div>
                     <div id="commentaire_message_container">
                         <p>{{commentaire.message}}</p>

@@ -133,7 +133,7 @@ class ProgrammeController extends AbstractController
     public function showProgramme(ManagerRegistry $doctrine, Programme $programme, Commentaire $commentaire = null, Request $request): Response
     {
         $commentaire = new Commentaire;
-
+        // dd(new DateTimeImmutable('now'));
         $form = $this->createForm(CommentaireType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -141,7 +141,7 @@ class ProgrammeController extends AbstractController
             $commentaire = $form->getData();
             $commentaire->setProgramme($programme);
             $commentaire->setUser($this->getUser());
-            $commentaire->setCreateAt(new DateTimeImmutable('now'));
+            $commentaire->setCreateAt(new \DateTime());
             $entityManager = $doctrine->getManager();
             // persist remplace prepare en pdo , on prepare l'objet Programmme 
             $entityManager->persist($commentaire);

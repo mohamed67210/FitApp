@@ -18,7 +18,7 @@ class Commentaire
     private ?string $message = null;
 
     #[ORM\Column(options:["default"=>"CURRENT_TIMESTAMP"])]
-    private ?\DateTimeImmutable $create_at;
+    private ?\DateTime $create_at;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?User $user = null;
@@ -43,12 +43,12 @@ class Commentaire
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTime
     {
         return $this->create_at;
     }
 
-    public function setCreateAt(\DateTimeImmutable $create_at): self
+    public function setCreateAt(\DateTime $create_at): self
     {
         $this->create_at = $create_at;
 
