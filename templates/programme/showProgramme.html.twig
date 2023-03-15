@@ -13,6 +13,7 @@
             <span>Creé par : <a href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
         </article>
         <article id="programme_avis_container">
+            <h3>Avis :</h3>
             {% for commentaire in programme.commentaires %}
             {# {{ dump(commentaire.createAt) }} #}
                 <div id="commentaire_container">

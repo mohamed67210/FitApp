@@ -5,17 +5,18 @@
 {% block body %}
 {# {{ dump(modules.0.video) }} #}
 <main class="container_modules">
-    <section id="main_video">
+    {# <section id="main_video">
         <div id="video">
             <iframe src="{{modules.0.video}}" frameborder="0"  ></iframe>
         </div>
-    </section>
+    </section> #}
 
     <section id="modules_list">
         {% for module in modules %}
             <article id="module_container">
                 <div id="video">
-                    <iframe src="{{module.video}}" muted="true"></iframe>
+                    <img class="thumbnail" src="{{module.miniature}}" alt="{{module.intitule}}">
+                    {# <iframe src="{{module.video}}" muted="true"></iframe> #}
                 </div>
                 <div id="module_info">
                     <h4>{{module.intitule}}</h4>

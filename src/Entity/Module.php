@@ -20,11 +20,11 @@ class Module
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $video = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $documentPDF = null;
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
+    private ?string $miniature = null;
 
     #[ORM\ManyToOne(inversedBy: 'modules')]
     #[ORM\JoinColumn(nullable: false)]
@@ -71,14 +71,14 @@ class Module
         return $this;
     }
 
-    public function getDocumentPDF(): ?string
+    public function getMiniature(): ?string
     {
-        return $this->documentPDF;
+        return $this->miniature;
     }
 
-    public function setDocumentPDF(?string $documentPDF): self
+    public function setMiniature(?string $miniature): self
     {
-        $this->documentPDF = $documentPDF;
+        $this->miniature = $miniature;
 
         return $this;
     }
