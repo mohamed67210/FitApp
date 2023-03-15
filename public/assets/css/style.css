@@ -321,7 +321,7 @@ footer a {
 }
 
 .banniere_btn_container {
-    z-index: 10000;
+    z-index: 1000;
     position: absolute;
     bottom: 2rem;
     display: flex;
