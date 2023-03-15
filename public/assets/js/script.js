@@ -2,7 +2,7 @@
 console.log('hello')
 // changer couleur de la nav apres scroll
 var navbar = document.querySelector('nav');
-window.onscroll = function(){
+window.onscroll = function () {
     if (window.scrollY > 20) {
         navbar.classList.add('nav-active');
     } else {
@@ -19,12 +19,13 @@ btnMenu.addEventListener('click', function () {
     btnMenu.classList.toggle('is-active');
     navLinks.classList.toggle('open')
 });
+// scroll animation pour les programmes dans l'accueil
 
 // pour le bouton au milieu du nav
 var userBtn = document.getElementById('menu_user')
 var userBtnLinks = document.getElementById('user_links')
 console.log(userBtnLinks)
-userBtn.addEventListener('click',function(){
+userBtn.addEventListener('click', function () {
     userBtnLinks.classList.toggle('open')
 })
 
@@ -32,7 +33,7 @@ userBtn.addEventListener('click',function(){
 // Changing the defaults
 window.sr = ScrollReveal({ reset: true });
 // Customizing a reveal set
-sr.reveal('#about_section', { scale: 0.5});
+sr.reveal('#about_section', { scale: 0.5 });
 sr.reveal('.categorie_cart', { interval: 200, scale: 0.2, reset: true });
 sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
 

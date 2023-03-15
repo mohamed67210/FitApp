@@ -540,12 +540,19 @@ a {
 }
 
 #last5_programmes_container {
-    width: 100%;
+    width: 85vw;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+    /* justify-content: center;
+    align-items: center; */
+    gap: 2.5rem;
+    /* background-color: #5e308cad; */
+    padding: 2rem;
+    overflow-y: scroll;
+}
+#last5_programmes_container .programme_cart{
+    min-width: 19rem;
+    box-shadow: #5e308cce 0px 5px 15px;
 }
 
 /* section categories */
