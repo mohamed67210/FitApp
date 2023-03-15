@@ -10,25 +10,26 @@
             <h2>{{programme.intitule}}</h2>
             <p>{{programme.description}}</p>
             <span>Avis({{programme.commentaires|length}}) 216 participants</span>
-            <span>Creé par : <a href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
+            <span>Creé par : <a
+                    href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
         </article>
         <article id="programme_avis_container">
             <h3>Avis :</h3>
             {% for commentaire in programme.commentaires %}
             {# {{ dump(commentaire.createAt) }} #}
-                <div id="commentaire_container">
-                    <div id="user_infos_container">
-                        <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
-                        <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
-                    </div>
-                    <div id="commentaire_message_container">
-                        <p>{{commentaire.message}}</p>
-                    </div>
+            <div id="commentaire_container">
+                <div id="user_infos_container">
+                    <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
+                    <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
                 </div>
+                <div id="commentaire_message_container">
+                    <p>{{commentaire.message}}</p>
+                </div>
+            </div>
             {% endfor %}
         </article>
         {{form_start (commentaireForm)}}
-        
+
         {{form_end (commentaireForm)}}
     </section>
     <section id="programme_card_container_section">
@@ -40,8 +41,8 @@
             <p>Garantie satisfait ou remboursé de 30 jours, Accès complet illimité</p>
         </div>
         <div class="programme_card_btns">
-            <a class="btn panier" href="">Ajouter au panier</a>
-            <a class="btn acheter"  href="">Acheter maintenant</a>
+            <a class="btn panier" href="{{path('add_panier',{'id':programme.id})}}">Ajouter au panier</a>
+            <a class="btn acheter" href="">Acheter maintenant</a>
         </div>
     </section>
 

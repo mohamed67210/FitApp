@@ -20,7 +20,8 @@ btnMenu.addEventListener('click', function () {
     navLinks.classList.toggle('open')
 });
 // scroll animation pour les programmes dans l'accueil
-
+// var card = document.querySelectorAll('#last5_programmes_container .programme_cart')
+// console.log(card[1])
 // pour le bouton au milieu du nav
 var userBtn = document.getElementById('menu_user')
 var userBtnLinks = document.getElementById('user_links')

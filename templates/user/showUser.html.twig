@@ -67,7 +67,7 @@
                     <p>{{programme.description}}</p>
                     <span class="prix">{{programme.prix}} €</span>
                 </div>
-                <a href="" class="btn_achat">Voir detail</a>
+                <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
             </div>
             {% endfor %}
         </div>

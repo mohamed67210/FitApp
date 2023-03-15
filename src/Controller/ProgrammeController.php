@@ -19,12 +19,23 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mime\Message;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgrammeController extends AbstractController
 {
+    // ajouter un programme dans le panier passant par la session
+    #[Route('/panier/add/{id}', name: 'add_panier')]
+    public function AddToPanier($id, SessionInterface $session): Response
+    {
+        $panier = $session->get('panier', []);
+        $panier[$id] = 1;
+        $session->set('panier', $panier);
+        // dd(count($session->get('panier')));
+        return $this->redirectToRoute('show_programme', ['id' => $id]);
+    }
 
     // afficher tout les programmes
     #[Route('/programmes', name: 'show_programmes')]
