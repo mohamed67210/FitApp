@@ -199,7 +199,7 @@ nav.nav-active {
 }
 
 /* panier */
-#basket_container{
+#basket_container {
     /* background-color: #5E308C; */
     /* width: 10rem; */
     min-height: 100%;
@@ -207,7 +207,8 @@ nav.nav-active {
     font-size: large;
     position: relative;
 }
-#basket_container span{
+
+#basket_container span {
     padding: 0.1rem;
     border-radius: 50%;
     position: absolute;
@@ -279,6 +280,57 @@ footer a {
     height: 30px;
     padding: 0.5rem;
     /* background-color: #467326; */
+}
+
+/* page panier */
+.container.panier {
+    padding: 5rem;
+    /* background-color: #467326; */
+}
+
+.programmes_panier {
+    width: 80vw;
+    background-color: #B1ACAC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.panier_programme_container {
+    width: 100%;
+    padding: 1rem;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+}
+
+.panier_programme_container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+
+}
+
+.total_panier {
+    background-color: #B1ACAC;
+    width: 30rem;
+    height: 100px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total_panier .btn_achat {
+    width: 50%;
+    border-radius: 5px;
 }
 
 /* home page */
@@ -577,7 +629,8 @@ a {
     padding: 2rem 0.5rem;
     overflow-y: scroll;
 }
-#last5_programmes_container .programme_cart{
+
+#last5_programmes_container .programme_cart {
     min-width: 19rem;
     box-shadow: #5e308cce 0px 5px 15px;
 }
@@ -887,7 +940,8 @@ a {
     flex-direction: row;
     gap: 1rem;
 }
-.thumbnail{
+
+.thumbnail {
     width: 12rem;
     height: 10rem;
     object-fit: cover;
@@ -992,6 +1046,7 @@ a {
     font-size: x-small;
     color: #cfc6c6;
 }
+
 #programme_infos_container a {
     color: #011826;
 }
@@ -1074,14 +1129,16 @@ a {
     align-items: center;
     width: 100%;
     gap: 2rem;
-    padding: 1rem;   
+    padding: 1rem;
 }
-#programme_avis_container h3{
+
+#programme_avis_container h3 {
     width: 100%;
     text-align: center;
     color: #011826;
 }
-#commentaire_container{
+
+#commentaire_container {
     border-top: 2px solid #011826;
     width: 20rem;
     height: 10rem;
@@ -1090,27 +1147,31 @@ a {
     flex-direction: column;
     gap: 1rem;
 }
-#user_infos_container{
+
+#user_infos_container {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
     height: 20%;
 }
-#user_infos_container img{
+
+#user_infos_container img {
     width: 40px;
     height: 40px;
     object-fit: cover;
     border-radius: 50%;
 }
-#user_infos_container h5 span{
+
+#user_infos_container h5 span {
     font-size: xx-small;
 }
-#commentaire_message_container{
+
+#commentaire_message_container {
     height: 80%;
     padding-top: 0.5rem;
     padding-left: 0.5rem;
 }
 
-#commentaire_message_container p{
+#commentaire_message_container p {
     font-size: xx-small;
 }

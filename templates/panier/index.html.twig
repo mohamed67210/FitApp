@@ -3,19 +3,30 @@
 {% block title %}Votre panier{% endblock %}
 
 {% block body %}
-<main class="container">
-    {{ dump(panierItems) }}
+<main class="container panier">
 
-    {% for item in panierItems %}
-    <article>
-        <img src="{{ asset('assets/images/programmes/'~ item.programme.image ~'') }}" alt="{{item.programme.intitule}}">
-        <div>{{item.programme.intitule}}</div>
-        <div>{{item.programme.prix}}€</div>
-        <a href=""><i class="fa-solid fa-trash-can"></i></a>
-    </article>
-    {% endfor %}
-    <article>
-        Prix Total : {{total}}€
-    </article>
+    {# {{ dump(panierItems) }} #}
+    <section class="programmes_panier">
+        <p>Vous avez mis {{panierItems|length}} dans votre panier</p>
+        {% for item in panierItems %}
+        <article class="panier_programme_container">
+            <img src="{{ asset('assets/images/programmes/'~ item.programme.image ~'') }}"
+                alt="{{item.programme.intitule}}">
+            <div><a href="{{path('show_programme',{'id':item.programme.id})}}">{{item.programme.intitule}}</a> </div>
+            <div>{{item.programme.prix}}€</div>
+            <div>
+                <a href=""><i class="fa-solid fa-trash-can"></i></a>
+                <a href=""><i class="fa-solid fa-heart"></i></a>
+            </div>
+        </article>
+        {% endfor %}
+        <article class="total_panier">
+            <p>Prix Total : {{total}}€</p>
+            <a class="btn_achat" href="">Procedez au paeiment</a>
+
+        </article>
+    </section>
+
+
 </main>
 {% endblock %}
