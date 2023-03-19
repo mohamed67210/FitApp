@@ -84,7 +84,7 @@
 
                 </ul>
             </div>
-            <a id="basket_container" href=""><span>{% if app.session.get('panier') is defined %}
+            <a id="basket_container" href="{{path('show_panier')}}"><span>{% if app.session.get('panier') is defined %}
                     {{app.session.get('panier')|length}}
                     {% else %}0
                     {% endif %}</span> <i class="fa-solid fa-basket-shopping"></i></a>

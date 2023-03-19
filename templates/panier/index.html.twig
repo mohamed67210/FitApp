@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Votre panier{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main class="container">
+    {{ dump(panierItems) }}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/moham/projets_symfony/FitApp/src/Controller/PanierController.php'|file_link(0) }}">src/Controller/PanierController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/moham/projets_symfony/FitApp/templates/panier/index.html.twig'|file_link(0) }}">templates/panier/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% for item in panierItems %}
+    <article>
+        <img src="{{ asset('assets/images/programmes/'~ item.programme.image ~'') }}" alt="{{item.programme.intitule}}">
+        <div>{{item.programme.intitule}}</div>
+        <div>{{item.programme.prix}}€</div>
+        <a href=""><i class="fa-solid fa-trash-can"></i></a>
+    </article>
+    {% endfor %}
+    <article>
+        Prix Total : {{total}}€
+    </article>
+</main>
 {% endblock %}

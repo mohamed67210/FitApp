@@ -16,14 +16,24 @@ class PanierController extends AbstractController
         $id = 25;
         $panier = $session->get('panier', []);
         $panierWithData = [];
+        // recuperer les programme du pannier
         foreach ($panier as $id => $quentity) {
             $panierWithData[] = [
                 'programme' => $programmeRepository->find($id),
                 'qt' => $quentity
             ];
         }
-
-        dd($panierWithData);
+        // calculer le prix total de tt les programme du pannier
+        $total = 0;
+        foreach ($panierWithData as $item) {
+            $prixProgramme = $item['programme']->getPrix();
+            $total += $prixProgramme;
+        }
+        // dd($panierWithData);
+        return $this->render('panier/index.html.twig', [
+            "panierItems" => $panierWithData,
+            "total" => $total,
+        ]);
     }
 
     // ajouter un programme dans le panier passant par la session
