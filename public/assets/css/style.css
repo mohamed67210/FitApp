@@ -310,6 +310,10 @@ footer a {
     gap: 1rem;
 }
 
+.icon_rmove {
+    color: #5c0808;
+}
+
 .panier_programme_container img {
     width: 150px;
     height: 150px;

@@ -46,4 +46,17 @@ class PanierController extends AbstractController
         // dd(count($session->get('panier')));
         return $this->redirectToRoute('show_programme', ['id' => $id]);
     }
+
+    // suupriemr un programme de la session (panier)
+    #[Route('/panier/remove/{id}', name: 'remove_panier')]
+    public function remove($id, SessionInterface $session): Response
+    {
+        $panier = $session->get('panier', []);
+        if (!empty($panier[$id])) {
+            unset($panier[$id]);
+        }
+        $session->set('panier', $panier);
+        // dd(count($session->get('panier')));
+        return $this->redirectToRoute('show_panier');
+    }
 }
