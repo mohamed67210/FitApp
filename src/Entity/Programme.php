@@ -35,7 +35,7 @@ class Programme
     private ?bool $isValid = null;
 
 
-    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Module::class,orphanRemoval:true)]
+    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Module::class, orphanRemoval: true)]
     private Collection $modules;
 
     #[ORM\ManyToOne(inversedBy: 'programmes')]
@@ -49,12 +49,15 @@ class Programme
     #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'favories')]
+    private Collection $favories;
 
 
     public function __construct()
     {
         $this->modules = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->favories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,6 +222,30 @@ class Programme
                 $commentaire->setProgramme(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavories(): Collection
+    {
+        return $this->favories;
+    }
+
+    public function addFavory(User $favory): self
+    {
+        if (!$this->favories->contains($favory)) {
+            $this->favories->add($favory);
+        }
+
+        return $this;
+    }
+
+    public function removeFavory(User $favory): self
+    {
+        $this->favories->removeElement($favory);
 
         return $this;
     }

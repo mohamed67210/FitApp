@@ -1,4 +1,3 @@
-
 console.log('hello')
 // changer couleur de la nav apres scroll
 var navbar = document.querySelector('nav');
@@ -9,7 +8,6 @@ window.onscroll = function () {
         navbar.classList.remove('nav-active');
     }
 }
-
 // menu burger
 var navLinks = document.getElementById("nav-links");
 var btnMenu = document.getElementById("hamburger");
@@ -19,17 +17,6 @@ btnMenu.addEventListener('click', function () {
     btnMenu.classList.toggle('is-active');
     navLinks.classList.toggle('open')
 });
-// scroll animation pour les programmes dans l'accueil
-// var card = document.querySelectorAll('#last5_programmes_container .programme_cart')
-// console.log(card[1])
-// pour le bouton au milieu du nav
-var userBtn = document.getElementById('menu_user')
-var userBtnLinks = document.getElementById('user_links')
-console.log(userBtnLinks)
-userBtn.addEventListener('click', function () {
-    userBtnLinks.classList.toggle('open')
-})
-
 // animation after scroll (pour categories et section about)
 // Changing the defaults
 window.sr = ScrollReveal({ reset: true });
@@ -38,4 +25,10 @@ sr.reveal('#about_section', { scale: 0.5 });
 sr.reveal('.categorie_cart', { interval: 200, scale: 0.2, reset: true });
 sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
 
+const menuUser = document.getElementById('menu_user');
+const menuUserLinks = document.getElementById('user_links');
 
+menuUser.addEventListener('click', function () {
+    console.log('clicked');
+    menuUserLinks.classList.toggle('open')
+})

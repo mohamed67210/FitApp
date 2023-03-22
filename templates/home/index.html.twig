@@ -20,8 +20,8 @@
             </h2>
         </div>
         <div class="banniere_btn_container">
-        <a class="contact_btn" href="">Contactez Nous</a>
-        <a class="info_btn" href="#commentcamarche_section">Plus d'infos</a>
+            <a class="contact_btn" href="">Contactez Nous</a>
+            <a class="info_btn" href="#commentcamarche_section">Plus d'infos</a>
         </div>
     </section>
     <section id="statics_section">
@@ -63,7 +63,10 @@
                     d'inscription sur notre page dédiée .une fois vous etes inscrit vous devez completé vos informations
                     pour validé votre compte.quand votre compte sera validé vous pouvez mettre en ligne vos programmes.
                 </p>
+                {% if (app.user) == null %}
                 <a href="{{path('app_register')}}">Let's Go </a>
+                {% endif %}
+
             </article>
             <article id="membre">
                 <h3>Vous cherchez un programme ?</h3>
@@ -72,7 +75,9 @@
                     vous convient, ajoutez-le à votre panier et suivez les instructions pour finaliser votre commande en
                     toute sécurité.
                 </p>
+                {% if app.user == null %}
                 <a href="{{path('app_register')}}">Let's Go </a>
+                {% endif %}
             </article>
         </div>
     </section>
@@ -82,7 +87,8 @@
             {% for programme in lastProgrammes %}
             <div class="programme_cart">
                 <div class="programme_image">
-                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
+                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
+                            {{programme.coach}}</span></a>
                     <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
                         alt="{{programme.intitule}}">
                 </div>

@@ -8,6 +8,7 @@
     {# {{ dump(panierItems) }} #}
     <section class="programmes_panier">
         <p>Vous avez {{panierItems|length}} programme(s) dans votre panier</p>
+        
         {% for item in panierItems %}
         <article class="panier_programme_container">
             <img src="{{ asset('assets/images/programmes/'~ item.programme.image ~'') }}"
@@ -22,6 +23,7 @@
         {% endfor %}
         {% if panierItems %}
         <article class="total_panier">
+            <small>Si vous vous deconnecté votre panier sera vidé </small>
             <p>Prix Total : {{total}}€</p>
             <a class="btn_achat" href="">Procedez au paeiment</a>
         </article>
