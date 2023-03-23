@@ -71,7 +71,6 @@ class ProgrammeController extends AbstractController
             $programme = new programme;
         }
         // dd($programme);
-
         $programme->setCoach($this->getUser());
         $userId = $programme->getCoach()->getId();
         // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
@@ -79,7 +78,6 @@ class ProgrammeController extends AbstractController
         $form->handleRequest($request);
         // dd($form['image']->getData());
         if ($form->isSubmitted() && $form->isValid()) {
-
             // upload image
             $uploadedFile = $form['image']->getData();
             // dd($uploadedFile);
