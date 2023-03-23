@@ -7,17 +7,21 @@
 <main class="container_modules">
     <section id="modules_list">
         {% for module in modules %}
-            <article id="module_container">
-                <div id="video">
-                    <i class="fa-sharp fa-solid fa-circle-play"></i>
-                    <video src="{{ asset('assets/videos/modules/'~ module.video ~'') }}" muted ></video>
-                </div>
-                <div id="module_info">
-                    <h4>{{module.intitule}}</h4>
-                    <p>{{module.description}}</p>
-                </div>
-                <div class="btn_panel"><i class="fa-solid fa-trash"></i></div>
-            </article>
+        <article id="module_container">
+            <div id="video">
+                <i class="fa-sharp fa-solid fa-circle-play"></i>
+                <video src="{{ asset('assets/videos/modules/'~ module.video ~'') }}" muted></video>
+            </div>
+            <div id="module_info">
+                <h4>{{module.intitule}}</h4>
+                <p>{{module.description}}</p>
+            </div>
+            <div class="btn_panel">
+                <a href="{{path('delete_module',{'id':module.id})}}">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+        </article>
         {% endfor %}
 
     </section>

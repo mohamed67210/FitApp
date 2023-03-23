@@ -84,4 +84,26 @@ class ModuleController extends AbstractController
             'modules' => $programmeModules,
         ]);
     }
+
+    // supprission d'un module
+    #[Route('/module/delete/{id}', name: 'delete_module')]
+    public function deleteModule(ManagerRegistry $doctrine, Module $module): Response
+    {
+        // supprission d'imade de dossier image
+        $video = $module->getVideo();
+        if ($video) {
+            // le chemin de l'image
+            $nomVideo = $this->getParameter('moduleVideo_directory') . '/' . $video;
+            // verifier si le file existe dans le dossier
+            if (file_exists($nomVideo)) {
+                unlink($nomVideo);
+            }
+        }
+        $programmeId = $module->getProgramme()->getId();
+        $entityManager = $doctrine->getManager();
+        $module =  $entityManager->getRepository(Module::class)->remove($module);
+        $entityManager->flush();
+        $this->addFlash('success', 'le module est supprimé !');
+        return  $this->redirectToRoute('programme_modules', ['id' => $programmeId]);
+    }
 }
