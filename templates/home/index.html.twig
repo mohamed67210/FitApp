@@ -83,20 +83,24 @@
     </section>
     <section id="last5_programmes_section">
         <h2>Nouveauté !</h2>
-        <article id="last5_programmes_container">
+        <i class="fa-solid fa-chevron-left"></i>
+        <i class="fa-solid fa-chevron-right"></i>
+        <article id="slide_show">
             {% for programme in lastProgrammes %}
-            <div class="programme_cart">
-                <div class="programme_image">
-                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
-                            {{programme.coach}}</span></a>
-                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
-                        alt="{{programme.intitule}}">
+            <div class="slide">
+                <div class="programme_cart">
+                    <div class="programme_image">
+                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
+                                {{programme.coach}}</span></a>
+                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                            alt="{{programme.intitule}}">
+                    </div>
+                    <div class="programme_contenu">
+                        <h5>{{programme.intitule|upper}}</h5>
+                        <span class="prix">{{programme.prix}} €</span>
+                    </div>
+                    <a href="{{path('show_programme',{'id':programme.id})}}"><i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-                <div class="programme_contenu">
-                    <h5>{{programme.intitule|upper}}</h5>
-                    <span class="prix">{{programme.prix}} €</span>
-                </div>
-                <a href="{{path('show_programme',{'id':programme.id})}}"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
             {% endfor %}
         </article>

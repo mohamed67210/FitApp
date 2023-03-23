@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     public function index(CategorieRepository $categorieRepository, UserRepository $userRepository,ProgrammeRepository $programmeRepository): Response
     {
         // recuperer les dernier 5 programmes 
-        $lastFive = $programmeRepository->findBy([],['id'=>'DESC'],5,0);
+        $lastFive = $programmeRepository->findBy([],['id'=>'DESC'],6,0);
         $programmes = $programmeRepository->findAll();
         $coachs = $userRepository->findByRole('ROLE_COACH');
         $membres = $userRepository->findByRole('[]');

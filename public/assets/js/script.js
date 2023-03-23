@@ -25,9 +25,38 @@ sr.reveal('#about_section', { scale: 0.5 });
 sr.reveal('.categorie_cart', { interval: 200, scale: 0.2, reset: true });
 sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
 
+
+// nouveauté slider 
+var currentSlide = 0;
+const prevButton = document.querySelector('.fa-chevron-left');
+const nextButton = document.querySelector('.fa-chevron-right');
+prevButton.addEventListener('click', function () {
+    currentSlide--;
+    showSlide();
+})
+nextButton.addEventListener('click', function () {
+    console.log(currentSlide)
+    currentSlide++;
+    showSlide();
+})
+function showSlide() {
+    const slides = document.querySelectorAll('.slide');
+    // si on arrive a la fin du slide on retourne au debut
+    if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+    }
+    else if (currentSlide >= slides.length) {
+        currentSlide = 0;
+    }
+    // masquer tous les slides et afficher seulement celui actuel
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[currentSlide].style.display = "flex";
+    // console.log(slides[currentSlide])
+}
+setInterval(showSlide, 0);
+
 const menuUser = document.getElementById('menu_user');
 const menuUserLinks = document.getElementById('user_links');
-
 menuUser.addEventListener('click', function () {
     console.log('clicked');
     menuUserLinks.classList.toggle('open')

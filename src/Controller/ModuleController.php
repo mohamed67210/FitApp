@@ -10,18 +10,19 @@ use App\Repository\ProgrammeRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ModuleController extends AbstractController
 {
 
 
     #[Route('/add/{id}', name: 'add_module')]
-    public function addModule($id,Programme $programme, ManagerRegistry $doctrine, Request $request, Module $module = null, ProgrammeRepository $programmeRepository): Response
+    public function addModule($id, Programme $programme, SluggerInterface $slugger, ManagerRegistry $doctrine, Request $request, Module $module = null, ProgrammeRepository $programmeRepository): Response
     {
-        
         // recuperer le programme
         $programme = $programmeRepository->findOneBy(['id' => $id]);
         $idUser = $programme->getCoach()->getId();
@@ -33,6 +34,34 @@ class ModuleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // upload video et miniature
+            $uploadedFile = $form['video']->getData();
+            $uploadedMiniature = $form['video']->getData();
+            // dd($uploadedFile);
+            if ($uploadedFile) {
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                // dd($newFilename);
+
+                // Move the file to the directory where Programme images are stored
+                try {
+                    $uploadedFile->move(
+                        $this->getParameter('moduleVideo_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $module->setVideo(
+                    $newFilename
+                );
+            }
             $programme = $form->getData();
             $entityManager = $doctrine->getManager();
             $entityManager->persist($programme);

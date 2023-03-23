@@ -89,7 +89,7 @@ nav {
     height: 2.5rem;
     position: fixed;
     top: 0;
-    z-index: 900;
+    z-index: 9000;
 }
 
 nav.nav-active {
@@ -332,9 +332,11 @@ footer a {
     justify-content: space-between;
     align-items: center;
 }
-.total_panier small{
+
+.total_panier small {
     font-size: xx-small;
 }
+
 .total_panier .btn_achat {
     width: 50%;
     border-radius: 5px;
@@ -623,23 +625,50 @@ a {
     justify-content: center;
     align-items: center;
     width: 100%;
+    position: relative;
 }
 
-#last5_programmes_container {
-    width: 95%;
+#slide_show {
+    /* background-color: #467326; */
+    width: 45%;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    gap: 2rem;
-    /* background-color: #5e308cad; */
-    padding: 2rem 0.5rem;
-    overflow-y: scroll;
+    gap: 1.5rem;
+    overflow-y: hidden;
+
+    padding: 2rem;
 }
 
-#last5_programmes_container .programme_cart {
-    min-width: 19rem;
-    box-shadow: #5e308cce 0px 5px 15px;
+.slide {
+    background-color: #5E308C;
+    width: 80%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide .programme_cart {
+    width: 100%;
+    border-radius: 0;
+}
+
+.fa-chevron-left {
+    position: absolute;
+    top: 50%;
+    left: 10rem;
+    font-size: xx-large;
+    color: #5E308C;
+}
+
+.fa-chevron-right {
+    position: absolute;
+    top: 50%;
+    right: 10rem;
+    font-size: xx-large;
+    color: #5E308C;
 }
 
 /* section categories */
@@ -916,23 +945,35 @@ a {
     flex-direction: row;
     /* justify-content: center; */
     align-items: center;
-    gap: 3rem;
-
+    gap: 1rem;
     width: 100%;
 }
 
-#main_video {
-    width: 50%;
-    height: 80vh;
+#video {
+    height: 95%;
+    position: relative;
+    background-color: #5E308C;
+    padding: 0.3rem;
 }
 
-#main_video iframe {
+#video .fa-circle-play {
+    position: absolute;
+    top: 40%;
+    right:40%;
+    font-size: 5rem;
+    color: #011826;
+    background-color: #5E308C;
+    padding: 0.2rem;
+    border-radius: 50%;
+}
+
+video {
     width: 100%;
-    height: 80vh;
+    height: 100%;
 }
 
 #modules_list {
-    width: 50%;
+    width: 100%;
     height: 80vh;
     background-color: #D9D9D9;
     overflow-y: scroll;
@@ -940,14 +981,18 @@ a {
 }
 
 #module_container {
-    background-color: transparent;
+    background-color: #B1ACAC;
     width: 100%;
+    height: 20rem;
     padding: 0.5rem;
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    position: relative;
 }
-
+#module_container .btn_panel{
+    width: 10%;
+}
 .thumbnail {
     width: 12rem;
     height: 10rem;

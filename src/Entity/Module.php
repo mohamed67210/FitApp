@@ -23,9 +23,6 @@ class Module
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $video = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: false)]
-    private ?string $miniature = null;
-
     #[ORM\ManyToOne(inversedBy: 'modules')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Programme $programme = null;
@@ -67,18 +64,6 @@ class Module
     public function setVideo(?string $video): self
     {
         $this->video = $video;
-
-        return $this;
-    }
-
-    public function getMiniature(): ?string
-    {
-        return $this->miniature;
-    }
-
-    public function setMiniature(?string $miniature): self
-    {
-        $this->miniature = $miniature;
 
         return $this;
     }
