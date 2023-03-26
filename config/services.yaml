@@ -7,6 +7,7 @@ parameters:
     programmeImage_directory: '%kernel.project_dir%/public/assets/images/programmes'
     userImage_directory: '%kernel.project_dir%/public/assets/images/user'
     moduleVideo_directory: '%kernel.project_dir%/public/assets/videos/modules'
+    diplomeImage_directory: '%kernel.project_dir%/public/assets/images/diplomes'
 services:
     # default configuration for services in *this* file
     _defaults:

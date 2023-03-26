@@ -62,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Programme::class, mappedBy: 'favories')]
     private Collection $favories;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Diplome::class)]
+    private Collection $diplomes;
+
 
     public function __construct()
     {
@@ -69,6 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commentaires = new ArrayCollection();
         $this->commandes = new ArrayCollection();
         $this->favories = new ArrayCollection();
+        $this->diplomes = new ArrayCollection();
     }
 
 
@@ -332,6 +336,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->favories->removeElement($favory)) {
             $favory->removeFavory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Diplome>
+     */
+    public function getDiplomes(): Collection
+    {
+        return $this->diplomes;
+    }
+
+    public function addDiplome(Diplome $diplome): self
+    {
+        if (!$this->diplomes->contains($diplome)) {
+            $this->diplomes->add($diplome);
+            $diplome->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiplome(Diplome $diplome): self
+    {
+        if ($this->diplomes->removeElement($diplome)) {
+            // set the owning side to null (unless already changed)
+            if ($diplome->getUser() === $this) {
+                $diplome->setUser(null);
+            }
         }
 
         return $this;

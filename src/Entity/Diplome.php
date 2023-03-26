@@ -19,6 +19,12 @@ class Diplome
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[ORM\ManyToOne(inversedBy: 'diplomes')]
+    private ?User $user = null;
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +50,35 @@ class Diplome
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getIntitule();
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

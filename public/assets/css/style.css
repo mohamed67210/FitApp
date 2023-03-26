@@ -938,6 +938,20 @@ a {
     color: white;
 }
 
+#user_bio ul li {
+    display: inline;
+    color: #B1ACAC;
+    font-size: x-small;
+}
+#diplome_form{
+    background-color: #D9D9D9;
+    display: none;
+    padding: 0.2rem;
+}
+#diplome_form.open{
+    display: block;
+}
+
 /* pour la page programme modules */
 .container_modules {
     background-color: #011826;
@@ -949,6 +963,7 @@ a {
     gap: 1rem;
     width: 100%;
 }
+
 #modules_list {
     width: 100%;
     height: 80vh;
@@ -970,6 +985,7 @@ a {
     gap: 1rem;
     position: relative;
 }
+
 #video {
     width: 50%;
     height: 95%;
@@ -980,7 +996,7 @@ a {
 #video .fa-circle-play {
     position: absolute;
     top: 40%;
-    right:40%;
+    right: 40%;
     font-size: 5rem;
     color: #011826;
     background-color: white;
@@ -994,7 +1010,7 @@ video {
 }
 
 
-#module_container .btn_panel{
+#module_container .btn_panel {
     width: 10%;
 }
 

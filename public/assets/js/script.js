@@ -31,7 +31,7 @@ var currentSlide = 0;
 const prevButton = document.querySelector('.fa-chevron-left');
 const nextButton = document.querySelector('.fa-chevron-right');
 if (prevButton != null) {
-    
+
     prevButton.addEventListener('click', function () {
         currentSlide--;
         showSlide();
@@ -63,4 +63,13 @@ const menuUser = document.getElementById('menu_user');
 const menuUserLinks = document.getElementById('user_links');
 menuUser.addEventListener('click', function () {
     menuUserLinks.classList.toggle('open')
+})
+
+// afficher cacher formulaire ajout diplome das page profile
+const btn = document.getElementById('diplome_form_btn')
+const form = document.getElementById('diplome_form')
+console.log(btn)
+btn.addEventListener('click',function(){
+    console.log('yesyesy')
+    form.classList.toggle('open')
 })

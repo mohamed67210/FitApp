@@ -17,19 +17,37 @@
         <article id="user_statics">
             {% if user.roles.0 == "ROLE_COACH" %}
             <p>Coach</p>
+            <p>Nombre de programmes : {{user.programsCreated|length}}</p>
+            <article id="user_bio">
+                <h5>À propos de {{user.prenom}}</h5>
+                <p>{{user.biographie|capitalize}}</p>
+                <h5>Diplome(s) :</h5>
+                {% for diplome in user.diplomes %}
+                <ul>
+                    <li>
+                        {{diplome}}{% if diplome.isVerified == true %}
+                        <i class="fa-solid fa-square-check" style="color: #467326;"></i>
+                        {% endif %}
+                    </li>
+                </ul>
+                {% endfor %}
+                <button id="diplome_form_btn">Nouveau diplome</button>
+                <div id="diplome_form">
+                    {{form_start (formDiplome)}}
+
+                    {{form_end (formDiplome)}}
+                </div>
+                </div>
+            </article>
             {% elseif user.roles.0 == "ROLE_ADMIN" %}
             <p>Admin</p>
             {% else %}
             <p>Membre</p>
             {% endif %}
-            <p>Nombre de programmes : {{user.programsCreated|length}}</p>
-            <p>Avis : 105 </p>
+
         </article>
         {% if user.roles.0 == "ROLE_COACH" %}
-        <article id="user_bio">
-            <h5>À propos de {{user.prenom}}</h5>
-            <p>{{user.biographie|capitalize}}</p>
-        </article>
+
         {% endif %}
     </section>
     <section id="user_programmes">

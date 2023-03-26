@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Diplome;
 use App\Entity\User;
+use App\Form\DiplomeType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,13 +43,65 @@ class UserController extends AbstractController
 
     // afficher profile user connecté
     #[Route('/user/profile', name: 'show_profile')]
-    public function showProfile(UserRepository $userRepository): Response
+    public function showProfile(Request $request, SluggerInterface $slugger, ManagerRegistry $doctrine): Response
     {
-        $this->getUser();
-        return $this->render('user/showUser.html.twig', [
-            'user' => $this->getUser(),
-        ]);
-        // }
+        $user = $this->getUser();
+        if (($user->getRoles()[0]) == "ROLE_COACH") {
+            // on cree le forulaire d'ajout de diplomes
+            $diplome = new Diplome;
+            $form = $this->createForm(DiplomeType::class, $diplome);
+            $form->handleRequest($request);
+            $diplome->setUser($user);
+            $diplome->setIsVerified(false);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // upload image
+                $uploadedFile = $form['image']->getData();
+                // dd($uploadedFile);
+                if ($uploadedFile) {
+                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                    // dd($newFilename);
+
+                    // Move the file to the directory where Programme images are stored
+                    try {
+                        $uploadedFile->move(
+                            $this->getParameter('diplomeImage_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $diplome->setImage(
+                        $newFilename
+                    );
+                }
+                // recuperer les données de programme si il existe deja et si il est nul
+                $diplome = $form->getData();
+
+                // on recupere le managere doctrine
+                $entityManager = $doctrine->getManager();
+
+                // persist remplace prepare en pdo , on prepare l'objet Programmme 
+                $entityManager->persist($diplome);
+
+                //on execute 
+                $entityManager->flush();
+                $this->addFlash('success', 'Le Programme est enregistré !');
+
+                // on  retourne vers la page accueil
+                return $this->redirectToRoute('show_profile', ['id' => $diplome->getUser()]);
+            }
+            return $this->render('user/showUser.html.twig', [
+                'user' => $user,
+                'formDiplome' => $form->createView()
+            ]);
+        }
     }
 
     // recuperer detail d'un Coach
