@@ -102,6 +102,9 @@ class UserController extends AbstractController
                 'formDiplome' => $form->createView()
             ]);
         }
+        return $this->render('user/showUser.html.twig', [
+            'user' => $user,
+        ]);
     }
 
     // recuperer detail d'un Coach
