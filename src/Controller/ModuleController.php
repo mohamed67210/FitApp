@@ -19,13 +19,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ModuleController extends AbstractController
 {
 
-
+    // ajout d'un module
     #[Route('/add/{id}', name: 'add_module')]
     public function addModule($id, Programme $programme, SluggerInterface $slugger, ManagerRegistry $doctrine, Request $request, Module $module = null, ProgrammeRepository $programmeRepository): Response
     {
         // recuperer le programme
         $programme = $programmeRepository->findOneBy(['id' => $id]);
-        $idUser = $programme->getCoach()->getId();
+        $idProgramme = $programme->getId();
         // dd($idUser);
         $this->denyAccessUnlessGranted('ROLE_COACH');
         $module = new Module;
@@ -36,7 +36,6 @@ class ModuleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // upload video et miniature
             $uploadedFile = $form['video']->getData();
-            $uploadedMiniature = $form['video']->getData();
             // dd($uploadedFile);
             if ($uploadedFile) {
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -67,7 +66,7 @@ class ModuleController extends AbstractController
             $entityManager->persist($programme);
             $entityManager->flush();
             $this->addFlash('success', 'Le cour est enregistré !');
-            return $this->redirectToRoute('show_user', ['id' => $idUser]);
+            return $this->redirectToRoute('programme_modules', ['id' => $idProgramme]);
         }
         return $this->render('module/formulaire.html.twig', [
             'formModule' => $form->createView()
@@ -76,12 +75,14 @@ class ModuleController extends AbstractController
 
     // recuperer les modules d'un programme
     #[Route('/modules/{id}', name: 'programme_modules')]
-    public function programmeModules($id, ModuleRepository $moduleRepository): Response
+    public function programmeModules($id, ModuleRepository $moduleRepository, Programme $programme): Response
     {
         $programmeModules = $moduleRepository->findBy(['programme' => $id]);
         // dd($programmeModules);
         return $this->render('module/index.html.twig', [
+            'programme' => $programme,
             'modules' => $programmeModules,
+
         ]);
     }
 

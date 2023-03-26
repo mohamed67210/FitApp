@@ -30,15 +30,19 @@ sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
 var currentSlide = 0;
 const prevButton = document.querySelector('.fa-chevron-left');
 const nextButton = document.querySelector('.fa-chevron-right');
-prevButton.addEventListener('click', function () {
-    currentSlide--;
-    showSlide();
-})
-nextButton.addEventListener('click', function () {
-    console.log(currentSlide)
-    currentSlide++;
-    showSlide();
-})
+if (prevButton != null) {
+    
+    prevButton.addEventListener('click', function () {
+        currentSlide--;
+        showSlide();
+    })
+    nextButton.addEventListener('click', function () {
+        currentSlide++;
+        showSlide();
+    })
+    setInterval(showSlide, 0);
+}
+
 function showSlide() {
     const slides = document.querySelectorAll('.slide');
     // si on arrive a la fin du slide on retourne au debut
@@ -53,11 +57,10 @@ function showSlide() {
     slides[currentSlide].style.display = "flex";
     // console.log(slides[currentSlide])
 }
-setInterval(showSlide, 0);
+
 
 const menuUser = document.getElementById('menu_user');
 const menuUserLinks = document.getElementById('user_links');
 menuUser.addEventListener('click', function () {
-    console.log('clicked');
     menuUserLinks.classList.toggle('open')
 })

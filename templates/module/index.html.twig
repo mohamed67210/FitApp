@@ -3,27 +3,32 @@
 {% block title %}Hello ModuleController!{% endblock %}
 
 {% block body %}
-{# {{ dump(modules.0.video) }} #}
 <main class="container_modules">
+    <h1>{{programme.intitule}}</h1>
+    <h3>nombre de Cours : {{modules|length}}</h3>
+    <a href="{{path('add_module',{'id':programme.id})}}">Ajouter module</a>
     <section id="modules_list">
         {% for module in modules %}
         <article id="module_container">
             <div id="video">
-                <i class="fa-sharp fa-solid fa-circle-play"></i>
-                <video src="{{ asset('assets/videos/modules/'~ module.video ~'') }}" muted></video>
+                {# <i class="fa-sharp fa-solid fa-circle-play"></i> #}
+                <video src="{{ asset('assets/videos/modules/'~ module.video ~'') }}" autostart=false controls
+                    type="video/mp4" controlslist=nodownload></video>
             </div>
             <div id="module_info">
                 <h4>{{module.intitule}}</h4>
                 <p>{{module.description}}</p>
             </div>
+            {% if app.user == module.programme.coach%}
             <div class="btn_panel">
                 <a href="{{path('delete_module',{'id':module.id})}}">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </div>
+            {% endif %}
+
         </article>
         {% endfor %}
-
     </section>
 </main>
 {% endblock %}
