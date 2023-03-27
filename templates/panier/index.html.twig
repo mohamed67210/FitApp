@@ -7,8 +7,11 @@
 
     {# {{ dump(panierItems) }} #}
     <section class="programmes_panier">
+        {% if app.user.roles.0 == 'ROLE_COACH' %}
+        <p>Vous n'avez pas accée a cette page , il faut creer un compte membre pour pouvoir acheter des programmes</p>
+        {% else %}
         <p>Vous avez {{panierItems|length}} programme(s) dans votre panier</p>
-        
+
         {% for item in panierItems %}
         <article class="panier_programme_container">
             <img src="{{ asset('assets/images/programmes/'~ item.programme.image ~'') }}"
@@ -16,7 +19,8 @@
             <div><a href="{{path('show_programme',{'id':item.programme.id})}}">{{item.programme.intitule}}</a> </div>
             <div>{{item.programme.prix}}€</div>
             <div>
-                <a class="icon_rmove" href="{{path('remove_panier',{'id':item.programme.id})}}"><i class="fa-solid fa-trash-can"></i></a>
+                <a class="icon_rmove" href="{{path('remove_panier',{'id':item.programme.id})}}"><i
+                        class="fa-solid fa-trash-can"></i></a>
                 <a href=""><i class="fa-solid fa-heart"></i></a>
             </div>
         </article>
@@ -28,7 +32,9 @@
             <a class="btn_achat" href="">Procedez au paeiment</a>
         </article>
         {% endif %}
-        
+        {% endif %}
+
+
     </section>
 
 

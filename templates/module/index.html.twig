@@ -16,7 +16,7 @@
                     type="video/mp4" controlslist=nodownload></video>
             </div>
             <div id="module_info">
-                <h4>{{module.intitule}}</h4>
+                <h4><span>Module {{loop.index}}</span> - {{module.intitule}}</h4>
                 <p>{{module.description}}</p>
             </div>
             {% if app.user == module.programme.coach%}
