@@ -130,7 +130,11 @@ class UserController extends AbstractController
         if (($this->getUser()) == $user) {
 
             // construire le formulaire 
-            $form = $this->createForm(UserType::class, $user)->remove('password');;
+            // si le user est un client on affiche pas le champs biographie
+            if ($user->getRoles()[0] != 'ROLE_COACH') {
+                $form = $this->createForm(UserType::class, $user)->remove('biographie');
+            }
+            $form = $this->createForm(UserType::class, $user)->remove('password');
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 // recuperer l'image

@@ -31,13 +31,15 @@
                     </li>
                 </ul>
                 {% endfor %}
+                {% if formDiplome is defined %}
                 <button id="diplome_form_btn">Nouveau diplome</button>
                 <div id="diplome_form">
                     {{form_start (formDiplome)}}
 
                     {{form_end (formDiplome)}}
                 </div>
-                </div>
+                {% endif %}
+
             </article>
             {% elseif user.roles.0 == "ROLE_ADMIN" %}
             <p>Admin</p>
