@@ -47,7 +47,7 @@
             {# et si il est juste membre on affiche ça #}
             {% elseif user.roles.0 == "ROLE_USER" %}
             <p>Membre</p>
-            
+
             {% endif %}
 
         </article>
@@ -56,7 +56,7 @@
         {% endif %}
     </section>
     <section id="user_programmes">
-        <h2>Les programmes</h2>
+        {# <h2>Les programmes</h2> #}
         <div class="programmes_container">
             {% for programme in user.programsCreated %}
             <div class="programme_cart">
@@ -84,12 +84,30 @@
             {# pour le membre on affiche liste des cours acheter et favorie #}
             {# favorie liste pour user membre connecté #}
             {% if (app.user == user) and app.user.roles.0 == "ROLE_USER" %}
-            {{ dump( app.user.favories) }}
-            {% for programme in app.user.favories %}
-            <div>
-                {{ dump(programme) }}
+            {# {{ dump( app.user.favories) }} #}
+            <div class="user_programmes_title">
+                <ul>
+                    <li>
+                        <h3>Tous les cours</h3>
+                    </li>
+                    <li>
+                        <h3>Liste de souhaits</h3>
+                    </li>
+                </ul>
             </div>
-            {% endfor %}
+            <div class="favories_container">
+                {% for programme in app.user.favories %}
+                <article>
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="programme.intitule">
+                    <a class='favorie'href="{{path('add_favorie',{'id':programme.id})}}"><i class="fa-solid fa-heart"></i></a>
+                    <h4>{{programme.intitule}}</h4>
+                    <p>Crée par : {{programme.coach}}</p>
+                    <p>{{programme.commentaires|length}} Avis</p>
+                    <p>{{programme.modules|length}} modules</p>
+
+                </article>
+                {% endfor %}
+            </div>
             {% endif %}
 
         </div>
