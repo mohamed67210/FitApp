@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Diplome;
+use App\Entity\Programme;
 use App\Entity\User;
 use App\Form\DiplomeType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -164,6 +168,24 @@ class UserController extends AbstractController
             return $this->render('user/editUser.html.twig', [
                 'formUser' => $form->createView()
             ]);
+        }
+    }
+
+    // ajouter un programme au favorie 
+    #[Route('/user/favorie/{id}', name: 'add_favorie')]
+    public function addToFavorie(Programme $programme, UserRepository $userRepository, ManagerRegistry $doctrine)
+    {
+        $userId = $this->getUser()->getId();
+        if ($this->getUser() != null) {
+            $user = $userRepository->findOneBy(['id' => $userId]);
+            // ajouter le progtramme a la liste de user
+            $user->addFavory($programme);
+            // enregister dans la bdd
+            $entityManager = $doctrine->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+        } else {
+            dd('vous etes pas connecté');
         }
     }
 }

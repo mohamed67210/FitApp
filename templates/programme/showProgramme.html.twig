@@ -41,7 +41,10 @@
             <p>Garantie satisfait ou remboursé de 30 jours, Accès complet illimité</p>
         </div>
         <div class="programme_card_btns">
-            <a class="btn panier" href="{{path('add_panier',{'id':programme.id})}}">Ajouter au panier</a>
+            <div>
+                <a class="btn panier" href="{{path('add_panier',{'id':programme.id})}}">Ajouter au panier</a>
+                <a class="favorie" href="{{path('add_favorie',{'id':programme.id})}}"><i class="fa-solid fa-heart"></i></a>
+            </div>
             <a class="btn acheter" href="">Acheter maintenant</a>
         </div>
     </section>

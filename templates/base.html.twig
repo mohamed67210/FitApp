@@ -57,8 +57,8 @@
             <div id="nav-links">
                 <ul>
                     <li><a href="{{ path('app_home') }}">Accueil</a> </li>
-                    <li><a href="{{ path('show_coachs') }}">Coachs</a> </li>
-                    <li><a href="{{ path('show_programmes')}}">Programmes</a> </li>
+                    <li><a href="{{ path('show_coachs') }}">Trouver un coach</a> </li>
+                    <li><a href="{{ path('show_programmes')}}">Trouver un programme</a> </li>
                     {# si il y'a un user connecté #}
                     {% if app.user %}
                     {# si le compte connecté est validé #}
@@ -84,10 +84,13 @@
 
                 </ul>
             </div>
+            {% if app.user %}
             <a id="basket_container" href="{{path('show_panier')}}"><span>{% if app.session.get('panier') is defined %}
                     {{app.session.get('panier')|length}}
                     {% else %}0
                     {% endif %}</span> <i class="fa-solid fa-basket-shopping"></i></a>
+            {% endif %}
+
         </div>
 
     </nav>

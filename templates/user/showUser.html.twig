@@ -41,10 +41,13 @@
                 {% endif %}
 
             </article>
+            {# si l'user a le role admin #}
             {% elseif user.roles.0 == "ROLE_ADMIN" %}
             <p>Admin</p>
-            {% else %}
+            {# et si il est juste membre on affiche ça #}
+            {% elseif user.roles.0 == "ROLE_USER" %}
             <p>Membre</p>
+            
             {% endif %}
 
         </article>
@@ -78,9 +81,14 @@
                 <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
             </div>
             {% endfor %}
-            {% if app.user == user %}
+            {# pour le membre on affiche liste des cours acheter et favorie #}
+            {# favorie liste pour user membre connecté #}
+            {% if (app.user == user) and app.user.roles.0 == "ROLE_USER" %}
+            {{ dump( app.user.favories) }}
             {% for programme in app.user.favories %}
-            {{programme}}
+            <div>
+                {{ dump(programme) }}
+            </div>
             {% endfor %}
             {% endif %}
 

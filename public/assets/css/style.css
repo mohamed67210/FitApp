@@ -1130,7 +1130,7 @@ video {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #9b8f8f;
+    background-color: white;
     height: 70vh;
     position: fixed;
     top: 5rem;
@@ -1172,11 +1172,27 @@ video {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
-
+.programme_card_btns div{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    width : 80%;
+}
+.programme_card_btns .favorie{
+    border: 1px solid #011826;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.favorie .fa-heart{
+    font-size: 30px;
+    color: #5c0808;
+}
 .programme_card_btns .btn {
     width: 80%;
     height: 4rem;
