@@ -1279,8 +1279,25 @@ video {
     height: 80%;
     padding-top: 0.5rem;
     padding-left: 0.5rem;
+    
 }
 
 #commentaire_message_container p {
     font-size: xx-small;
+}
+.commentaire_form{
+    background-color: #011826;
+    width: 100%;
+    
+}
+.commentaire_form form{
+    background-color: #5E308C;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+#commentaire_submit{
+    width: 10rem;
 }

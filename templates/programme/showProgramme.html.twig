@@ -28,9 +28,12 @@
             </div>
             {% endfor %}
         </article>
-        {{form_start (commentaireForm)}}
+        <article class="commentaire_form">
+            {{form_start (commentaireForm)}}
 
-        {{form_end (commentaireForm)}}
+            {{form_end (commentaireForm)}}
+        </article>
+
     </section>
     <section id="programme_card_container_section">
         <div class="image_container">
@@ -39,12 +42,13 @@
         <div class="programme_card_info">
             <h2>{{programme.prix}} €</h2>
             <p>Garantie satisfait ou remboursé de 30 jours, Accès complet illimité</p>
-            
+
         </div>
         <div class="programme_card_btns">
             <div>
                 <a class="btn panier" href="{{path('add_panier',{'id':programme.id})}}">Ajouter au panier</a>
-                <a class="favorie" href="{{path('add_favorie',{'id':programme.id})}}"><i class="fa-solid fa-heart"></i></a>
+                <a class="favorie" href="{{path('add_favorie',{'id':programme.id})}}"><i
+                        class="fa-solid fa-heart"></i></a>
             </div>
             {% if app.user and app.user.favories.contains(programme) %}
             <p>Ce programme est dans la liste de mes favorites</p>
