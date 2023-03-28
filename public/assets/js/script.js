@@ -13,7 +13,6 @@ var navLinks = document.getElementById("nav-links");
 var btnMenu = document.getElementById("hamburger");
 var body = document.body
 btnMenu.addEventListener('click', function () {
-    console.log(btnMenu)
     btnMenu.classList.toggle('is-active');
     navLinks.classList.toggle('open')
 });
@@ -59,17 +58,36 @@ function showSlide() {
 }
 
 
-const menuUser = document.getElementById('menu_user');
-const menuUserLinks = document.getElementById('user_links');
-menuUser.addEventListener('click', function () {
-    menuUserLinks.classList.toggle('open')
-})
+
+
 
 // afficher cacher formulaire ajout diplome das page profile
 const btn = document.getElementById('diplome_form_btn')
 const form = document.getElementById('diplome_form')
-console.log(btn)
-btn.addEventListener('click',function(){
-    console.log('yesyesy')
-    form.classList.toggle('open')
+if(btn != null){
+    btn.addEventListener('click', function () {
+        console.log('yesyesy')
+        form.classList.toggle('open')
+    })
+}
+
+
+// page membre bouton tous les cours /liste de souhaits
+const modules_link = document.querySelector('.modules_link')
+const favorie_link = document.querySelector('.favories_link')
+const favorie_items = document.querySelector('.favories_container')
+modules_link.addEventListener('click',function(){
+    favorie_items.style.display = "none"
 })
+favorie_link.addEventListener('click', function () {
+    favorie_items.style.display = "flex"
+})
+
+// menu coach ou admin au milieu de la navbar
+const menuUser = document.getElementById('menu_user');
+const menuUserLinks = document.getElementById('user_links');
+if(menuUser != null){
+    menuUser.addEventListener('click', function () {
+        menuUserLinks.classList.toggle('open')
+    })
+}

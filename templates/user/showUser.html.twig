@@ -88,10 +88,10 @@
             <div class="user_programmes_title">
                 <ul>
                     <li>
-                        <h3>Tous les cours</h3>
+                        <h3 class="modules_link">Tous les cours</h3>
                     </li>
                     <li>
-                        <h3>Liste de souhaits</h3>
+                        <h3 class="favories_link">Liste de souhaits</h3>
                     </li>
                 </ul>
             </div>
@@ -104,7 +104,7 @@
                     <p>Crée par : {{programme.coach}}</p>
                     <p>{{programme.commentaires|length}} Avis</p>
                     <p>{{programme.modules|length}} modules</p>
-
+                    <h3>prix : {{programme.prix}} €</h3>
                 </article>
                 {% endfor %}
             </div>
