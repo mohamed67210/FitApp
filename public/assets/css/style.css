@@ -1191,7 +1191,7 @@ video {
 }
 .favorie .fa-heart{
     font-size: 30px;
-    color: #5c0808;
+    color: var(--couleur-secondaire);
 }
 .programme_card_btns .btn {
     width: 80%;

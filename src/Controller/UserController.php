@@ -171,21 +171,34 @@ class UserController extends AbstractController
         }
     }
 
-    // ajouter un programme au favorie 
+    // ajouter/supprimer un programme a la liste des favories
     #[Route('/user/favorie/{id}', name: 'add_favorie')]
-    public function addToFavorie(Programme $programme, UserRepository $userRepository, ManagerRegistry $doctrine)
+    public function addToFavorie(Programme $programme, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
-        $userId = $this->getUser()->getId();
+        $userconnecte = $this->getUser();
         if ($this->getUser() != null) {
-            $user = $userRepository->findOneBy(['id' => $userId]);
-            // ajouter le progtramme a la liste de user
-            $user->addFavory($programme);
-            // enregister dans la bdd
-            $entityManager = $doctrine->getManager();
-            $entityManager->flush();
+            $user = $userRepository->findOneBy(['id' => $userconnecte]);
+            $favories = $user->getFavories();
+            if ($favories->contains($programme)) {
+                // supprimer le programme de la liste 
+                $user->removeFavory($programme);
+                // enregister dans la bdd
+                $entityManager = $doctrine->getManager();
+                // on execute
+                $entityManager->flush();
+            } else {
+                // ajouter le progtramme a la liste de user
+                $user->addFavory($programme);
+                // enregister dans la bdd
+                $entityManager = $doctrine->getManager();
+                // on execute
+                $entityManager->flush();
+            }
+
             return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
         } else {
-            dd('vous etes pas connecté');
+            // si l'user est pas connecté on le rederige vers la page de connexion
+            $this->redirectToRoute('app_login');
         }
     }
 }
