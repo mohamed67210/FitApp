@@ -16,7 +16,7 @@
                         <th scope="col">Intitulé</th>
                         <th scope="col">Description</th>
                         <th scope="col">Prix</th>
-                        <th scope="col">Promo</th>
+                        {# <th scope="col">Promo</th> #}
                         <th scope="col">Statu</th>
                         <th scope="col">Createur</th>
                     </tr>
@@ -30,8 +30,8 @@
                                 alt="{{programme.intitule}}"></td>
                         <td>{{programme.intitule}}</td>
                         <td>{{programme.Description|slice(0, 20) ~ '...' }}</td>
-                        <td>{{programme.prix}}</td>
-                        <td>{{programme.prixPromo}}</td>
+                        <td>{{programme.prix}} €</td>
+                        {# <td>{{programme.prixPromo}}</td> #}
                         <td><a href="">{% if programme.isValid == true %}
                             <i class="fa-solid fa-square-check" style="color: #378122;"></i>
 
