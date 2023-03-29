@@ -1,0 +1,75 @@
+{% block nav %}
+    <nav>
+        <div id="left">
+            <div class="logo_container">
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('assets/images/logo/logo.png') }}" alt="logo" class="logo">
+                </a>
+            </div>
+        </div>
+        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COACH') %}
+        <div id="middle">
+            <div id='menu_user'>
+                <img src="{{  asset('assets/images/user/'~ app.user.image ~'')  }}" alt="{{app.user}}">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+            <ul id="user_links">
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('add_programme') }}"> Membres</a></li>
+                <li><a href="{{ path('add_programme') }}"> Coachs</a></li>
+                <li><a href="{{ path('add_programme') }}"> Programmes a valider</a></li>
+                {% else %}<li><a href="{{ path('add_programme') }}"> + Nouveau Programme</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        <div id="right">
+            <button id="hamburger" class="hamburger--spin" type="button">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+            <div id="nav-links">
+                <ul>
+                    <li><a href="{{ path('app_home') }}">Accueil</a> </li>
+                    <li><a href="{{ path('show_coachs') }}">Trouver un coach</a> </li>
+                    <li><a href="{{ path('show_programmes')}}">Trouver un programme</a> </li>
+                    {# si il y'a un user connecté #}
+                    {% if app.user %}
+                    {# si le compte connecté est validé #}
+                    {% if app.user.isVerified %}
+                    <li><a href="{{ path('show_profile')}}">{{app.user}}</a></li>
+                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    <li>
+                        <a href="{{ path('delete_compte') }}">Supprimer Compte</a>
+                    </li>
+                    {# si le compte n'est pas valider #}
+                    {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
+
+                    {# fin de if app.user.isverified #}
+                    {% endif %}
+
+
+
+                    {% else %}
+                    <li><a href="{{ path('app_login') }}">Connexion</a> </li>
+                    <li><a href="{{ path('app_register') }}">Inscription</a> </li>
+                    {# fin de if app.user #}
+                    {% endif %}
+
+                </ul>
+            </div>
+            {% if app.user %}
+            <a id="basket_container" href="{{path('show_panier')}}"><span>{% if app.session.get('panier') is defined %}
+                    {{app.session.get('panier')|length}}
+                    {% else %}0
+                    {% endif %}</span> <i class="fa-solid fa-basket-shopping"></i></a>
+            {% endif %}
+
+        </div>
+
+    </nav>
+    {% endblock nav %}
