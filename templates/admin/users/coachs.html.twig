@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des coachs{% endblock %}
+
+{% block body %}
+<div class="admin_container">
+    <div class="row">
+        {% include "_partials/_adminnav.html.twig" %}
+        <main class="col-9 border-light bg-white p-2">
+            <h1>Liste des programmes</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Nom et prenom</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Biographie</th>
+                        <th scope="col">Verifié ?</th>
+                        <th scope="col">Diplomes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for coach in coachs %}
+                    <tr>
+                        <th scope="row">{{coach.id}}</th>
+                        <td><img class="image_panel_admin" src="{{asset('assets/images/user/'~ coach.image ~'')}}"
+                                alt="{{coach}}"></td>
+                        <td>{{coach}}</td>
+                        <td>{{coach.email}}</td>
+                        <td>{{coach.biographie|slice(0, 20) ~ '...' }}</td>
+                        
+                        <td><a href="">{% if coach.isVerified == true %}
+                                <i class="fa-solid fa-square-check" style="color: #378122;"></i>
+                                {% else %}
+                                <i class="fa-solid fa-square-check" style="color: #813a22;"></i>
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td>{{coach.diplomes|length}} Diplome(s)</td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>
+{% endblock %}

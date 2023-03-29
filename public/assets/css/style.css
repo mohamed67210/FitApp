@@ -1353,7 +1353,7 @@ video {
 
 /* partie admin */
 .image_panel_admin{
-    width: 150px;
-    height: 100px;
+    width: 150px !important;
+    height: 100px !important;
     object-fit: cover;
 }
