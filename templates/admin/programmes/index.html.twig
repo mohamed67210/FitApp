@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des programmes{% endblock %}
+
+{% block body %}
+<div class="admin_container">
+    <div class="row">
+        {% include "_partials/_adminnav.html.twig" %}
+        <main class="col-9 border-light bg-white p-2">
+            <h1>Liste des programmes</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Intitulé</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Promo</th>
+                        <th scope="col">Statu</th>
+                        <th scope="col">Createur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for programme in programmes %}
+                    <tr>
+                        <th scope="row">{{programme.id}}</th>
+                        <td><img class="image_panel_admin"
+                                src="{{asset('assets/images/programmes/'~ programme.image ~'')}}"
+                                alt="{{programme.intitule}}"></td>
+                        <td>{{programme.intitule}}</td>
+                        <td>{{programme.Description|slice(0, 20) ~ '...' }}</td>
+                        <td>{{programme.prix}}</td>
+                        <td>{{programme.prixPromo}}</td>
+                        <td><a href="">{% if programme.isValid == true %}
+                            <i class="fa-solid fa-square-check" style="color: #378122;"></i>
+
+                            {% else %}
+                            <i class="fa-solid fa-square-check" style="color: #813a22;"></i>
+                            {% endif %}
+                            </a>
+                        </td>
+                        <td><a href="">{{programme.coach}}</a></td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>
+{% endblock %}
