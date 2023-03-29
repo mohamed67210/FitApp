@@ -14,8 +14,8 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Intitulé</th>
                         <th scope="col">Image</th>
+                        <th scope="col">Intitulé</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -23,8 +23,9 @@
                     {% for categorie in categories %}
                     <tr>
                         <th scope="row">{{categorie.id}}</th>
+                        <td><img class="image_panel_admin" src="{{asset('assets/images/categories/'~ categorie.image ~'')}}"
+                            alt="{{categorie.intitule}}"></td>
                         <td>{{categorie.intitule}}</td>
-                        <td>{{categorie.image}}</td>
                         <td><a href="">Editer</a></td>
                     </tr>
 

@@ -1352,6 +1352,10 @@ video {
 }
 
 /* partie admin */
+.admin_container{
+    margin-top: 5rem;
+    padding: 1rem;
+}
 .image_panel_admin{
     width: 150px !important;
     height: 100px !important;

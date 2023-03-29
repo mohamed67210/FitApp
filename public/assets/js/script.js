@@ -76,12 +76,15 @@ if(btn != null){
 const modules_link = document.querySelector('.modules_link')
 const favorie_link = document.querySelector('.favories_link')
 const favorie_items = document.querySelector('.favories_container')
-modules_link.addEventListener('click',function(){
-    favorie_items.style.display = "none"
-})
-favorie_link.addEventListener('click', function () {
-    favorie_items.style.display = "flex"
-})
+if (modules_link != null) {
+    modules_link.addEventListener('click',function(){
+        favorie_items.style.display = "none"
+    })
+    favorie_link.addEventListener('click', function () {
+        favorie_items.style.display = "flex"
+    })
+}
+
 
 // menu coach ou admin au milieu de la navbar
 const menuUser = document.getElementById('menu_user');
