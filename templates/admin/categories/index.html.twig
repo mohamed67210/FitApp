@@ -17,6 +17,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Image</th>
                         <th scope="col">Intitulé</th>
+                        <th scope="col">Programmes</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -28,7 +29,11 @@
                                 src="{{asset('assets/images/categories/'~ categorie.image ~'')}}"
                                 alt="{{categorie.intitule}}"></td>
                         <td>{{categorie.intitule}}</td>
-                        <td><a href="{{path('admin_categorie_edit',{'id':categorie.id})}}">Editer</a></td>
+                        <td>{{categorie.programmes|length}} programme(s)</td>
+
+                        <td><a class="btn btn-primary" href="{{path('admin_categorie_edit',{'id':categorie.id})}}">Editer</a>
+                            <a class="btn btn-danger" href="{{ path('admin_categorie_delete', {'id': categorie.id}) }}">Supprimer</a>
+                        </td>
                     </tr>
 
                     {% endfor %}
@@ -40,7 +45,6 @@
             {{form_start (CategorieForm)}}
             {{form_end (CategorieForm)}}
             {% endif %}
-
         </main>
     </div>
 </div>
