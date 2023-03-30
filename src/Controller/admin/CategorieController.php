@@ -25,11 +25,11 @@ class CategorieController extends AbstractController
         ]);
     }
     #[Route('/add', name: 'add')]
-    public function addCategorie(ManagerRegistry $doctrine,Request $request,Categorie $categorie = null,SluggerInterface $slugger): Response
+    public function addCategorie(ManagerRegistry $doctrine, Request $request, Categorie $categorie = null, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $categorie = new Categorie;
-        $form = $this->createForm(CategorieType::class,$categorie);
+        $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // upload image
@@ -69,6 +69,54 @@ class CategorieController extends AbstractController
         }
         return $this->render('admin/categories/index.html.twig', [
 
+            'CategorieForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'edit')]
+    public function editCategorie(CategorieRepository $categorieRepository, ManagerRegistry $doctrine, Request $request, Categorie $categorie, SluggerInterface $slugger): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $categories = $categorieRepository->findBy([], ['id' => 'asc']);
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // upload image
+            $uploadedFile = $form['image']->getData();
+            // dd($uploadedFile);
+            if ($uploadedFile) {
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                // dd($newFilename);
+
+                // Move the file to the directory where Programme images are stored
+                try {
+                    $uploadedFile->move(
+                        $this->getParameter('categorieImage_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $categorie->setImage(
+                    $newFilename
+                );
+            }
+            $categorie = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+            $this->addFlash('success', 'categorie est enregistré !');
+            return $this->redirectToRoute('admin_categorie_index');
+        }
+        return $this->render('admin/categories/index.html.twig', [
+            'categories' => $categories,
             'CategorieForm' => $form->createView(),
         ]);
     }

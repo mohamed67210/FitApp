@@ -28,14 +28,14 @@
                                 src="{{asset('assets/images/categories/'~ categorie.image ~'')}}"
                                 alt="{{categorie.intitule}}"></td>
                         <td>{{categorie.intitule}}</td>
-                        <td><a href="">Editer</a></td>
+                        <td><a href="{{path('admin_categorie_edit',{'id':categorie.id})}}">Editer</a></td>
                     </tr>
 
                     {% endfor %}
                 </tbody>
             </table>
             {% endif %}
-            
+
             {% if CategorieForm is defined %}
             {{form_start (CategorieForm)}}
             {{form_end (CategorieForm)}}
