@@ -112,7 +112,7 @@ class CategorieController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($categorie);
             $entityManager->flush();
-            $this->addFlash('success', 'categorie est enregistré !');
+            $this->addFlash('success', "Vous venez d'editer la categorie : " . $categorie->getIntitule() . " !");
             return $this->redirectToRoute('admin_categorie_index');
         }
         return $this->render('admin/categories/index.html.twig', [
@@ -134,11 +134,11 @@ class CategorieController extends AbstractController
                 unlink($nomImage);
             }
         }
-        
+
         $entityManager = $doctrine->getManager();
         $categorie =  $entityManager->getRepository(Categorie::class)->remove($categorie);
         $entityManager->flush();
-        $this->addFlash('success', 'la categorie est supprimé !');
+        $this->addFlash('success', 'La categorie est supprimé !');
         return  $this->redirectToRoute('admin_categorie_index');
     }
 }
