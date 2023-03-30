@@ -64,7 +64,7 @@ function showSlide() {
 // afficher cacher formulaire ajout diplome das page profile
 const btn = document.getElementById('diplome_form_btn')
 const form = document.getElementById('diplome_form')
-if(btn != null){
+if (btn != null) {
     btn.addEventListener('click', function () {
         console.log('yesyesy')
         form.classList.toggle('open')
@@ -77,7 +77,7 @@ const modules_link = document.querySelector('.modules_link')
 const favorie_link = document.querySelector('.favories_link')
 const favorie_items = document.querySelector('.favories_container')
 if (modules_link != null) {
-    modules_link.addEventListener('click',function(){
+    modules_link.addEventListener('click', function () {
         favorie_items.style.display = "none"
     })
     favorie_link.addEventListener('click', function () {
@@ -89,8 +89,29 @@ if (modules_link != null) {
 // menu coach ou admin au milieu de la navbar
 const menuUser = document.getElementById('menu_user');
 const menuUserLinks = document.getElementById('user_links');
-if(menuUser != null){
+if (menuUser != null) {
     menuUser.addEventListener('click', function () {
         menuUserLinks.classList.toggle('open')
     })
+}
+
+// popup supprission de categorie panel admin
+// Sélectionne tous les liens de suppression avec la classe "delete-article"
+const deleteLinks = document.querySelectorAll('.delete-article');
+if (deleteLinks != null) {
+    // Ajoute un gestionnaire d'événements de clic à chaque lien de suppression
+    deleteLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            // Empêche le comportement par défaut du lien de suppression
+            e.preventDefault();
+
+            // Affiche le popup de confirmation
+            const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cette categorie ?');
+
+            // Si l'utilisateur a confirmé, redirige vers l'URL de suppression
+            if (confirmed) {
+                window.location.href = link.href;
+            }
+        });
+    });
 }
