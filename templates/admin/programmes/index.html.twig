@@ -7,6 +7,11 @@
     <div class="row">
         {% include "_partials/_adminnav.html.twig" %}
         <main class="col-9 border-light bg-white p-2">
+            {% if app.flashes('success') is defined %}
+            <div class="alert alert-success">
+                {{ app.flashes('success')[0] }}
+            </div>
+            {% endif %}
             <h1>Liste des programmes</h1>
             <table class="table table-striped">
                 <thead>
@@ -32,13 +37,16 @@
                         <td>{{programme.Description|slice(0, 20) ~ '...' }}</td>
                         <td>{{programme.prix}} €</td>
                         {# <td>{{programme.prixPromo}}</td> #}
-                        <td><a href="">{% if programme.isValid == true %}
-                            <i class="fa-solid fa-square-check" style="color: #378122;"></i>
-
-                            {% else %}
-                            <i class="fa-solid fa-square-check" style="color: #813a22;"></i>
-                            {% endif %}
+                        <td>{% if programme.isValid == true %}
+                            <a href="{{path('admin_programme_desactive',{'id':programme.id})}}">
+                                <i class="fa-solid fa-square-check" style="color: #378122;"></i>
                             </a>
+                            {% else %}
+                            <a href="{{path('admin_programme_active',{'id':programme.id})}}">
+                                <i class="fa-solid fa-square-check" style="color: #813a22;"></i>
+                            </a>
+                            {% endif %}
+
                         </td>
                         <td><a href="">{{programme.coach}}</a></td>
                     </tr>
