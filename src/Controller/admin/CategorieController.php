@@ -120,4 +120,25 @@ class CategorieController extends AbstractController
             'CategorieForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function deleteCategorie(ManagerRegistry $doctrine, Categorie $categorie): Response
+    {
+        // supprission d'imade de dossier image
+        $image = $categorie->getImage();
+        if ($image) {
+            // le chemin de l'image
+            $nomImage = $this->getParameter('categorieImage_directory') . '/' . $image;
+            // verifier si le file existe dans le dossier
+            if (file_exists($nomImage)) {
+                unlink($nomImage);
+            }
+        }
+        
+        $entityManager = $doctrine->getManager();
+        $categorie =  $entityManager->getRepository(Categorie::class)->remove($categorie);
+        $entityManager->flush();
+        $this->addFlash('success', 'la categorie est supprimé !');
+        return  $this->redirectToRoute('admin_categorie_index');
+    }
 }
