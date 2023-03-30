@@ -8,6 +8,8 @@ parameters:
     userImage_directory: '%kernel.project_dir%/public/assets/images/user'
     moduleVideo_directory: '%kernel.project_dir%/public/assets/videos/modules'
     diplomeImage_directory: '%kernel.project_dir%/public/assets/images/diplomes'
+    categorieImage_directory: '%kernel.project_dir%/public/assets/images/categories'
+
 services:
     # default configuration for services in *this* file
     _defaults:
