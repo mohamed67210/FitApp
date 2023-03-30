@@ -25,7 +25,7 @@ class CategorieController extends AbstractController
         ]);
     }
     #[Route('/add', name: 'add')]
-    public function addCategorie(ManagerRegistry $doctri,Request $request,Categorie $categorie = null,SluggerInterface $slugger): Response
+    public function addCategorie(ManagerRegistry $doctrine,Request $request,Categorie $categorie = null,SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $categorie = new Categorie;
@@ -59,6 +59,13 @@ class CategorieController extends AbstractController
                     $newFilename
                 );
             }
+
+            $categorie = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+            $this->addFlash('success', 'categorie est enregistré !');
+            return $this->redirectToRoute('admin_categorie_index');
         }
         return $this->render('admin/categories/index.html.twig', [
 
