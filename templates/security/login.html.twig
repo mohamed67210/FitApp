@@ -3,7 +3,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<main class="container">
+<main class="container auth">
     <form class="authentification_form" method="post">
         {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -18,12 +18,12 @@
         <h1>Connectez-Vous </h1>
         <div class="input_container">
             <label for="inputEmail">Saisissez votre e-mail :</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="" autocomplete="email"
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="'form-control'" autocomplete="email"
                 required autofocus>
         </div>
         <div class="input_container">
             <label for="inputPassword">Saisissez votre mot de passe :</label>
-            <input type="password" name="password" id="inputPassword" class="" autocomplete="current-password" required>
+            <input type="password" name="password" id="inputPassword" class="'form-control'" autocomplete="current-password" required>
         </div>
         <a href="#">Mot de passe oublié ?</a>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

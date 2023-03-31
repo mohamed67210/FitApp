@@ -3,6 +3,7 @@
 {% block title %}Programmes{% endblock %}
 
 {% block body %}
+
 <main id="container_show_programme">
     <section id="programme_infos_avis_section">
         <article id="programme_infos_container">
@@ -18,10 +19,17 @@
             {% for commentaire in programme.commentaires %}
             {# {{ dump(commentaire.createAt) }} #}
             <div id="commentaire_container">
+                {% if commentaire.user != null %}
                 <div id="user_infos_container">
                     <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
                     <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
                 </div>
+                {% else %}
+                <div id="user_infos_container">
+                    <h5>Compte supprimé<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
+                </div>
+                {% endif %}
+                
                 <div id="commentaire_message_container">
                     <p>{{commentaire.message}}</p>
                 </div>

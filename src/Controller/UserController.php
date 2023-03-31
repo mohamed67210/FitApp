@@ -7,6 +7,7 @@ use App\Entity\Programme;
 use App\Entity\User;
 use App\Form\DiplomeType;
 use App\Form\UserType;
+use App\Repository\CommentaireRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,10 +24,15 @@ class UserController extends AbstractController
 {
     // supprission de compte
     #[Route('/delete', name: 'delete_compte')]
-    public function deleteProgramme(ManagerRegistry $doctrine, Request $request): Response
+    public function deleteProgramme(ManagerRegistry $doctrine, Request $request, CommentaireRepository $commentaireRepository): Response
     {
         $user = $this->getUser();
+        $commentaires = $commentaireRepository->findBy(['user' => $user]);
         $entityManager = $doctrine->getManager();
+        foreach ($commentaires as $commentaire) {
+            $commentaire->setUser(null);
+            $entityManager->persist($commentaire);
+        }
         $compte =  $entityManager->getRepository(User::class)->remove($user);
         $entityManager->flush();
         $this->addFlash('success', 'le compte est supprimé !');

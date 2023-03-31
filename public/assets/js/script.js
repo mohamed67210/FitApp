@@ -25,6 +25,29 @@ sr.reveal('.categorie_cart', { interval: 200, scale: 0.2, reset: true });
 sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
 
 
+// section about
+window.onload = function () {
+    const textAbout = "<br>Nous avons créé <strong>JUSTRAINE</strong> pour aider les <strong>Coachs</strong> à partager leurs connaissances avec un public plus large. Nous croyons que tout le monde peut bénéficier d'un <strong>Coaching</strong> de qualité, et nous voulons rendre cela accessible à tous."
+    const textCoach = "<br>Êtes-vous prêt à atteindre de nouveaux sommets dans votre carrière de coach sportif ? Rejoignez notre plateforme de coaching sportif freelance et connectez-vous avec des clients à la recherche de professionnels passionnés et dévoués pour les aider à atteindre leurs objectifs de fitness."
+    const textMembre ="<br>Vous êtes à la recherche d'un coach sportif compétent et passionné pour vous aider à atteindre vos objectifs de fitness ? Rejoignez notre plateforme de coaching sportif freelance et découvrez une communauté de coachs de talent prêts à vous accompagner dans votre parcours de transformation physique."
+
+
+    var monTexte = document.getElementById("monTexte");
+    var monTitle = document.getElementById("monTitle");
+    var title = ["A PROPOS", "ETES-VOUS COACH ?", "VOUS ETES  A LA RECHERCHE D4UN PROGRAMME ?"]
+    var messages = [textAbout,
+        textCoach,
+        textMembre]; // tableau des messages à afficher
+    var index = 0; // index du message courant
+    setInterval(function () {
+        monTitle.innerHTML = title[index];
+        monTexte.innerHTML = messages[index]; // affiche le message courant dans l'élément HTML
+        index++; // passe au message suivant
+        if (index >= messages.length) { // si on a affiché tous les messages, on repart au début
+            index = 0;
+        }
+    }, 15000); // temps en millisecondes (5 secondes = 5000 millisecondes)
+}
 // nouveauté slider 
 var currentSlide = 0;
 const prevButton = document.querySelector('.fa-chevron-left');

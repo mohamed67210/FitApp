@@ -14,12 +14,11 @@ class CommentaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('message',TextareaType::class)
+            ->add('message', TextareaType::class, ['label'=>'Donnez votre avis :','attr' => ['class' => "form-label"]])
             // ->add('create_at')
             // ->add('user')
             // ->add('programme')
-            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);
-        ;
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

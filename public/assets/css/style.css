@@ -97,11 +97,13 @@ nav {
     position: fixed;
     top: 0;
     z-index: 9000;
+    
+    background-color: var(--couleur-primaire);
 }
 
 nav.nav-active {
     transition: 0.5s;
-    background-color: var(--couleur-primaire);
+    background-color: black;
 }
 
 #left {}
@@ -228,28 +230,24 @@ nav.nav-active {
     text-align: center;
     /* color: #5E308C; */
 }
-
 /* footer */
 footer {
-    /* margin-top: 1.5rem; */
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 3rem;
-    background-color: var(--couleur-primaire);
-    position: absolute;
-    bottom: 0;
-}
-
-footer a {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+  
+  footer a {
     text-decoration: none;
-    color: white;
-    bottom: 0;
-}
+  }
 
 /* page de connexion et inscription */
+.auth{
+    background-color: white !important;
+}
 .authentification_form {
     width: 25rem;
     display: flex;
@@ -489,7 +487,7 @@ footer a {
     position: relative;
 }
 
-#about_section figure {
+/* #about_section figure {
     width: 21rem;
     height: 25rem;
 }
@@ -521,6 +519,34 @@ footer a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+} */
+.about_container {
+    width: 80%;
+    height: 80vh;
+    position: relative;
+}
+
+.about_container video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+#about_text {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 40%;
+    height: 80%;
+    display: block;
+
+}
+#about_text h2{
+    color: var(--couleur-secondaire);
+}
+#about_text p {
+    color: #cfc6c6;
 }
 
 /* section comment ça marche */
@@ -891,20 +917,24 @@ a {
     align-items: center;
     position: relative;
 }
-.user_programmes_title{
+
+.user_programmes_title {
     position: absolute;
     top: 2rem;
 }
-.user_programmes_title ul{
+
+.user_programmes_title ul {
     display: flex;
     flex-direction: row;
     gap: 2rem;
 
 }
-.user_programmes_title ul li{
+
+.user_programmes_title ul li {
     list-style: none;
     cursor: pointer;
 }
+
 .btn_panel {
     padding: 0.3rem;
     width: 30%;
@@ -973,7 +1003,8 @@ a {
 #diplome_form.open {
     display: block;
 }
-.favories_container{
+
+.favories_container {
     width: 95%;
     height: 30rem;
     background-color: transparent;
@@ -984,32 +1015,39 @@ a {
     position: absolute;
     top: 8rem;
 }
-.favories_container article{
+
+.favories_container article {
     width: 15rem;
     height: 15rem;
     background-color: transparent;
     position: relative;
 }
-.favories_container article .favorie{
+
+.favories_container article .favorie {
     position: absolute;
     top: 0.2rem;
     right: 0.2rem;
     color: #5c0808;
 }
-.favories_container article .favorie .fa-heart{
+
+.favories_container article .favorie .fa-heart {
     color: var(--couleur-primaire);
 }
-.favories_container img{
+
+.favories_container img {
     width: 100%;
     height: 50%;
     object-fit: cover;
 }
-.favories_container h3{
+
+.favories_container h3 {
     color: var(--couleur-primaire);
 }
-.favories_container p{
+
+.favories_container p {
     font-size: x-small;
 }
+
 /* pour la page programme modules */
 .container_modules {
     background-color: var(--couleur-primaire);
@@ -1275,7 +1313,8 @@ video {
     border: 1px solid var(--couleur-primaire);
     font-weight: bold;
 }
-.btn.acheter:hover{
+
+.btn.acheter:hover {
     background-color: #9b8f8f;
     transition: all 0.6s;
 }
@@ -1328,35 +1367,39 @@ video {
     height: 80%;
     padding-top: 0.5rem;
     padding-left: 0.5rem;
-    
+
 }
 
 #commentaire_message_container p {
     font-size: xx-small;
 }
-.commentaire_form{
-    background-color: #011826;
+
+.commentaire_form {
     width: 100%;
-    
+    padding: 1rem;
 }
-.commentaire_form form{
-    background-color: #5E308C;
+
+.commentaire_form form div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    gap: 0.3rem;
+    color: var(--couleur-primaire);
 }
-#commentaire_submit{
+
+#commentaire_submit {
     width: 10rem;
+    margin-top: 0.5rem;
 }
 
 /* partie admin */
-.admin_container{
+.admin_container {
     margin-top: 5rem;
     padding: 1rem;
 }
-.image_panel_admin{
+
+.image_panel_admin {
     width: 150px !important;
     height: 100px !important;
     object-fit: cover;

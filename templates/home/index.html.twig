@@ -13,7 +13,6 @@
             <source src="{{asset('assets/videos/video1.mp4')}}" type="video/mp4" />
         </video>
         <div class="contenu">
-            <h1>Bienvenue sur Justraine </h1>
             <h2>Vous cherchez à atteindre vos objectifs sportifs et à vous sentir en meilleure <strong>forme</strong> ?
                 Trouvez votre <strong>coach sportif personnel</strong> , prêt à vous accompagner dans votre quête de la
                 performance et du
@@ -25,7 +24,21 @@
             <a class="info_btn" href="#commentcamarche_section">Plus d'infos</a>
         </div>
     </section>
-    <section id="statics_section">
+    <section id="about_section">
+        <article class="about_container">
+            <video autoplay muted loop>
+                <source src="{{asset('assets/videos/mockrocket-export.mp4')}}" type="video/mp4" />
+            </video>
+            <div id="about_text">
+                <h2 id="monTitle">WELCOME </h2>
+                <br>
+                <p id="monTexte">
+                    Nous sommes ravis de vous accueillir sur notre site, et nous espérons que vous trouverez tout ce dont vous avez besoin pour vous informer, vous inspirer et vous divertir.
+                </p>
+            </div>
+        </article>
+    </section>
+    {# <section id="statics_section">
         <h2>Accélérez votre succès avec nous</h2>
         <div>
             <article>
@@ -38,8 +51,8 @@
                 <h2>{{programmes|length}}+<br> Programmes</h2>
             </article>
         </div>
-    </section>
-    <section id="about_section">
+    </section> #}
+    {# <section id="about_section">
         <article class="about_text">
             <h2>à propos de nous</h2>
             <p>Nous avons créé <strong>JUSTRAINE</strong> pour aider les <strong>Coachs</strong> à partager leurs
@@ -52,7 +65,7 @@
         <figure class="about_image">
             <img src="{{asset('assets/images/banniere/imagehome.jpg')}}" alt="">
         </figure>
-    </section>
+    </section> #}
     <section id="commentcamarche_section">
         <div class="gradien_top"></div>
         <div class="gradien_bottom"></div>
