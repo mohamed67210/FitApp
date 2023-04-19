@@ -19,6 +19,16 @@ class Commande
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $adresseFacturation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $paysFacturation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Programme $programme = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +54,42 @@ class Commande
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getAdresseFacturation(): ?string
+    {
+        return $this->adresseFacturation;
+    }
+
+    public function setAdresseFacturation(string $adresseFacturation): self
+    {
+        $this->adresseFacturation = $adresseFacturation;
+
+        return $this;
+    }
+
+    public function getPaysFacturation(): ?string
+    {
+        return $this->paysFacturation;
+    }
+
+    public function setPaysFacturation(string $paysFacturation): self
+    {
+        $this->paysFacturation = $paysFacturation;
+
+        return $this;
+    }
+
+    public function getProgramme(): ?Programme
+    {
+        return $this->programme;
+    }
+
+    public function setProgramme(?Programme $programme): self
+    {
+        $this->programme = $programme;
 
         return $this;
     }

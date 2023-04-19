@@ -40,6 +40,9 @@ class PanierController extends AbstractController
     #[Route('/panier/add/{id}', name: 'add_panier')]
     public function AddToPanier($id, SessionInterface $session): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $panier = $session->get('panier', []);
         $panier[$id] = 1;
         $session->set('panier', $panier);

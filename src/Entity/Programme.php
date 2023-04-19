@@ -52,12 +52,16 @@ class Programme
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'favories')]
     private Collection $favories;
 
+    #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Commande::class)]
+    private Collection $commandes;
+
 
     public function __construct()
     {
         $this->modules = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->favories = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +250,36 @@ class Programme
     public function removeFavory(User $favory): self
     {
         $this->favories->removeElement($favory);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setProgramme($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getProgramme() === $this) {
+                $commande->setProgramme(null);
+            }
+        }
 
         return $this;
     }

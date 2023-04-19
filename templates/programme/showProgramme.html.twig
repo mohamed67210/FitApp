@@ -61,7 +61,7 @@
             {% if app.user and app.user.favories.contains(programme) %}
             <p>Ce programme est dans la liste de mes favorites</p>
             {% endif %}
-            <a class="btn acheter" href="">Acheter maintenant</a>
+            <a class="btn acheter" href="{{path('add_commande',{'id':programme.id})}}">Acheter maintenant</a>
         </div>
     </section>
 
