@@ -38,6 +38,7 @@ class CommandeController extends AbstractController
             $commande = $form->getData();
             $commande->setUser($this->getUser());
             $commande->setProgramme($programme);
+            $commande->setMontant($programme->getPrix());
             // Créez un objet DateTime
             $dateTime = new \DateTime();
             // Convertissez l'objet DateTime en objet DateTimeImmutable

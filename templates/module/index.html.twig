@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ModuleController!{% endblock %}
+{% block title %}{{programme.intitule}}{% endblock %}
 
 {% block body %}
 <main class="container_modules">
     <h1>{{programme.intitule}}</h1>
     <h3>nombre de Cours : {{modules|length}}</h3>
+    {% if app.user == programme.coach %}
     <a href="{{path('add_module',{'id':programme.id})}}">Ajouter module</a>
+    {% endif %}
+
     <section id="modules_list">
         {% for module in modules %}
         <article id="module_container">

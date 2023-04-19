@@ -29,6 +29,9 @@ class Commande
     #[ORM\JoinColumn(nullable: false)]
     private ?Programme $programme = null;
 
+    #[ORM\Column]
+    private ?float $montant = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Commande
     public function setProgramme(?Programme $programme): self
     {
         $this->programme = $programme;
+
+        return $this;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float $montant): self
+    {
+        $this->montant = $montant;
 
         return $this;
     }

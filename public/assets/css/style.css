@@ -1021,13 +1021,13 @@ a {
     height: 15rem;
     background-color: transparent;
     position: relative;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .membre_moduls_container article .favorie {
     position: absolute;
     top: 0.2rem;
     right: 0.2rem;
-    color: #5c0808;
 }
 
 .membre_moduls_container article .favorie .fa-heart {
