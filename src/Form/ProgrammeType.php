@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ProgrammeType extends AbstractType
 {
@@ -22,7 +23,12 @@ class ProgrammeType extends AbstractType
     {
         $builder
             ->add('intitule', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, ['constraints' => [
+                new Length([
+                    'max' => 255,
+                    'maxMessage' => 'La description ne peut pas dépasser 255 caractères.'
+                ])
+            ]])
             ->add('prix', NumberType::class)
             ->add('prixPromo', NumberType::class, [
                 'required'   => false,

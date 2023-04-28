@@ -28,7 +28,7 @@ class ProgrammeController extends AbstractController
 {
     
 
-    // afficher tout les programmes
+    // afficher tout les programmes active
     #[Route('/programmes', name: 'show_programmes')]
     public function allProgrammesByCateg(CategorieRepository $categorieRepository): Response
     {

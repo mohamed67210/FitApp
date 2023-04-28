@@ -7,6 +7,7 @@
     <h2>Les programmes de la categorie <span>{{categorie.intitule|upper}}</span></h2>
     <div class="programmes_container">
         {% for programme in categorie.programmes %}
+        {% if programme.isValid == true %}
         <div class="programme_cart">
             <div class="programme_image">
                 <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
@@ -17,8 +18,10 @@
                 <p>{{programme.description}}</p>
                 <span class="prix">{{programme.prix}} €</span>
             </div>
-            <a href="" class="btn_achat">Voir detail</a>
+            <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
         </div>
+        {% endif %}
+
         {% endfor %}
     </div>
 

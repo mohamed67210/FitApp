@@ -10,6 +10,7 @@
         <div class="programmes_container">
             {# {{ dump(categorie.programmes) }} #}
             {% for programme in categorie.programmes %}
+            {% if programme.isValid == true %}
             <div class="programme_cart">
                 <div class="programme_image">
                     <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
@@ -23,6 +24,8 @@
                 </div>
                 <a href="{{path('show_programme',{'id':programme.id})}}"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
+
+            {% endif %}
 
             {% endfor %}
         </div>
