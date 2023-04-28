@@ -1,15 +1,60 @@
-{% extends 'base.html.twig' %}
 {% block footer %}
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p>&copy; 2023 Votre entreprise. Tous droits réservés.</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <a href="#">Politique de confidentialité</a>
-            </div>
+    <!-- Footer main -->
+    <section class="ft-main">
+        <div class="ft-main-item">
+            <h2 class="ft-title">Liens internes</h2>
+            <ul>
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a href="{{ path('show_programmes')}}">Programmes</a></li>
+                <li><a href="{{ path('show_coachs') }}">Coachs</a></li>
+                {# <li><a href="#"></a></li> #}
+                
+            </ul>
         </div>
-    </div>
+        {# <div class="ft-main-item">
+            <h2 class="ft-title">Resources</h2>
+            <ul>
+                <li><a href="#">Docs</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">eBooks</a></li>
+                <li><a href="#">Webinars</a></li>
+            </ul>
+        </div> #}
+        <div class="ft-main-item">
+            <h2 class="ft-title">Contact</h2>
+            <ul>
+                <li><a href="#">Page de contact</a></li>
+            </ul>
+        </div>
+        <div class="ft-main-item">
+            <h2 class="ft-title">Restez informé</h2>
+            <p>Soyez informé des mises à jour</p>
+            <form>
+                <input type="email" name="email" placeholder="Enter email address">
+                <input type="submit" value="S'inscrire">
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer social -->
+    <section class="ft-social">
+        <ul class="ft-social-list">
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+        </ul>
+    </section>
+
+    <!-- Footer legal -->
+    <section class="ft-legal">
+        <ul class="ft-legal-list">
+            {# <li><a href="#">Terms &amp; Conditions</a></li> #}
+            <li><a href="#">Politique de confidentialité</a></li>
+            <li><a href="#">Conditions générales de vente</a></li>
+            <li>&copy; 2021 by Meow Media, LLC</li>
+        </ul>
+    </section>
 </footer>
 {% endblock footer %}

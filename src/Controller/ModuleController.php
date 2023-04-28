@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Module;
 use App\Entity\Programme;
 use App\Form\ModuleType;
+use App\Repository\CommandeRepository;
 use App\Repository\ModuleRepository;
 use App\Repository\ProgrammeRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -75,15 +77,29 @@ class ModuleController extends AbstractController
 
     // recuperer les modules d'un programme
     #[Route('/modules/{id}', name: 'programme_modules')]
-    public function programmeModules($id, ModuleRepository $moduleRepository, Programme $programme): Response
+    public function programmeModules($id, ModuleRepository $moduleRepository, Programme $programme, UserRepository $userRepository, CommandeRepository $commandeRepository): Response
     {
-        $programmeModules = $moduleRepository->findBy(['programme' => $id]);
-        // dd($programmeModules);
-        return $this->render('module/index.html.twig', [
-            'programme' => $programme,
-            'modules' => $programmeModules,
-
-        ]);
+        // recuperer l'user connecter 
+        $user = $userRepository->findOneBy(['id' => $this->getUser()]);
+        // recuperer les commandes de user connecté 
+        $command = $commandeRepository->findBy(['user' => $user, 'programme' => $programme]);
+        if (!empty($command) && $programme == $command[0]->getProgramme()) {
+            $programmeModules = $moduleRepository->findBy(['programme' => $id]);
+            // dd($programmeModules);
+            return $this->render('module/index.html.twig', [
+                'programme' => $programme,
+                'modules' => $programmeModules,
+            ]);
+        } elseif (($user == $programme->getCoach())) {
+            $programmeModules = $moduleRepository->findBy(['programme' => $id]);
+            // dd($programmeModules);
+            return $this->render('module/index.html.twig', [
+                'programme' => $programme,
+                'modules' => $programmeModules,
+            ]);
+        } else {
+            return $this->redirectToRoute("app_home");
+        }
     }
 
     // supprission d'un module

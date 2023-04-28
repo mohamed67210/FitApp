@@ -109,7 +109,6 @@
                 {% endfor %}
             </div>
             <div class="membre_moduls_container modules_container">
-               
                 {% for commande in app.user.commandes %}
                 {# {{ dump(commande.programme.intitule) }} #}
                 <article>
@@ -119,6 +118,7 @@
                     <p>{{commande.programme.commentaires|length}} Avis</p>
                     <p>{{commande.programme.modules|length}} modules</p>
                     <h3>prix : {{commande.programme.prix}} €</h3>
+                    <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</a>
                 </article>
                 {% endfor %}
             </div>

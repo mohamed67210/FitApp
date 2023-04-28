@@ -120,7 +120,8 @@
         </article>
     </section>
     <section id="categories">
-        <h2>Decouvrez nos plusieurs Categories d’activités </h2>
+        <h2>Decouvrez nos plusieurs Categories d'activités </h2>
+        <p>Nous sommes fiers de proposer une large gamme de programmes de remise en forme, allant de la musculation à la boxe en passant par le yoga et la dense. Tous nos programmes sont élaborés par des professionnels de sport, et sont adaptés en fonction de vos objectifs personnels et de votre niveau de forme actuel.</p>
         <div id="categories_container">
             {% for categorie in categories %}
             <a href="{{ path('categorie_programmes', { 'id': categorie.id }) }}">
