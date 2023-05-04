@@ -81,6 +81,54 @@ h2 span {
     cursor: pointer;
 }
 
+.notification {
+    z-index: 5000;
+    position: absolute;
+    top: 85vh;
+    left: 1rem;
+    width: max-content;
+    padding: 20px 15px;
+    border-radius: 4px;
+    border: 1px solid var(--couleur-secondaire);
+    background-color: #141619;
+    color: #f6f5f9;
+    transform: translate(30px);
+    opacity: 0;
+    visibility: hidden;
+    animation: fade-in 4s linear forwards;
+}
+
+.notification_progress {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    width: calc(100% - 10px);
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background-image: linear-gradient(to right, #539bdb, #3250bf);
+    border-radius: inherit;
+    animation: load 3s 0.25s linear forwards;
+}
+
+@keyframes fade-in {
+    5% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes load {
+    to {
+        transform: scaleX(1);
+    }
+}
 
 
 /* nav abr */
@@ -706,6 +754,119 @@ a {
     color: var(--couleur-secondaire);
 }
 
+/* test swipper  */
+#swiper-sectioon {
+    /* background-color: #555; */
+    width: 90%;
+    padding: 2rem;
+}
+
+/* Styles pour le swiper container */
+.swiper-container {
+    width: 100%;
+    height: auto;
+    margin: 50px 0;
+
+}
+
+.swiper-wrapper {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    border-radius: 5px;
+    border: 1px solid #cfc6c6;
+    background-color: #ccccccab;
+    width: 100%;
+}
+
+/* Styles pour les cartes */
+.card-swiper {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.95);
+    width: 350px;
+    height: 350px;
+    position: relative;
+}
+
+#swiper-sectioon span {
+    background-color: var(--couleur-secondaire);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 5px 0 0 0;
+}
+
+#swiper-sectioon span a {
+    color: white;
+}
+
+#swiper-sectioon p {
+    color: rgb(41, 37, 37);
+}
+
+::-webkit-scrollbar {
+    width: 30%;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--couleur-secondaire);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {}
+
+.card-swiper:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+    background-color: #bbb;
+}
+
+.card-swiper img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.card-text {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.card-swiper .btn {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    position: absolute;
+    bottom: 2px;
+}
+
+.btn:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
 /* section categories */
 #categories {
     width: 80%;
@@ -1190,7 +1351,7 @@ video {
 }
 
 #programme_infos_avis_section {
-    width: 55rem;
+    width: 50rem;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -1403,6 +1564,27 @@ video {
     margin-top: 0.5rem;
 }
 
+/* responsive  */
+@media (max-width: 767px) {
+
+    /* styles CSS pour les smartphones en mode portrait */
+    #container_show_programme {
+        flex-direction: column;
+        /* background-color: #467326; */
+        width: 100vw;
+    }
+
+    #programme_infos_avis_section {
+        width: 100%;
+    }
+
+    #programme_card_container_section {
+        /* background-color: #007bff; */
+        position: static;
+        width: 100%;
+    }
+}
+
 /* partie admin */
 .admin_container {
     margin-top: 5rem;
@@ -1520,7 +1702,7 @@ input[type="submit"] {
 /* Footer legal */
 .ft-legal {
     padding: 0.9375rem 1.875rem;
-    background-color: var(--couleur-secondaire);
+    background-color: #ccccccab
 }
 
 .ft-legal-list {

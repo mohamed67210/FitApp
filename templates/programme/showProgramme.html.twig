@@ -5,6 +5,12 @@
 {% block body %}
 
 <main id="container_show_programme">
+    {% for message in app.flashes('error') %}
+    <div class="notification">
+        <p>{{ message }}</p>
+        <span class="notification_progress"></span>
+    </div>
+    {% endfor %}
     <section id="programme_infos_avis_section">
         <article id="programme_infos_container">
             <h4>Categorie : {{programme.categorie}}</h4>
@@ -29,7 +35,7 @@
                     <h5>Compte supprimé<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
                 </div>
                 {% endif %}
-                
+
                 <div id="commentaire_message_container">
                     <p>{{commentaire.message}}</p>
                 </div>
@@ -48,7 +54,13 @@
             <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
         </div>
         <div class="programme_card_info">
-            <h2>{{programme.prix}} €</h2>
+            {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+            <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+            <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+            {% else %}
+            <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+            {% endif %}
+            <br><br>
             <p>Garantie satisfait ou remboursé de 30 jours, Accès complet illimité</p>
 
         </div>

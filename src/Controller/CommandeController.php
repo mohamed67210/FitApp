@@ -32,29 +32,36 @@ class CommandeController extends AbstractController
     #[Route('/commande/nouveau/{id}', name: 'add_commande')]
     public function addCommande(ManagerRegistry $doctrine, Request $request, Programme $programme): Response
     {
-        if ($this->getUser()) {
-            $commande = new Commande();
-            $form = $this->createForm(CommandeType::class, $commande);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $commande = $form->getData();
-                $commande->setUser($this->getUser());
-                $commande->setProgramme($programme);
-                $commande->setMontant($programme->getPrix());
-                // Créez un objet DateTime
-                $dateTime = new \DateTime();
-                // Convertissez l'objet DateTime en objet DateTimeImmutable
-                $dateTimeImmutable = \DateTimeImmutable::createFromMutable($dateTime);
-                // Utilisez l'objet DateTimeImmutable dans la méthode setCreateAt
-                $commande->setCreateAt($dateTimeImmutable);
-                $entityManager = $doctrine->getManager();
-                $entityManager->persist($commande);
-                $entityManager->flush();
-                return $this->redirectToRoute('app_home');
+        $user = $this->getUser();
+        if ($user) {
+            if ($user->getRoles() == 'ROLE_USER') {
+                $commande = new Commande();
+                $form = $this->createForm(CommandeType::class, $commande);
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $commande = $form->getData();
+                    $commande->setUser($this->getUser());
+                    $commande->setProgramme($programme);
+                    $commande->setMontant($programme->getPrix());
+                    // Créez un objet DateTime
+                    $dateTime = new \DateTime();
+                    // Convertissez l'objet DateTime en objet DateTimeImmutable
+                    $dateTimeImmutable = \DateTimeImmutable::createFromMutable($dateTime);
+                    // Utilisez l'objet DateTimeImmutable dans la méthode setCreateAt
+                    $commande->setCreateAt($dateTimeImmutable);
+                    $entityManager = $doctrine->getManager();
+                    $entityManager->persist($commande);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('app_home');
+                }
+                return $this->render('commande/index.html.twig', [
+                    'CommandeForm' => $form->createView(),
+                ]);
+            } else {
+                // dd($programme->getId());
+                $this->addFlash('error', "Nous sommes désolé car vous ne pouvez pas commander tant que vous n'etes pas connecté entant que simple client !");
+                return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
             }
-            return $this->render('commande/index.html.twig', [
-                'CommandeForm' => $form->createView(),
-            ]);
         } else {
             return $this->redirectToRoute("app_login");
         }

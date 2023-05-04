@@ -33,7 +33,8 @@
                 <h2 id="monTitle">WELCOME </h2>
                 <br>
                 <p id="monTexte">
-                    Nous sommes ravis de vous accueillir sur notre site, et nous espérons que vous trouverez tout ce dont vous avez besoin pour vous informer, vous inspirer et vous divertir.
+                    Nous sommes ravis de vous accueillir sur notre site, et nous espérons que vous trouverez tout ce
+                    dont vous avez besoin pour vous informer, vous inspirer et vous divertir.
                 </p>
             </div>
         </article>
@@ -95,7 +96,7 @@
             </article>
         </div>
     </section>
-    <section id="last5_programmes_section">
+    {# <section id="last5_programmes_section">
         <h2>Nouveauté !</h2>
         <i class="fa-solid fa-chevron-left"></i>
         <i class="fa-solid fa-chevron-right"></i>
@@ -118,10 +119,39 @@
             </div>
             {% endfor %}
         </article>
+    </section> #}
+
+    <section id="swiper-sectioon">
+        <h2>Nouveauté !</h2>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for programme in lastProgrammes %}
+                <div class="swiper-slide">
+                    <div class="card-swiper">
+                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                            alt="{{programme.intitule}}">
+                        <div class="card-body">
+                            <h4>{{programme.intitule|split(' ')|slice(0, 4)|join(' ')~ '...'}}</h4>
+                            <span><a href="{{path('categorie_programmes', { 'id': programme.categorie.id })}}">{{programme.categorie}}</a> </span>
+                            <p>Créateur : {{programme.coach}}</p>
+                            <p>{{programme.prix}} €</p>
+                        </div>
+
+                        <a href="{{path('show_programme',{'id':programme.id})}}" class="btn">S'inscrire</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </section>
+
+
+
     <section id="categories">
         <h2>Decouvrez nos plusieurs Categories d'activités </h2>
-        <p>Nous sommes fiers de proposer une large gamme de programmes de remise en forme, allant de la musculation à la boxe en passant par le yoga et la dense. Tous nos programmes sont élaborés par des professionnels de sport, et sont adaptés en fonction de vos objectifs personnels et de votre niveau de forme actuel.</p>
+        <p>Nous sommes fiers de proposer une large gamme de programmes de remise en forme, allant de la musculation à la
+            boxe en passant par le yoga et la dense. Tous nos programmes sont élaborés par des professionnels de sport,
+            et sont adaptés en fonction de vos objectifs personnels et de votre niveau de forme actuel.</p>
         <div id="categories_container">
             {% for categorie in categories %}
             <a href="{{ path('categorie_programmes', { 'id': categorie.id }) }}">

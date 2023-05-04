@@ -34,7 +34,7 @@ window.onload = function () {
 
     var monTexte = document.getElementById("monTexte");
     var monTitle = document.getElementById("monTitle");
-    var title = ["A PROPOS", "ETES-VOUS COACH ?", "VOUS ETES  A LA RECHERCHE D4UN PROGRAMME ?"]
+    var title = ["A PROPOS", "ETES-VOUS COACH ?", "VOUS ETES  A LA RECHERCHE D'UN PROGRAMME ?"]
     var messages = [textAbout,
         textCoach,
         textMembre]; // tableau des messages à afficher
@@ -82,9 +82,6 @@ function showSlide() {
     slides[currentSlide].style.display = "flex";
     // console.log(slides[currentSlide])
 }
-
-
-
 
 
 // afficher cacher formulaire ajout diplome das page profile

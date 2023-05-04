@@ -76,7 +76,12 @@
                 <div class="programme_contenu">
                     <h5>{{programme.intitule|upper}}</h5>
                     <p>{{programme.description}}</p>
-                    <span class="prix">{{programme.prix}} €</span>
+                    {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                    <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                    <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                    {% else %}
+                    <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                    {% endif %}
                 </div>
                 <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
             </div>
@@ -104,7 +109,12 @@
                     <p>Crée par : {{programme.coach}}</p>
                     <p>{{programme.commentaires|length}} Avis</p>
                     <p>{{programme.modules|length}} modules</p>
-                    <h3>prix : {{programme.prix}} €</h3>
+                    {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                    <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                    <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                    {% else %}
+                    <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                    {% endif %}
                 </article>
                 {% endfor %}
             </div>

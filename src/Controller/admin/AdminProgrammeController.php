@@ -15,7 +15,7 @@ class AdminProgrammeController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(ProgrammeRepository $programmeRepository): Response
     {
-        $programmes = $programmeRepository->findBy([], ['id' => 'asc']);
+        $programmes = $programmeRepository->findBy([], ['id' => 'DESc']);
         return $this->render('admin/programmes/index.html.twig', [
             'programmes' => $programmes,
         ]);
@@ -28,7 +28,7 @@ class AdminProgrammeController extends AbstractController
         $entityManager = $doctrine->getManager();
         $entityManager->persist($programme);
         $entityManager->flush();
-        $programmes = $programmeRepository->findBy([], ['id' => 'asc']);
+        $programmes = $programmeRepository->findBy([], ['id' => 'DESC']);
         $this->addFlash("success", "vous venez d'activé le programme : " . $programme->getIntitule() . " !");
         return $this->render('admin/programmes/index.html.twig', [
             'programmes' => $programmes,
@@ -41,7 +41,7 @@ class AdminProgrammeController extends AbstractController
         $entityManager = $doctrine->getManager();
         $entityManager->persist($programme);
         $entityManager->flush();
-        $programmes = $programmeRepository->findBy([], ['id' => 'asc']);
+        $programmes = $programmeRepository->findBy([], ['id' => 'DESC']);
         $this->addFlash('success', 'vous venez de desactivé le programme : ' . $programme->getIntitule() . ' !');
 
         return $this->render('admin/programmes/index.html.twig', [
