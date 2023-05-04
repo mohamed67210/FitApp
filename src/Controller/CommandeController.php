@@ -59,7 +59,7 @@ class CommandeController extends AbstractController
                 ]);
             } else {
                 // dd($programme->getId());
-                $this->addFlash('error', "Nous sommes désolé car vous ne pouvez pas commander tant que vous n'etes pas connecté entant que simple client !");
+                $this->addFlash('message', "Nous sommes désolé car vous ne pouvez pas commander tant que vous n'etes pas connecté entant que simple client !");
                 return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
             }
         } else {

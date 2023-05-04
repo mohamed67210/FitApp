@@ -4,6 +4,12 @@
 
 {% block body %}
 <main class="container_user">
+    {% for message in app.flashes('success') %}
+    <div class="notification">
+        <p>{{ message }}</p>
+        <span class="notification_progress"></span>
+    </div>
+    {% endfor %}
     <section id="user_details_container">
         {% if app.user == user %}
         <div class="btn_panel">
@@ -104,8 +110,12 @@
                 {% for programme in app.user.favories %}
                 <article>
                     <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="programme.intitule">
-                    <a class='favorie'href="{{path('add_favorie',{'id':programme.id})}}"><i class="fa-solid fa-heart"></i></a>
-                    <a href="{{path('show_programme',{'id':programme.id})}}"><h4>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h4></a>
+                    <a class='favorie' href="{{path('add_favorie',{'id':programme.id})}}"><i
+                            class="fa-solid fa-heart"></i></a>
+                    <a href="{{path('show_programme',{'id':programme.id})}}">
+                        <h4>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split('
+                            ')|length > 3 ? '...' : '') }}</h4>
+                    </a>
                     <p>Crée par : {{programme.coach}}</p>
                     <p>{{programme.commentaires|length}} Avis</p>
                     <p>{{programme.modules|length}} modules</p>
@@ -122,8 +132,12 @@
                 {% for commande in app.user.commandes %}
                 {# {{ dump(commande.programme.intitule) }} #}
                 <article>
-                    <img src="{{ asset('assets/images/programmes/'~ commande.programme.image ~'') }}" alt="programme.intitule">
-                    <a href="{{path('show_programme',{'id':commande.programme.id})}}"><h4>{{commande.programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (commande.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h4></a>
+                    <img src="{{ asset('assets/images/programmes/'~ commande.programme.image ~'') }}"
+                        alt="programme.intitule">
+                    <a href="{{path('show_programme',{'id':commande.programme.id})}}">
+                        <h4>{{commande.programme.intitule |split(' ')|slice(0, 3)|join(' ') ~
+                            (commande.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h4>
+                    </a>
                     <p>Crée par : {{commande.programme.coach}}</p>
                     <p>{{commande.programme.commentaires|length}} Avis</p>
                     <p>{{commande.programme.modules|length}} modules</p>

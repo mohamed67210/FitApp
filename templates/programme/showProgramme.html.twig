@@ -5,7 +5,7 @@
 {% block body %}
 
 <main id="container_show_programme">
-    {% for message in app.flashes('error') %}
+    {% for message in app.flashes('message') %}
     <div class="notification">
         <p>{{ message }}</p>
         <span class="notification_progress"></span>

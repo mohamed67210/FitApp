@@ -35,9 +35,10 @@ class UserController extends AbstractController
         }
         $compte =  $entityManager->getRepository(User::class)->remove($user);
         $entityManager->flush();
-        $this->addFlash('success', 'le compte est supprimé !');
+
         $request->getSession()->invalidate();
         $this->container->get('security.token_storage')->setToken(null);
+        $this->addFlash('message', 'le compte est supprimé !');
         return  $this->redirectToRoute('app_home');
     }
 
@@ -91,20 +92,19 @@ class UserController extends AbstractController
                         $newFilename
                     );
                 }
-                // recuperer les données de programme si il existe deja et si il est nul
+                // recuperer les données de diplome si il existe deja et si il est nul
                 $diplome = $form->getData();
 
                 // on recupere le managere doctrine
                 $entityManager = $doctrine->getManager();
 
-                // persist remplace prepare en pdo , on prepare l'objet Programmme 
+                // persist remplace prepare en pdo , on prepare l'objet diplome 
                 $entityManager->persist($diplome);
 
                 //on execute 
                 $entityManager->flush();
-                $this->addFlash('success', 'Le Programme est enregistré !');
+                $this->addFlash('message', "Le diplome est enregistré ! il sera bientot validé par l'admistration ,merci pour votre patience");
 
-                // on  retourne vers la page accueil
                 return $this->redirectToRoute('show_profile', ['id' => $diplome->getUser()]);
             }
             return $this->render('user/showUser.html.twig', [
@@ -168,7 +168,7 @@ class UserController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash('success', 'votre profile est bien modifié 😄');
+                $this->addFlash('message', 'votre profile est bien modifié 😄');
                 return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
             }
             return $this->render('user/editUser.html.twig', [
@@ -182,7 +182,11 @@ class UserController extends AbstractController
     public function addToFavorie(Programme $programme, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         $userconnecte = $this->getUser();
-        if ($this->getUser() != null) {
+        if ($userconnecte != null) {
+            if ($userconnecte->getRoles()[0] != 'ROLE_USER') {
+                $this->addFlash('message', "Vous n'avez pas le droit de mettre en favorie tant que vous n'etes pas connecté entant que client ");
+                return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+            }
             $user = $userRepository->findOneBy(['id' => $userconnecte]);
             $favories = $user->getFavories();
             if ($favories->contains($programme)) {
@@ -192,6 +196,7 @@ class UserController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 // on execute
                 $entityManager->flush();
+                $this->addFlash('message', 'Le programme est retiré de votre liste de souhait !');
             } else {
                 // ajouter le progtramme a la liste de user
                 $user->addFavory($programme);
@@ -199,6 +204,7 @@ class UserController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 // on execute
                 $entityManager->flush();
+                $this->addFlash('message', 'Le programme est bien enregistrer dans votre liste de souhait !');
             }
 
             return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);

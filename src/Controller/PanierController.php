@@ -40,14 +40,23 @@ class PanierController extends AbstractController
     #[Route('/panier/add/{id}', name: 'add_panier')]
     public function AddToPanier($id, SessionInterface $session): Response
     {
-        if (!$this->getUser()) {
+
+        if ($this->getUser()) {
+            if ($this->getUser()->getroles()[0] == 'ROLE_USER') {
+                dd($this->getUser()->getroles()[0]);
+                $panier = $session->get('panier', []);
+                $panier[$id] = 1;
+                $session->set('panier', $panier);
+                // dd(count($session->get('panier')));
+                $this->addFlash('message', 'Le programme est bien ajouté au panier !');
+                return $this->redirectToRoute('show_programme', ['id' => $id]);
+            } else {
+                $this->addFlash('message', "Nous sommes désolé ! vous n'etes pas client donc vous n'avez pas accés a cette fonctionnalité !");
+                return $this->redirectToRoute('show_programme', ['id' => $id]);
+            }
+        } else {
             return $this->redirectToRoute('app_login');
         }
-        $panier = $session->get('panier', []);
-        $panier[$id] = 1;
-        $session->set('panier', $panier);
-        // dd(count($session->get('panier')));
-        return $this->redirectToRoute('show_programme', ['id' => $id]);
     }
 
     // suupriemr un programme de la session (panier)

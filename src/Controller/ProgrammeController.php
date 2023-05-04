@@ -26,7 +26,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgrammeController extends AbstractController
 {
-    
+
 
     // afficher tout les programmes active
     #[Route('/programmes', name: 'show_programmes')]
@@ -117,8 +117,7 @@ class ProgrammeController extends AbstractController
 
             //on execute 
             $entityManager->flush();
-            $this->addFlash('success', 'Le Programme est enregistré !');
-
+            $this->addFlash('success', "Félicitation !Le Programme est enregistré ,pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
             // on  retourne vers la page accueil
             return $this->redirectToRoute('show_user', ['id' => $userId]);
         }

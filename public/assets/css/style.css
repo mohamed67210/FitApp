@@ -95,7 +95,7 @@ h2 span {
     transform: translate(30px);
     opacity: 0;
     visibility: hidden;
-    animation: fade-in 4s linear forwards;
+    animation: fade-in 7s linear forwards;
 }
 
 .notification_progress {
@@ -108,7 +108,7 @@ h2 span {
     transform-origin: left;
     background-image: linear-gradient(to right, #539bdb, #3250bf);
     border-radius: inherit;
-    animation: load 3s 0.25s linear forwards;
+    animation: load 7s 0.25s linear forwards;
 }
 
 @keyframes fade-in {
