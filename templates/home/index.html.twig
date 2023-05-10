@@ -5,6 +5,13 @@
 {% block body %}
 {# <img src="" alt=""> #}
 <main class="container_home">
+    {# {{ dump(app.flashes('message')) }} #}
+    {% for message in app.flashes('message') %}
+    <div class="notification">
+        <p>{{ message }}</p>
+        <span class="notification_progress"></span>
+    </div>
+    {% endfor %}
     <section class="banniere">
         {# <div class="image">
             <img src="{{asset('assets/images/banniere/baniere2-min.jpg')}}" alt="image">

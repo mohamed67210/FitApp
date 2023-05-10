@@ -99,7 +99,7 @@
             <div class="user_programmes_title">
                 <ul>
                     <li>
-                        <h3 class="modules_link">Tous les cours</h3>
+                        <h3 class="modules_link">mes cours achetés</h3>
                     </li>
                     <li>
                         <h3 class="favories_link">Liste de souhaits</h3>
@@ -141,7 +141,6 @@
                     <p>Crée par : {{commande.programme.coach}}</p>
                     <p>{{commande.programme.commentaires|length}} Avis</p>
                     <p>{{commande.programme.modules|length}} modules</p>
-                    <h3>prix : {{commande.programme.prix}} €</h3>
                     <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</a>
                 </article>
                 {% endfor %}
