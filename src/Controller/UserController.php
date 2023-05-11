@@ -182,7 +182,7 @@ class UserController extends AbstractController
     public function addToFavorie(Programme $programme, UserRepository $userRepository, ManagerRegistry $doctrine): Response
     {
         $userconnecte = $this->getUser();
-        if ($userconnecte != null) {
+        if ($userconnecte) {
             if ($userconnecte->getRoles()[0] != 'ROLE_USER') {
                 $this->addFlash('message', "Vous n'avez pas le droit de mettre en favorie tant que vous n'etes pas connecté entant que client ");
                 return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
@@ -210,7 +210,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
         } else {
             // si l'user est pas connecté on le rederige vers la page de connexion
-            $this->redirectToRoute('app_login');
+            $this->addFlash('message', 'Vous devez vous connecter !');
+            return $this->redirectToRoute('app_login');
         }
     }
 }

@@ -18,23 +18,23 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        
-            $builder
+
+        $builder
             // ->add('email', EmailType::class)
             // ->add('password', PasswordType::class)
-            ->add('prenom', TextType::class)
-            ->add('nom', TextType::class)
-            ->add('image', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
+            ->add('prenom', TextType::class, ['label' => 'Votre Prénom', 'attr' => ['class' => 'form-control']])
+            ->add('nom', TextType::class, ['label' => 'Votre Nom', 'attr' => ['class' => 'form-control']])
+            ->add('image', FileType::class, ['label'=>'Votre image de profile','attr' => ['class' => 'form-control'],'required' => false, 'mapped' => false, 'constraints' => [
                 new File([
                     'maxSize' => '5000k',
                     'mimeTypes' => [
                         'image/jpeg',
                     ],
-                    'mimeTypesMessage' => 'Please upload a valid image',
+                    'mimeTypesMessage' => 'Veuillez télécharger une image valide',
                 ])
             ],])
-            ->add('biographie', TextareaType::class,['required'=>false])
-            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);
+            // ->add('biographie', TextareaType::class, ['required' => false])
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn btn-success']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
