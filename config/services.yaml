@@ -11,6 +11,8 @@ parameters:
     categorieImage_directory: '%kernel.project_dir%/public/assets/images/categories'
 
 services:
+
+    Symfony\Component\Asset\Package: '@assets._default_package'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

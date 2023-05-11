@@ -6,7 +6,11 @@ use App\Entity\Commande;
 use App\Entity\Programme;
 use App\Form\CommandeType;
 use Doctrine\Persistence\ManagerRegistry;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +38,9 @@ class CommandeController extends AbstractController
     {
         $user = $this->getUser();
         if ($user) {
-            if ($user->getRoles() == 'ROLE_USER') {
+            // dd($user->getRoles());
+            if ($user->getRoles()[0] == 'ROLE_USER') {
+                // dd($user->getRoles());
                 $commande = new Commande();
                 $form = $this->createForm(CommandeType::class, $commande);
                 $form->handleRequest($request);
@@ -65,5 +71,43 @@ class CommandeController extends AbstractController
         } else {
             return $this->redirectToRoute("app_login");
         }
+    }
+    #[Route('/paeiment/{id}', name: 'paeiment')]
+    public function startPayment(Programme $programme, Package $assetsPackage): Response
+    {
+        // recuperer le prix en promos si il existe
+        if ($programme->getPrixPromo() == null) {
+            $prix = $programme->getPrix() . '00';
+        } else {
+            $prix = $programme->getPrixPromo() . '00';
+        }
+        $assetsPackage = new Package(new EmptyVersionStrategy());
+        // dd($programme->getImage());
+        $productImageUrl = $assetsPackage->getUrl('assets/images/programmes/' . $programme->getImage());
+        Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
+        $session = Session::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'EUR',
+                        'product_data' => [
+                            'name' => $programme->getIntitule(),
+                            // 'images' => $productImageUrl,
+                        ],
+                        'unit_amount' => $prix
+                    ],
+                    'quantity' => 1,
+                ]
+            ],
+            // dd($programme),
+            'mode' => 'payment',
+            'success_url' => 'http://127.0.0.1:8000/',
+            'cancel_url' => 'http://127.0.0.1:8000/',
+            'billing_address_collection' => 'required',
+            "metadata" => [
+                'programme_id' => $programme,
+            ]
+        ]);
+        return $this->redirect($session->url);
     }
 }
