@@ -141,3 +141,18 @@ if (deleteLinks != null) {
         });
     });
 }
+
+// arreter la position fixed de la carte programme dans la page detail programmme
+window.addEventListener('scroll', function () {
+    var div = document.getElementById('programme_card_container_section');
+    var seuil = 200; // seuil de défilement à partir duquel la div s'arrête
+
+    if (window.pageYOffset > seuil) {
+        console.log('chageeeeer')
+        div.style.position = 'absolute';
+        div.style.top = seuil + 'px';
+    } else {
+        div.style.position = 'fixed';
+        div.style.top = '100px'; // ajustez selon votre besoin
+    }
+});

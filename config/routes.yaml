@@ -5,3 +5,8 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+stripe_webhook:
+    path: /stripe/webhook
+    controller: App\Controller\StripeWebhookController::handle
+    methods: [POST]

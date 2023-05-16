@@ -101,7 +101,7 @@ class CommandeController extends AbstractController
             ],
             // dd($programme),
             'mode' => 'payment',
-            'success_url' => 'http://127.0.0.1:8000/',
+            // 'success_url' => 'http://127.0.0.1:8000/stripe/webhook',
             'cancel_url' => 'http://127.0.0.1:8000/',
             'billing_address_collection' => 'required',
             "metadata" => [
