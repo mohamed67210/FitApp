@@ -11,44 +11,6 @@
         <span class="notification_progress"></span>
     </div>
     {% endfor %}
-    <section id="programme_infos_avis_section">
-        <article id="programme_infos_container">
-            <h4>Categorie : {{programme.categorie}}</h4>
-            <h2>{{programme.intitule}}</h2>
-            <p>{{programme.description}}</p>
-            <span>Avis({{programme.commentaires|length}}) 216 participants</span>
-            <span>Creé par : <a
-                    href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
-        </article>
-        <article id="programme_avis_container">
-            <h3>Avis :</h3>
-            {% for commentaire in programme.commentaires %}
-            {# {{ dump(commentaire.createAt) }} #}
-            <div id="commentaire_container">
-                {% if commentaire.user != null %}
-                <div id="user_infos_container">
-                    <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
-                    <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
-                </div>
-                {% else %}
-                <div id="user_infos_container">
-                    <h5>Compte supprimé<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
-                </div>
-                {% endif %}
-
-                <div id="commentaire_message_container">
-                    <p>{{commentaire.message}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </article>
-        <article class="commentaire_form">
-            {{form_start (commentaireForm)}}
-
-            {{form_end (commentaireForm)}}
-        </article>
-
-    </section>
     <section id="programme_card_container_section">
         <div class="image_container">
             <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
@@ -76,6 +38,50 @@
             <a class="btn acheter" href="{{path('paeiment',{'id':programme.id})}}">Acheter maintenant</a>
         </div>
     </section>
+    <section id="programme_infos_avis_section">
+        <article id="programme_infos_container">
+            <h4>Categorie : {{programme.categorie}}</h4>
+            <h2>{{programme.intitule}}</h2>
+            <p>{{programme.description}}</p>
+            <span>Avis({{programme.commentaires|length }}) </span>
+            <span>Ce programme a etait acheté par : {{programme.commandes|length}} Personnes</span>
+            <span>Creé par : <a
+                    href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
+        </article>
+        <article id="programme_avis_container">
+            <h3>Avis :</h3>
+            {% for commentaire in programme.commentaires %}
+            {# {{ dump(commentaire.createAt) }} #}
+            <div id="commentaire_container">
+                {# on verifie si le champ user dans la table commentaire n'est pas vide #}
+                {% if commentaire.user != null %}
+                <div id="user_infos_container">
+                    <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
+                    <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
+                </div>
+                {% else %}
+                <div id="user_infos_container">
+                    <h5>Compte supprimé<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
+                </div>
+                {% endif %}
+
+                <div id="commentaire_message_container">
+                    <p>{{commentaire.message}}</p>
+                    {% if app.user == commentaire.user %}
+                    <a href="{{path('delete_commentaire',{'id':commentaire.id})}}">Supprimer</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </article>
+        <article class="commentaire_form">
+            {{form_start (commentaireForm)}}
+
+            {{form_end (commentaireForm)}}
+        </article>
+
+    </section>
+
 
 </main>
 
