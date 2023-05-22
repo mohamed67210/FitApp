@@ -29,8 +29,11 @@
         <div class="programme_card_btns">
             <div>
                 <a class="btn panier" href="{{path('add_panier',{'id':programme.id})}}">Ajouter au panier</a>
+                {% if app.user %}
                 <a class="favorie" href="{{path('add_favorie',{'id':programme.id})}}"><i
                         class="fa-solid fa-heart"></i></a>
+                {% endif %}
+
             </div>
             {% if app.user and app.user.favories.contains(programme) %}
             <p>Ce programme est dans la liste de mes favorites</p>
@@ -67,18 +70,23 @@
 
                 <div id="commentaire_message_container">
                     <p>{{commentaire.message}}</p>
+                    {% if app.user %}
                     {% if app.user == commentaire.user %}
                     <a href="{{path('delete_commentaire',{'id':commentaire.id})}}">Supprimer</a>
+                    {% endif %}
+
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
         </article>
+        {% if app.user %}
         <article class="commentaire_form">
             {{form_start (commentaireForm)}}
-
             {{form_end (commentaireForm)}}
         </article>
+        {% endif %}
+
 
     </section>
 

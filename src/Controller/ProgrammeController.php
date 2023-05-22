@@ -173,7 +173,7 @@ class ProgrammeController extends AbstractController
                     //on execute 
                     $entityManager->flush();
                     $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
-                    return $this->redirectToRoute('show_user', ['id' => $userId]);
+                    return $this->redirectToRoute('show_profile');
                 }
             }
 
@@ -193,26 +193,29 @@ class ProgrammeController extends AbstractController
     public function showProgramme(ManagerRegistry $doctrine, Programme $programme = null, Commentaire $commentaire = null, Request $request): Response
     {
         if ($programme) {
-
             $commentaire = new Commentaire;
             // dd(new DateTimeImmutable('now'));
             $form = $this->createForm(CommentaireType::class);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                if ($this->getUser()) {
+                    $commentaire = $form->getData();
+                    $commentaire->setProgramme($programme);
+                    $commentaire->setUser($this->getUser());
+                    $commentaire->setCreateAt(new \DateTime());
+                    $entityManager = $doctrine->getManager();
+                    // persist remplace prepare en pdo , on prepare l'objet Programmme 
+                    $entityManager->persist($commentaire);
+                    //on execute 
+                    $entityManager->flush();
 
-                $commentaire = $form->getData();
-                $commentaire->setProgramme($programme);
-                $commentaire->setUser($this->getUser());
-                $commentaire->setCreateAt(new \DateTime());
-                $entityManager = $doctrine->getManager();
-                // persist remplace prepare en pdo , on prepare l'objet Programmme 
-                $entityManager->persist($commentaire);
-                //on execute 
-                $entityManager->flush();
-
-                $this->addFlash('success', 'Le commentaire est enregistré !');
-                // on  retourne vers la page accueil
-                return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+                    $this->addFlash('message', 'Le commentaire est enregistré !');
+                    // on  retourne vers la page accueil
+                    return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+                } else {
+                    $this->addFlash('message', 'accés refusé !');
+                    return $this->redirectToRoute('show_programmes');
+                }
             }
             return $this->render('programme/showProgramme.html.twig', [
                 'programme' => $programme,

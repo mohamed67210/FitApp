@@ -12,8 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommentaireController extends AbstractController
 {
+    // supprimer un commentaire
     #[Route('/commentaire/delete/{id}', name: 'delete_commentaire')]
-    public function deleteCommentaire(ManagerRegistry $doctrine, Commentaire $commentaire, CommentaireRepository $commentaireRepository): Response
+    public function deleteCommentaire(ManagerRegistry $doctrine, Commentaire $commentaire = null, CommentaireRepository $commentaireRepository): Response
     {
         if ($this->getUser()) {
             if ($this->getUser() == $commentaire->getUser()) {

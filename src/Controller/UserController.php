@@ -134,7 +134,7 @@ class UserController extends AbstractController
 
     // editer user
     #[Route('/user/edit/{id}', name: 'edit_user')]
-    public function edit(ManagerRegistry $doctrine, User $user, Request $request, SluggerInterface $slugger): Response
+    public function edit(ManagerRegistry $doctrine, User $user = null, Request $request, SluggerInterface $slugger): Response
     {
         // si l'id de l'user envoyer par l'url est le meme id de l'user connecté 
         if (($this->getUser()) == $user) {
@@ -168,13 +168,15 @@ class UserController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash('message', 'votre profile est bien modifié 😄'); 
+                $this->addFlash('message', 'votre profile est bien modifié 😄');
                 return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
-                
             }
             return $this->render('user/editUser.html.twig', [
                 'formUser' => $form->createView()
             ]);
+        } else {
+            $this->addFlash('message', 'ccés refusé !');
+            return $this->redirectToRoute("show_profile");
         }
     }
 
