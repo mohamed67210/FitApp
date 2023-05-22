@@ -168,8 +168,9 @@ class UserController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash('message', 'votre profile est bien modifié 😄');
+                $this->addFlash('message', 'votre profile est bien modifié 😄'); 
                 return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
+                
             }
             return $this->render('user/editUser.html.twig', [
                 'formUser' => $form->createView()

@@ -61,9 +61,7 @@ class ProgrammeController extends AbstractController
     }
 
     //ajouter un programme ou editer
-    #[Route('/programme/edit/{id}', name: 'edit_programme')]
     #[Route('/programme/add', name: 'add_programme')]
-    // #[IsGranted("ROLE_COACH",message:"vous n'avez pas le droit")]
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('ROLE_COACH');
@@ -87,7 +85,6 @@ class ProgrammeController extends AbstractController
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
                 // dd($newFilename);
-
                 // Move the file to the directory where Programme images are stored
                 try {
                     $uploadedFile->move(
@@ -96,29 +93,22 @@ class ProgrammeController extends AbstractController
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
-
                 }
-
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $programme->setImage(
                     $newFilename
                 );
             }
-
             // recuperer les données de programme si il existe deja et si il est nul
             $programme = $form->getData();
-
             // on recupere le managere doctrine
             $entityManager = $doctrine->getManager();
-
             // persist remplace prepare en pdo , on prepare l'objet Programmme 
             $entityManager->persist($programme);
-
             //on execute 
             $entityManager->flush();
-            $this->addFlash('success', "Félicitation !Le Programme est enregistré ,pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
-            // on  retourne vers la page accueil
+            $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
             return $this->redirectToRoute('show_user', ['id' => $userId]);
         }
         return $this->render('programme/formulaire.html.twig', [
@@ -127,34 +117,110 @@ class ProgrammeController extends AbstractController
         ]);
     }
 
+    // editer un programme par son coach
+    #[Route('/programme/edit/{id}', name: 'edit_programme')]
+    public function edit(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
+    {
+        if ($programme) {
+
+            $this->denyAccessUnlessGranted('ROLE_COACH');
+            // Vérifier si l'utilisateur actuel est le créateur du programme
+            if ($programme->getCoach() !== $this->getUser()) {
+                $this->addFlash('message', 'accés réfusé ff!');
+                return $this->redirectToRoute('show_profile');
+            }
+            $programme->setCoach($this->getUser());
+            $userId = $programme->getCoach()->getId();
+            // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
+            $form = $this->createForm(ProgrammeType::class, $programme);
+            $form->handleRequest($request);
+            // dd($form['image']->getData());
+            if ($programme->getCoach() !== $this->getUser()) {
+                $this->addFlash('message', 'accés réfusé !');
+                return $this->redirectToRoute('show_profile');
+            } else {
+                if ($form->isSubmitted() && $form->isValid()) {
+                    // upload image
+                    $uploadedFile = $form['image']->getData();
+                    // dd($uploadedFile);
+                    if ($uploadedFile) {
+                        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                        // this is needed to safely include the file name as part of the URL
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                        // dd($newFilename);
+                        // Move the file to the directory where Programme images are stored
+                        try {
+                            $uploadedFile->move(
+                                $this->getParameter('programmeImage_directory'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            // ... handle exception if something happens during file upload
+                        }
+                        // updates the 'brochureFilename' property to store the PDF file name
+                        // instead of its contents
+                        $programme->setImage(
+                            $newFilename
+                        );
+                    }
+                    // recuperer les données de programme si il existe deja et si il est nul
+                    $programme = $form->getData();
+                    // on recupere le managere doctrine
+                    $entityManager = $doctrine->getManager();
+                    // persist remplace prepare en pdo , on prepare l'objet Programmme 
+                    $entityManager->persist($programme);
+                    //on execute 
+                    $entityManager->flush();
+                    $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
+                    return $this->redirectToRoute('show_user', ['id' => $userId]);
+                }
+            }
+
+            return $this->render('programme/formulaire.html.twig', [
+                'formProgramme' => $form->createView(),
+                'programme' => $programme
+            ]);
+        } else {
+            $this->addFlash('message', 'Accés refusé !');
+            return $this->redirectToRoute('show_profile');
+        }
+    }
+
+
     // afficher detail d'un programme,avec affichage de formulaire de commentaire
     #[Route('/programme/{id}', name: 'show_programme')]
-    public function showProgramme(ManagerRegistry $doctrine, Programme $programme, Commentaire $commentaire = null, Request $request): Response
+    public function showProgramme(ManagerRegistry $doctrine, Programme $programme = null, Commentaire $commentaire = null, Request $request): Response
     {
-        $commentaire = new Commentaire;
-        // dd(new DateTimeImmutable('now'));
-        $form = $this->createForm(CommentaireType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($programme) {
 
-            $commentaire = $form->getData();
-            $commentaire->setProgramme($programme);
-            $commentaire->setUser($this->getUser());
-            $commentaire->setCreateAt(new \DateTime());
-            $entityManager = $doctrine->getManager();
-            // persist remplace prepare en pdo , on prepare l'objet Programmme 
-            $entityManager->persist($commentaire);
-            //on execute 
-            $entityManager->flush();
+            $commentaire = new Commentaire;
+            // dd(new DateTimeImmutable('now'));
+            $form = $this->createForm(CommentaireType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->addFlash('success', 'Le commentaire est enregistré !');
-            // on  retourne vers la page accueil
-            return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+                $commentaire = $form->getData();
+                $commentaire->setProgramme($programme);
+                $commentaire->setUser($this->getUser());
+                $commentaire->setCreateAt(new \DateTime());
+                $entityManager = $doctrine->getManager();
+                // persist remplace prepare en pdo , on prepare l'objet Programmme 
+                $entityManager->persist($commentaire);
+                //on execute 
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Le commentaire est enregistré !');
+                // on  retourne vers la page accueil
+                return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+            }
+            return $this->render('programme/showProgramme.html.twig', [
+                'programme' => $programme,
+                'commentaireForm' => $form->createView()
+            ]);
+        } else {
+            return $this->redirectToRoute("show_programmes");
         }
-        return $this->render('programme/showProgramme.html.twig', [
-            'programme' => $programme,
-            'commentaireForm' => $form->createView()
-        ]);
     }
     // #[Route('/programme', name: 'app_programme')]
     // public function index(ProgrammeRepository $programmeRepository): Response

@@ -73,7 +73,7 @@ class CommandeController extends AbstractController
         }
     }
     #[Route('/paeiment/{id}', name: 'paeiment')]
-    public function startPayment(Programme $programme, Package $assetsPackage): Response
+    public function startPayment(Programme $programme): Response
     {
         $user = $this->getUser();
         if ($user) {

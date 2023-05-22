@@ -14,49 +14,37 @@ class StripeWebhookController extends AbstractController
     #[Route('/stripe/webhook', name: 'app_stripe_webhook')]
     public function handle(ManagerRegistry $doctrine, Request $request): Response
     {
+        // Vérification de l'authenticité de la requête Stripe
+        $stripeSecretKey = 'sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc'; // Remplacez par votre clé secrète Stripe
+        \Stripe\Stripe::setApiKey($stripeSecretKey);
+
         $payload = $request->getContent();
-        $signature = 'whsec_030fc7522b9a5b362683cf36f5627fea6f91625e6cc56342dd6ca75686ef2a7d';
-        $headerSignature = $request->headers->get('Stripe-Signature');
-        dd($request->headers->all());
+        dd($payload);
+        $sigHeader = $request->headers->get('stripe-signature');
 
-        // Vérifiez la signature pour vous assurer que la demande provient de Stripe
-        // Utilisez la clé secrète Stripe correspondante à votre mode (test ou production)
-        $secretKey = 'sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc';
+        try {
+            $event = \Stripe\Webhook::constructEvent($payload, $sigHeader, $stripeSecretKey);
 
-        // Traitez l'événement en fonction de son type
-        $event = \Stripe\Webhook::constructEvent($payload, $signature, $secretKey);
-        // switch ($event->type) {
-        //     case 'charge.succeeded':
-        //         // Récupérez les informations pertinentes de l'événement Stripe
-        //         $amount = $event->data->object->amount / 100; // Conversion du montant en centimes
-        //         $items = $event->data->object->display_items;
-        //         $billingEmail = $event->data->object->billing_details->email;
-        //         $billingCountry = $event->data->object->billing_details->address->country;
-        //         // creer une nouvelle commande
-        //         $commande = new Commande;
-        //         $commande->setMontant($amount);
-        //         $commande->setUser($this->getUser());
-        //         $commande->setAdresseFacturation($billingEmail);
-        //         $commande->setPaysFacturation($billingCountry);
-        //         // Créez un objet DateTime
-        //         $dateTime = new \DateTime();
-        //         // Convertissez l'objet DateTime en objet DateTimeImmutable
-        //         $dateTimeImmutable = \DateTimeImmutable::createFromMutable($dateTime);
-        //         // Utilisez l'objet DateTimeImmutable dans la méthode setCreateAt
-        //         $commande->setCreateAt($dateTimeImmutable);
-        //         // Persistez la commande dans la base de données
-        //         $entityManager = $doctrine->getManager();
-        //         $entityManager->persist($commande);
-        //         $entityManager->flush();
-        //         break;
-        //     case 'invoice.paid':
-        //         //         // Traitez l'événement de facture payée
-        //         break;
-        //         //     // Ajoutez des cas supplémentaires pour d'autres types d'événements
-        //     default:
-        //         //         // Événement non pris en charge
-        //         break;
-        // }
-        return new Response('Webhook handled', 200);
+            // Traitez les événements Stripe en fonction de leur type
+            switch ($event->type) {
+                case 'checkout.session.completed':
+                    // Gérez le paiement validé ici
+                    // Exemple : mettez à jour le statut du paiement dans votre base de données
+                    break;
+                    // Gérez d'autres types d'événements Stripe selon vos besoins
+
+                default:
+                    // Gérez les autres types d'événements Stripe si nécessaire
+                    break;
+            }
+
+            return new Response('Webhook received successfully');
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Gestion des erreurs de vérification de la signature
+            return new Response('Webhook signature verification failed', Response::HTTP_BAD_REQUEST);
+        } catch (\Exception $e) {
+            // Gestion des autres exceptions
+            return new Response('An error occurred', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

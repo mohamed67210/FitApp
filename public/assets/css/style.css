@@ -942,7 +942,7 @@ a {
 }
 
 .programme_cart {
-    width: 15rem;
+    width: 20rem;
     height: 22rem;
     background-color: var(--couleur-primaire);
     display: flex;
@@ -1189,6 +1189,9 @@ a {
     background-color: transparent;
     position: relative;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.membre_moduls_container article div{
+    padding: 0.5rem;
 }
 
 .membre_moduls_container article .favorie {

@@ -4,7 +4,7 @@
 
 {% block body %}
 <main class="container_user">
-    {% for message in app.flashes('success') %}
+    {% for message in app.flashes('message') %}
     <div class="notification">
         <p>{{ message }}</p>
         <span class="notification_progress"></span>
@@ -110,21 +110,24 @@
                 {% for programme in app.user.favories %}
                 <article>
                     <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="programme.intitule">
-                    <a class='favorie' href="{{path('add_favorie',{'id':programme.id})}}"><i
-                            class="fa-solid fa-heart"></i></a>
-                    <a href="{{path('show_programme',{'id':programme.id})}}">
-                        <h4>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split('
-                            ')|length > 3 ? '...' : '') }}</h4>
-                    </a>
-                    <p>Crée par : {{programme.coach}}</p>
-                    <p>{{programme.commentaires|length}} Avis</p>
-                    <p>{{programme.modules|length}} modules</p>
-                    {% if programme.prixPromo is defined and programme.prixPromo is not null %}
-                    <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
-                    <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
-                    {% else %}
-                    <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
-                    {% endif %}
+                    <div>
+                        <a class='favorie' href="{{path('add_favorie',{'id':programme.id})}}"><i
+                                class="fa-solid fa-heart"></i></a>
+                        <a href="{{path('show_programme',{'id':programme.id})}}">
+                            <h4>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split('
+                                ')|length > 3 ? '...' : '') }}</h4>
+                        </a>
+                        <p>Crée par : {{programme.coach}}</p>
+                        <p>{{programme.commentaires|length}} Avis</p>
+                        <p>{{programme.modules|length}} modules</p>
+                        {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                        <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                        <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                        {% else %}
+                        <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                        {% endif %}
+                    </div>
+
                 </article>
                 {% endfor %}
             </div>
@@ -134,14 +137,16 @@
                 <article>
                     <img src="{{ asset('assets/images/programmes/'~ commande.programme.image ~'') }}"
                         alt="programme.intitule">
-                    <a href="{{path('show_programme',{'id':commande.programme.id})}}">
-                        <h4>{{commande.programme.intitule |split(' ')|slice(0, 3)|join(' ') ~
-                            (commande.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h4>
-                    </a>
-                    <p>Crée par : {{commande.programme.coach}}</p>
-                    <p>{{commande.programme.commentaires|length}} Avis</p>
-                    <p>{{commande.programme.modules|length}} modules</p>
-                    <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</a>
+                    <div>
+                        <a href="{{path('show_programme',{'id':commande.programme.id})}}">
+                            <h4>{{commande.programme.intitule |split(' ')|slice(0, 3)|join(' ') ~
+                                (commande.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h4>
+                        </a>
+                        <p>Crée par : {{commande.programme.coach}}</p>
+                        <p>{{commande.programme.commentaires|length}} Avis</p>
+                        <p>{{commande.programme.modules|length}} modules</p>
+                        <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</a>
+                    </div>
                 </article>
                 {% endfor %}
             </div>
