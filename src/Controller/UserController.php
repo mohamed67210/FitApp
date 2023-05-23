@@ -175,7 +175,7 @@ class UserController extends AbstractController
                 'formUser' => $form->createView()
             ]);
         } else {
-            $this->addFlash('message', 'ccés refusé !');
+            $this->addFlash('message', 'accés refusé !');
             return $this->redirectToRoute("show_profile");
         }
     }
