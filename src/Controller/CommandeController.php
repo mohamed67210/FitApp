@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\Programme;
 use App\Form\CommandeType;
+use App\Repository\ProgrammeRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
@@ -13,6 +14,7 @@ use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CommandeController extends AbstractController
@@ -33,7 +35,7 @@ class CommandeController extends AbstractController
         }
     }
 
-    #[Route('/commande/nouveau/{id}', name: 'add_commande')]
+    /* #[Route('/commande/nouveau/{id}', name: 'add_commande')]
     public function addCommande(ManagerRegistry $doctrine, Request $request, Programme $programme): Response
     {
         $user = $this->getUser();
@@ -71,7 +73,9 @@ class CommandeController extends AbstractController
         } else {
             return $this->redirectToRoute("app_login");
         }
-    }
+    } */
+
+    //paeiment d'un seul programme sans passer par panier session
     #[Route('/paeiment/{id}', name: 'paeiment')]
     public function startPayment(Programme $programme): Response
     {
@@ -117,5 +121,46 @@ class CommandeController extends AbstractController
             $this->addFlash('message', "vous devrez vous connecté pour pouvoir acheter un programme ");
             return $this->redirectToRoute('app_login');
         }
+    }
+    #[Route('/paeiment', name: 'panier_paeiment')]
+    public function PanierPaiement(SessionInterface $session,ProgrammeRepository $programmeRepository):Response
+    {
+        //recuperer la session panier
+        $montantTotal = 0;
+        $panier = $session->get('panier',[]);
+        foreach ($panier as $programmeId) {
+            $programme = $programmeRepository->find($programmeId);
+            if ($programme->getPrixPromo() == null) {
+                $prixProgramme = $programme->getPrix().'00';
+            }else{
+                $prixProgramme = $programme->getPrixPromo().'00';
+            }
+            // dd($programme);
+            $montantTotal += $prixProgramme;
+        }
+        Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
+        $session = Session::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'EUR',
+                        'product_data' => [
+                            'name' => 'le montant total de votre commande est :',
+                        ],
+                        'unit_amount' => $montantTotal 
+                    ],
+                    'quantity' => 1,
+                ]
+            ],
+            // dd($programme),
+            'mode' => 'payment',
+            'success_url' => 'http://127.0.0.1:8000/stripe/webhook',
+            'cancel_url' => 'http://127.0.0.1:8000/',
+            'billing_address_collection' => 'required',
+            "metadata" => [
+                'programme_id' => $programme,
+            ]
+        ]);
+        return $this->redirect($session->url);
     }
 }
