@@ -40,11 +40,11 @@ class PanierController extends AbstractController
             "total" => $total,
         ]);
     }*/
-
+    // afficher le panier dans la vue
     #[Route('/panier', name: 'show_panier')]
     public function index(SessionInterface $session, ProgrammeRepository $programmeRepository): Response
     {
-        //recuoerer des programmes du panier
+        //recuperer des programmes du panier
         $panier = $session->get('panier',[]);
         $dataPanier= [];
         $total = 0;
@@ -69,7 +69,6 @@ class PanierController extends AbstractController
     #[Route('/panier/add/{id}', name: 'add_panier')]
     public function AddToPanier(Programme $programme, SessionInterface $session): Response
     {
-        
             if ($this->getUser()) {
                 if ($this->getUser()->getroles()[0] == 'ROLE_USER') {
                     $id = $programme->getId();
