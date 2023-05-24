@@ -14,7 +14,7 @@ class SearchCoachType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class,['label'=>false,'attr'=>['placeholder'=>'Chercher un coach par nom...','class' => 'search-input']])
-            ->add('submit',SubmitType::class,['label'=>'chercher','attr'=>['class' => 'search-btn']])
+            ->add('submit',SubmitType::class,['label'=>'<i class="fa-solid fa-magnifying-glass"></i>','attr'=>['class' => 'search-btn'],'label_html' => true,])
 
         ;
     }

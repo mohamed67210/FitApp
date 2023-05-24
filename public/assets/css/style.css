@@ -966,7 +966,7 @@ a {
 
 /* page show Coachs */
 .search-form {
-    width: 50%;
+    width: 40%;
     display: flex;
     justify-content: center;
     position: relative;
@@ -978,8 +978,10 @@ a {
     width: 70%;
     height: 100%;
     background-color: transparent;
-    padding: 2px;
+    padding: 5px;
     color: white;
+    border: none;
+    outline: none;
 }
 .search-btn {
     position: absolute;
@@ -987,6 +989,9 @@ a {
     width: 30%;
     bottom: 0;
     height: 100%;
+}
+.fa-magnifying-glass{
+    font-size: large;
 }
 #coachs_container {
     width: 95%;
