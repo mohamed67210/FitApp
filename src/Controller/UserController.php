@@ -6,6 +6,7 @@ use App\Entity\Diplome;
 use App\Entity\Programme;
 use App\Entity\User;
 use App\Form\DiplomeType;
+use App\Form\SearchCoachType;
 use App\Form\UserType;
 use App\Repository\CommentaireRepository;
 use App\Repository\UserRepository;
@@ -42,14 +43,33 @@ class UserController extends AbstractController
         return  $this->redirectToRoute('app_home');
     }
 
-    // recuperer tt les users qui ont le role COACH
+    // afficher les coachs ,barre de recherche
     #[Route('/Coachs', name: 'show_coachs')]
-    public function showCoachs(UserRepository $userRepository): Response
+    public function showCoachs(UserRepository $userRepository,Request $request): Response
     {
-        $coachs = $userRepository->findByRole('ROLE_COACH');
-        return $this->render('user/showCoachs.html.twig', [
-            'coachs' => $coachs,
+        $form =$this->createForm(SearchCoachType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            // dd($data['nom']);
+            $coach = $userRepository->findOneBy(['nom' => $data['nom']]);
+            if ($coach) {
+                return $this->render('user/showCoachs.html.twig', [
+                    'searchform' => $form->createView(),
+                    'coach' => $coach,
+                ]);
+            }
+            else {
+                return $this->redirectToRoute('show_coachs');
+            }
+            
+        } else {
+            $coachs = $userRepository->findByRole('ROLE_COACH');
+            return $this->render('user/showCoachs.html.twig', [
+                'searchform' => $form->createView(),
+                'coachs' => $coachs,
         ]);
+        }
     }
 
     // afficher profile user connecté

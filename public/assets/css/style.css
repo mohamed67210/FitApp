@@ -965,6 +965,29 @@ a {
 }
 
 /* page show Coachs */
+.search-form {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    border: 1px solid #B1ACAC;
+    overflow: hidden;
+    border-radius: 5px;
+}
+#search_coach_nom {
+    width: 70%;
+    height: 100%;
+    background-color: transparent;
+    padding: 2px;
+    color: white;
+}
+.search-btn {
+    position: absolute;
+    right: 0;
+    width: 30%;
+    bottom: 0;
+    height: 100%;
+}
 #coachs_container {
     width: 95%;
     background-color: #B1ACAC;
@@ -1361,13 +1384,12 @@ video {
 }
 
 #programme_card_container_section {
-    width: 80vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: white;
     height: 80vh;
-    /* position: fixed; */
     top: 5rem;
     right: 2rem;
 }
@@ -1386,7 +1408,9 @@ video {
 }
 
 #programme_card_container_section .programme_card_info {
-    height: 15%;
+    height: 5%;
+    width: 80%;
+    margin-left: 10%;
     padding: 0.5rem 10%;
     /* background-color: #0062cc; */
 }
@@ -1402,7 +1426,8 @@ video {
 }
 
 .programme_card_btns {
-    width: 100%;
+    width: 80%;
+    margin-left: 10%;
     height: 25%;
     display: flex;
     flex-direction: column;
@@ -1548,13 +1573,6 @@ video {
     }
 
     #programme_infos_avis_section {
-        width: 100%;
-    }
-
-    #programme_card_container_section {
-        /* background-color: #007bff; */
-        top: 2rem;
-        position: static;
         width: 100%;
     }
 }

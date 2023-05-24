@@ -4,8 +4,12 @@
 
 {% block body %}
 <main class="container">
+    {{ form_start(searchform) }}
+    {{ form_row(searchform.nom) }}
+    {{ form_end(searchform) }}
     <h2>Découvrez nos <strong>coachs sportifs</strong> inscrits sur notre site web !</h2>
     <section id="coachs_container">
+        {% if coachs is defined %}
         {% for coach in coachs %}
         <a href="{{ path('show_user', {'id': coach.id}) }}">
             <figure class="coach_container">
@@ -14,6 +18,15 @@
             </figure>
         </a>
         {% endfor %}
+        {% else %}
+        <a href="{{ path('show_user', {'id': coach.id}) }}">
+            <figure class="coach_container">
+                <img src="{{ asset('assets/images/user/'~ coach.image ~'') }}" alt="{{coach.image}}">
+                <figcaption>{{(coach.prenom|slice(0,1))|upper }}.{{coach.nom|upper}}</figcaption>
+            </figure>
+        </a>
+        {% endif %}
+        
     </section>
 
 </main>
