@@ -4,26 +4,39 @@
 
 {% block body %}
 <main class="container">
-    <h2>Les programmes de la categorie <span>{{categorie.intitule|upper}}</span></h2>
-    <div class="programmes_container">
-        {% for programme in categorie.programmes %}
-        {% if programme.isValid == true %}
-        <div class="programme_cart">
-            <div class="programme_image">
-                <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
-                <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="{{programme.intitule}}">
-            </div>
-            <div class="programme_contenu">
-                <h5>{{programme.intitule|upper}}</h5>
-                <p>{{programme.description}}</p>
-                <span class="prix">{{programme.prix}} €</span>
-            </div>
-            <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
+    {% if categorie.programmes is not empty %}
+    <section class="splide" aria-label="Splide Basic HTML Example">
+        <h2>Les programmes de la categorie <span>{{categorie.intitule|upper}}</span></h2>
+        <div class="splide__track">
+              <ul class="splide__list">
+                {% for programme in categorie.programmes %}
+                <div class="splide__slide">
+                    <div class="card-swiper">
+                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                            alt="{{programme.intitule}}">
+                        <div class="card-body">
+                            <h4>{{programme.intitule|split(' ')|slice(0, 4)|join(' ')~ '...'}}</h4>
+                            <span><a href="{{path('categorie_programmes', { 'id': programme.categorie.id })}}">{{programme.categorie}}</a> </span>
+                            <p>Créateur : {{programme.coach}}</p>
+                            <div class="programme_contenu_prix">
+                                {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                                <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                                <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                                {% else %}
+                                <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{{path('show_programme',{'id':programme.id})}}" class="btn">S'inscrire</a>
+                    </div>
+                </div>
+                {% endfor %}
+              </ul>
         </div>
-        {% endif %}
-
-        {% endfor %}
-    </div>
+    </section>
+    {% else %}<div><p>Désolé pour le moment il n'ya pas encore de programme pour cette catégorie</p></div>
+    {% endif %}
+    
 
 </main>
 

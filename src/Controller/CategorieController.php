@@ -15,9 +15,23 @@ class CategorieController extends AbstractController
     {
         // chercher la categorie avec le id 
         $id =  $request->attributes->get('_route_params');
-        $oneCategorie = $categorieRepository->findOneBy(['id' => $id]);
-        return $this->render('categorie/categorieProgrammes.html.twig', [
-            'categorie' => $oneCategorie,
-        ]);
+        $categorie = $categorieRepository->findOneBy(['id' => $id]);
+        if ($categorie) {
+            $programmes = $categorie->getProgrammes();
+            if (count($programmes)>0) {
+                return $this->render('categorie/categorieProgrammes.html.twig', [
+                    'categorie' => $categorie,
+                ]);
+            }
+            else{
+                $this->addFlash('message',"Désolé cette catégorie n'as pas de programme pour le moment");
+                return $this->redirectToRoute('app_home');
+            }
+        }
+        else{
+            $this->addFlash('message',"accés refusé !");
+            return $this->redirectToRoute('app_home');
+        }
+        
     }
 }
