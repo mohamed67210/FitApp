@@ -77,9 +77,10 @@ class ModuleController extends AbstractController
 
     // recuperer les modules d'un programme
     #[Route('/modules/{id}', name: 'programme_modules')]
-    public function programmeModules($id, ModuleRepository $moduleRepository, Programme $programme, UserRepository $userRepository, CommandeRepository $commandeRepository): Response
+    public function programmeModules($id, ModuleRepository $moduleRepository, Programme $programme = null, UserRepository $userRepository, CommandeRepository $commandeRepository): Response
     {
-        // recuperer l'user connecter 
+        if ($programme) {
+            // recuperer l'user connecter 
         $user = $userRepository->findOneBy(['id' => $this->getUser()]);
         // recuperer les commandes de user connecté 
         $command = $commandeRepository->findBy(['user' => $user, 'programme' => $programme]);
@@ -98,7 +99,13 @@ class ModuleController extends AbstractController
                 'modules' => $programmeModules,
             ]);
         } else {
+            $this->addFlash('message','accés refusé !');
             return $this->redirectToRoute("app_home");
+        }
+        }
+        else{
+            $this->addFlash('message','accés refusé !');
+            return $this->redirectToRoute('app_home');
         }
     }
 
