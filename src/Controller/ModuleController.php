@@ -111,23 +111,46 @@ class ModuleController extends AbstractController
 
     // supprission d'un module
     #[Route('/module/delete/{id}', name: 'delete_module')]
-    public function deleteModule(ManagerRegistry $doctrine, Module $module): Response
+    public function deleteModule(ManagerRegistry $doctrine, Module $module = null): Response
     {
-        // supprission d'imade de dossier image
-        $video = $module->getVideo();
-        if ($video) {
-            // le chemin de l'image
-            $nomVideo = $this->getParameter('moduleVideo_directory') . '/' . $video;
-            // verifier si le file existe dans le dossier
-            if (file_exists($nomVideo)) {
-                unlink($nomVideo);
+        if ($module) {
+            if ($this->getUser()) {
+                // recuperer le programme de module pour verifier si c'est le bon coach 
+                $programme = $module->getProgramme();
+                $coach = $programme->getCoach();
+                if ($this->getUser() == $coach) {
+                    // supprission de video de dossier image
+                    $video = $module->getVideo();
+                    if ($video) {
+                        // le chemin de l'image
+                        $nomVideo = $this->getParameter('moduleVideo_directory') . '/' . $video;
+                        // verifier si le file existe dans le dossier
+                        if (file_exists($nomVideo)) {
+                            unlink($nomVideo);
+                        }
+                    }
+                    $programmeId = $module->getProgramme()->getId();
+                    $entityManager = $doctrine->getManager();
+                    $module =  $entityManager->getRepository(Module::class)->remove($module);
+                    $entityManager->flush();
+                    $this->addFlash('message', 'le module est supprimé !');
+                    return  $this->redirectToRoute('programme_modules', ['id' => $programmeId]);
+                }
+                else{
+                    $this->addFlash('message','accés refusé !');
+                    return $this->redirectToRoute('app_login');
+                }  
+            }
+            else{
+                $this->addFlash('message','accés refusé !');
+                return $this->redirectToRoute('app_login');
             }
         }
-        $programmeId = $module->getProgramme()->getId();
-        $entityManager = $doctrine->getManager();
-        $module =  $entityManager->getRepository(Module::class)->remove($module);
-        $entityManager->flush();
-        $this->addFlash('success', 'le module est supprimé !');
-        return  $this->redirectToRoute('programme_modules', ['id' => $programmeId]);
+        else{
+            $this->addFlash('message','accés refusé !');
+            return $this->redirectToRoute('app_home');
+        }
+            
+        
     }
 }
