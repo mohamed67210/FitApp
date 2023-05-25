@@ -10,7 +10,6 @@ use App\Repository\ModuleRepository;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +44,6 @@ class ModuleController extends AbstractController
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
                 // dd($newFilename);
-
                 // Move the file to the directory where Programme images are stored
                 try {
                     $uploadedFile->move(
