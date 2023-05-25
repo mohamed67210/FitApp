@@ -1,11 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
-
 {% block body %}
-{# <img src="" alt=""> #}
 <main class="container_home">
-    {# {{ dump(app.flashes('message')) }} #}
     {% for message in app.flashes('message') %}
     <div class="notification">
         <p>{{ message }}</p>
@@ -13,9 +10,6 @@
     </div>
     {% endfor %}
     <section class="banniere">
-        {# <div class="image">
-            <img src="{{asset('assets/images/banniere/baniere2-min.jpg')}}" alt="image">
-        </div> #}
         <video autoplay muted loop>
             <source src="{{asset('assets/videos/video1.mp4')}}" type="video/mp4" />
         </video>
@@ -74,6 +68,28 @@
             <img src="{{asset('assets/images/banniere/imagehome.jpg')}}" alt="">
         </figure>
     </section> #}
+    <section class="splide" aria-label="Splide Basic HTML Example">
+        <h2>Nouveauté !</h2>
+        <div class="splide__track">
+              <ul class="splide__list">
+                {% for programme in lastProgrammes %}
+                <div class="splide__slide">
+                    <div class="card-swiper">
+                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                            alt="{{programme.intitule}}">
+                        <div class="card-body">
+                            <h4>{{programme.intitule|split(' ')|slice(0, 4)|join(' ')~ '...'}}</h4>
+                            <span><a href="{{path('categorie_programmes', { 'id': programme.categorie.id })}}">{{programme.categorie}}</a> </span>
+                            <p>Créateur : {{programme.coach}}</p>
+                            <p>{{programme.prix}} €</p>
+                        </div>
+                        <a href="{{path('show_programme',{'id':programme.id})}}" class="btn">S'inscrire</a>
+                    </div>
+                </div>
+                {% endfor %}
+              </ul>
+        </div>
+    </section>
     <section id="commentcamarche_section">
         <div class="gradien_top"></div>
         <div class="gradien_bottom"></div>
@@ -103,32 +119,7 @@
             </article>
         </div>
     </section>
-    {# <section id="last5_programmes_section">
-        <h2>Nouveauté !</h2>
-        <i class="fa-solid fa-chevron-left"></i>
-        <i class="fa-solid fa-chevron-right"></i>
-        <article id="slide_show">
-            {% for programme in lastProgrammes %}
-            <div class="slide">
-                <div class="programme_cart">
-                    <div class="programme_image">
-                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
-                                {{programme.coach}}</span></a>
-                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
-                            alt="{{programme.intitule}}">
-                    </div>
-                    <div class="programme_contenu">
-                        <h5>{{programme.intitule|upper}}</h5>
-                        <span class="prix">{{programme.prix}} €</span>
-                    </div>
-                    <a href="{{path('show_programme',{'id':programme.id})}}"><i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-            {% endfor %}
-        </article>
-    </section> #}
-
-    <section id="swiper-sectioon">
+    {# <section id="swiper-sectioon">
         <h2>Nouveauté !</h2>
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -150,26 +141,25 @@
                 {% endfor %}
             </div>
         </div>
-    </section>
-
-
-
+    </section> #}
     <section id="categories">
-        <h2>Decouvrez nos plusieurs Categories d'activités </h2>
-        <p>Nous sommes fiers de proposer une large gamme de programmes de remise en forme, allant de la musculation à la
-            boxe en passant par le yoga et la dense. Tous nos programmes sont élaborés par des professionnels de sport,
-            et sont adaptés en fonction de vos objectifs personnels et de votre niveau de forme actuel.</p>
-        <div id="categories_container">
-            {% for categorie in categories %}
-            <a href="{{ path('categorie_programmes', { 'id': categorie.id }) }}">
-                <div class="categorie_cart">
-                    <h3>{{ categorie.intitule|upper}}</h3>
-                    <div class="categorie_image">
-                        <img src="{{ asset('assets/images/categories/'~ categorie.image ~'') }}" alt="image">
+        <h2>Decouvrez nos plusieurs Categories d'activités ! </h2>
+        <div class="categories_container">
+            <div id="categories_container">
+                {% for categorie in categories %}
+                <a href="{{ path('categorie_programmes', { 'id': categorie.id }) }}">
+                    <div class="categorie_cart">
+                        <h3>{{ categorie.intitule|upper}}</h3>
+                        <div class="categorie_image">
+                            <img src="{{ asset('assets/images/categories/'~ categorie.image ~'') }}" alt="image">
+                        </div>
                     </div>
-                </div>
-            </a>
-            {% endfor %}
+                </a>
+                {% endfor %}
+            </div>
+            <center><p>Nous sommes fiers de proposer une large gamme de programmes de remise en forme, allant de la musculation à la
+                boxe en passant par le yoga et la dense. Tous nos programmes sont élaborés par des professionnels de sport,
+                et sont adaptés en fonction de vos objectifs personnels et de votre niveau de forme actuel.</p></center>
         </div>
     </section>
 </main>
