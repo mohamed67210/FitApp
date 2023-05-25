@@ -16,6 +16,11 @@ btnMenu.addEventListener('click', function () {
     btnMenu.classList.toggle('is-active');
     navLinks.classList.toggle('open')
 });
+navLinks.addEventListener('mouseleave',function () {
+    console.log('menu fermer');
+    navLinks.classList.toggle('open');
+    btnMenu.classList.toggle('is-active');
+})
 // animation after scroll (pour categories et section about)
 // Changing the defaults
 window.sr = ScrollReveal({ reset: true });

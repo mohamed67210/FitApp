@@ -18,13 +18,16 @@ class CommentaireType extends AbstractType
             // ->add('create_at')
             // ->add('user')
             // ->add('programme')
-            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);;
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_comment']]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Commentaire::class,
+            'attr' => [
+                'class' => 'commentaire-form',
+            ]
         ]);
     }
 }

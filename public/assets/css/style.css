@@ -1461,7 +1461,24 @@ video {
     text-align: center;
     color: var(--couleur-primaire);
 }
-
+.commentaire-form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: var(--couleur-secondaire);
+    padding: 1rem;
+}
+.commentaire-form label{
+    color: white;
+}
+.btn_comment{
+    background-color: var(--couleur-primaire);
+    width: 100px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+}
 #commentaire_container {
     border-top: 2px solid var(--couleur-primaire);
     width: 20rem;
@@ -1504,6 +1521,10 @@ video {
 .commentaire_form {
     width: 100%;
     padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--couleur-secondaire);
 }
 
 .commentaire_form form div {
