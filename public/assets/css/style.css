@@ -559,7 +559,7 @@ footer a {
 }
 
 #about_text h2 {
-    color: var(--couleur-secondaire);
+    color: white;
 }
 
 #about_text p {
@@ -678,6 +678,12 @@ a {
 }
 .splide__track{
     background-color: #ccccccab;
+}
+.splide__list{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
 }
 /* Styles pour les cartes */
 .card-swiper {
