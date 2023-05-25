@@ -600,7 +600,9 @@ footer a {
     gap: 1rem;
     position: relative;
 }
-
+#commentcamarche_section div article h3{
+    color: var(--couleur-secondaire);
+}
 #commentcamarche_section div article p {
     font-size: small;
     color: #011826;
@@ -609,9 +611,13 @@ footer a {
 }
 
 #commentcamarche_section div article a {
-    background-color: #011826;
-    color: #B1ACAC;
+    background-color: var(--couleur-secondaire);
+    color: white;
     width: 5rem;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    padding: 2px;
 }
 
 #commentcamarche_section div #membre {
@@ -664,6 +670,7 @@ a {
 }
 
 /* section dernier programmes */
+
 /* splide pour les nouveauté home page */
 .splide{
     /* background-color: #3250bf; */
