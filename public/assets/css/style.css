@@ -1471,6 +1471,13 @@ video {
 .commentaire-form label{
     color: white;
 }
+.form-label{
+    width: 70%;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.603);
+    color: white;
+    font-size: medium;
+}
 .btn_comment{
     background-color: var(--couleur-primaire);
     width: 100px;
