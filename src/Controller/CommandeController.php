@@ -21,21 +21,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommandeController extends AbstractController
 {
-    #[Route('/commande/{id}', name: 'app_commande')]
-    public function index(Request $request, Programme $programme): Response
-    {
-        dd($this->getUser());
-        //on verifie si ya un user connecté
-        if (!$this->getUser()) {
-            return $this->redirectToRoute("app_login");
-        } else {
-            $form = $this->createForm(CommandeType::class, null, ['user' => $this->getUser()]);
-            return $this->render('commande/index.html.twig', [
-                'CommandeForm' => $form->createView(),
-                'programme' => $programme
-            ]);
-        }
-    }
+    // #[Route('/commande/{id}', name: 'app_commande')]
+    // public function index(Request $request, Programme $programme): Response
+    // {
+    //     dd($this->getUser());
+    //     //on verifie si ya un user connecté
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute("app_login");
+    //     } else {
+    //         $form = $this->createForm(CommandeType::class, null, ['user' => $this->getUser()]);
+    //         return $this->render('commande/index.html.twig', [
+    //             'CommandeForm' => $form->createView(),
+    //             'programme' => $programme
+    //         ]);
+    //     }
+    // }
 
     //paeiment d'un seul programme sans passer par panier session
     #[Route('/paeiment/{id}', name: 'paeiment')]
@@ -73,14 +73,12 @@ class CommandeController extends AbstractController
                                         'currency' => 'EUR',
                                         'product_data' => [
                                             'name' => $programme->getIntitule(),
-                                            // 'images' => $productImageUrl,
                                         ],
                                         'unit_amount' => $prix
                                     ],
                                     'quantity' => 1,
                                 ]
                             ],
-                            // dd($programme),
                             'mode' => 'payment',
                             'success_url' => 'http://127.0.0.1:8000/stripe/webhook',
                             'cancel_url' => 'http://127.0.0.1:8000/',
@@ -108,7 +106,6 @@ class CommandeController extends AbstractController
             $this->addFlash('message','accés refusé ');
             return $this->redirectToRoute('app_home');
         }
-        
     }
     #[Route('/paeiment', name: 'panier_paeiment')]
     public function PanierPaiement(SessionInterface $session,ProgrammeRepository $programmeRepository):Response

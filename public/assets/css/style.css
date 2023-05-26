@@ -688,7 +688,6 @@ a {
     display: flex;
     flex-direction: row;
     /* gap: 1rem; */
-    background-color: red;
 }
 /* Styles pour les cartes */
 .card-swiper {

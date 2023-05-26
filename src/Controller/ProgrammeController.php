@@ -190,7 +190,7 @@ class ProgrammeController extends AbstractController
 
     // afficher detail d'un programme,avec affichage de formulaire de commentaire
     #[Route('/programme/{id}', name: 'show_programme')]
-    public function showProgramme(ManagerRegistry $doctrine, Programme $programme = null, Commentaire $commentaire = null, Request $request): Response
+    public function showProgramme(ManagerRegistry $doctrine, Programme $programme = null, Commentaire $commentaire = null, Request $request,UserRepository $userRepository): Response
     {
         if ($programme) {
             $commentaire = new Commentaire;
@@ -217,8 +217,23 @@ class ProgrammeController extends AbstractController
                     return $this->redirectToRoute('show_programmes');
                 }
             }
+            // verifier si l'user connecté  a deja acheter le programme pour l'affiche des bouton d'achat
+            $userConnect = $this->getUser();
+            $user = $userRepository->findOneBy(['id'=> $userConnect]);
+            // dd($user);
+            $commandes =$user->getCommandes();
+            $programmeAchete = false;
+            foreach($commandes as $commande){
+                if (($commande->getProgramme() === $programme)) {
+                    $programmeAchete = true;
+                }
+                else {
+                    $programmeAchete = false;
+                }
+            }
             return $this->render('programme/showProgramme.html.twig', [
                 'programme' => $programme,
+                'programmeAchete' => $programmeAchete,
                 'commentaireForm' => $form->createView()
             ]);
         } else {
