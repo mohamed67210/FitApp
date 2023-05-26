@@ -22,9 +22,6 @@ class Commande
     #[ORM\Column(length: 255)]
     private ?string $adresseFacturation = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $paysFacturation = null;
-
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Programme $programme = null;
@@ -73,17 +70,6 @@ class Commande
         return $this;
     }
 
-    public function getPaysFacturation(): ?string
-    {
-        return $this->paysFacturation;
-    }
-
-    public function setPaysFacturation(string $paysFacturation): self
-    {
-        $this->paysFacturation = $paysFacturation;
-
-        return $this;
-    }
 
     public function getProgramme(): ?Programme
     {

@@ -171,7 +171,6 @@ class CommandeController extends AbstractController
                 $commande->setUser($this->getUser());
                 $commande->setProgramme($programme);
                 $commande->setAdresseFacturation($email);
-                $commande->setPaysFacturation('France');
                 $commande->setMontant($montant);
                 $commande->setCreateAt(new \DateTime());
                 
