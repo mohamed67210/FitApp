@@ -23,10 +23,10 @@ class Programme
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $prix = null;
+    private ?float $prix = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $prixPromo = null;
+    private ?float $prixPromo = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $image = null;
@@ -93,24 +93,24 @@ class Programme
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-    public function getPrixPromo(): ?int
+    public function getPrixPromo(): ?float
     {
         return $this->prixPromo;
     }
 
-    public function setPrixPromo(?int $prixPromo): self
+    public function setPrixPromo(?float $prixPromo): self
     {
         $this->prixPromo = $prixPromo;
 
