@@ -153,20 +153,24 @@ class CommandeController extends AbstractController
 
     // creer la commande apres la validation de peiement pas stripe
     #[Route('/validate/{id}', name: 'app_validate')]
-    public function createCommande(Programme $programme = null,ManagerRegistry $doctrine,Commande $commande = null): Response
+    public function createCommande(Programme $programme = null,ManagerRegistry $doctrine,Commande $commande = null,UserRepository $userRepository): Response
     {
         if ($this->getUser()) {
             if ($programme) {
+                // recuperer le prix du programme
                 if ($programme->getPrixPromo() == null) {
                     $montant = $programme->getPrix();
                 }
                 else{
                     $montant = $programme->getPrixPromo();
                 }
+                // recuperer l'adresse de user
+                $user = $userRepository->findOneBy(['id'=>$this->getUser()]);
+                $email = $user->getEmail();
                 $commande = new Commande();
                 $commande->setUser($this->getUser());
                 $commande->setProgramme($programme);
-                $commande->setAdresseFacturation('test@outlook.fr');
+                $commande->setAdresseFacturation($email);
                 $commande->setPaysFacturation('France');
                 $commande->setMontant($montant);
                 $commande->setCreateAt(new \DateTime());
@@ -174,6 +178,7 @@ class CommandeController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($commande);
                 $entityManager->flush();
+                $this->addFlash('message','Félécitaion vous venez de vous inscrire a un nouveau programme ! ');
                 return $this->redirectToRoute('show_profile');
             } else {
                 return $this->render('programme/allProgrammes.html.twig', [
