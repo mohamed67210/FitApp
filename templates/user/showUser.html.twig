@@ -65,6 +65,7 @@
         {# <h2>Les programmes</h2> #}
         <div class="programmes_container">
             {% for programme in user.programsCreated %}
+            {% if programme.isIsValid == true %}
             <div class="programme_cart">
                 {% if app.user == user %}
                 <div class="btn_panel">
@@ -91,6 +92,8 @@
                 </div>
                 <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
             </div>
+            {% else %}<p>mes programmes seront bientot disponible pour vous </p>
+            {% endif %}
             {% endfor %}
             {# pour le membre on affiche liste des cours acheter et favorie #}
             {# favorie liste pour user membre connecté #}
