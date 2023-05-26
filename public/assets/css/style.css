@@ -687,7 +687,8 @@ a {
 .splide__list{
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    /* gap: 1rem; */
+    background-color: red;
 }
 /* Styles pour les cartes */
 .card-swiper {

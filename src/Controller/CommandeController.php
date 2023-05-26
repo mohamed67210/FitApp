@@ -6,7 +6,9 @@ use App\Entity\Commande;
 use App\Entity\Programme;
 use App\Form\CommandeType;
 use App\Repository\ProgrammeRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Boolean;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,92 +37,78 @@ class CommandeController extends AbstractController
         }
     }
 
-    /* #[Route('/commande/nouveau/{id}', name: 'add_commande')]
-    public function addCommande(ManagerRegistry $doctrine, Request $request, Programme $programme): Response
-    {
-        $user = $this->getUser();
-        if ($user) {
-            // dd($user->getRoles());
-            if ($user->getRoles()[0] == 'ROLE_USER') {
-                // dd($user->getRoles());
-                $commande = new Commande();
-                $form = $this->createForm(CommandeType::class, $commande);
-                $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $commande = $form->getData();
-                    $commande->setUser($this->getUser());
-                    $commande->setProgramme($programme);
-                    $commande->setMontant($programme->getPrix());
-                    // Créez un objet DateTime
-                    $dateTime = new \DateTime();
-                    // Convertissez l'objet DateTime en objet DateTimeImmutable
-                    $dateTimeImmutable = \DateTimeImmutable::createFromMutable($dateTime);
-                    // Utilisez l'objet DateTimeImmutable dans la méthode setCreateAt
-                    $commande->setCreateAt($dateTimeImmutable);
-                    $entityManager = $doctrine->getManager();
-                    $entityManager->persist($commande);
-                    $entityManager->flush();
-                    return $this->redirectToRoute('app_home');
-                }
-                return $this->render('commande/index.html.twig', [
-                    'CommandeForm' => $form->createView(),
-                ]);
-            } else {
-                // dd($programme->getId());
-                $this->addFlash('message', "Nous sommes désolé car vous ne pouvez pas commander tant que vous n'etes pas connecté entant que simple client !");
-                return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
-            }
-        } else {
-            return $this->redirectToRoute("app_login");
-        }
-    } */
-
     //paeiment d'un seul programme sans passer par panier session
     #[Route('/paeiment/{id}', name: 'paeiment')]
-    public function startPayment(Programme $programme): Response
+    public function startPayment(Programme $programme = null,UserRepository $userRepository): Response
     {
-        $user = $this->getUser();
-        if ($user) {
-            if ($user->getRoles()[0] == 'ROLE_USER') {
-                // recuperer le prix en promos si il existe
-                if ($programme->getPrixPromo() == null) {
-                    $prix = $programme->getPrix() . '00';
-                } else {
-                    $prix = $programme->getPrixPromo() . '00';
+        if ($programme) {
+            $userConnecte = $this->getUser();
+            $user = $userRepository->findOneBy(['id'=> $userConnecte]);
+            if ($userConnecte) {
+                // verifier si l'user a deja acheter ce programme
+                $programmeAcheter = false;
+                $commandes = $user->getCommandes();
+                foreach ($commandes as $commande) {
+                    // dd($commande->getProgramme());
+                    if(($commande->getProgramme()) === $programme){
+                        $programmeAcheter = true;
+                    }
+                    else {
+                        $programmeAcheter = false;
+                    }
                 }
-                Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
-                $session = Session::create([
-                    'line_items' => [
-                        [
-                            'price_data' => [
-                                'currency' => 'EUR',
-                                'product_data' => [
-                                    'name' => $programme->getIntitule(),
-                                    // 'images' => $productImageUrl,
-                                ],
-                                'unit_amount' => $prix
+                if ($programmeAcheter === false) {
+                    if ($userConnecte->getRoles()[0] == 'ROLE_USER') {
+                        // recuperer le prix en promos si il existe
+                        if ($programme->getPrixPromo() == null) {
+                            $prix = $programme->getPrix() . '00';
+                        } else {
+                            $prix = $programme->getPrixPromo() . '00';
+                        }
+                        Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
+                        $session = Session::create([
+                            'line_items' => [
+                                [
+                                    'price_data' => [
+                                        'currency' => 'EUR',
+                                        'product_data' => [
+                                            'name' => $programme->getIntitule(),
+                                            // 'images' => $productImageUrl,
+                                        ],
+                                        'unit_amount' => $prix
+                                    ],
+                                    'quantity' => 1,
+                                ]
                             ],
-                            'quantity' => 1,
-                        ]
-                    ],
-                    // dd($programme),
-                    'mode' => 'payment',
-                    'success_url' => 'http://127.0.0.1:8000/stripe/webhook',
-                    'cancel_url' => 'http://127.0.0.1:8000/',
-                    'billing_address_collection' => 'required',
-                    "metadata" => [
-                        'programme_id' => $programme,
-                    ]
-                ]);
-                return $this->redirect($session->url);
+                            // dd($programme),
+                            'mode' => 'payment',
+                            'success_url' => 'http://127.0.0.1:8000/stripe/webhook',
+                            'cancel_url' => 'http://127.0.0.1:8000/',
+                            'billing_address_collection' => 'required',
+                            "metadata" => [
+                                'programme_id' => $programme,
+                            ]
+                        ]);
+                        return $this->redirect($session->url);
+                    } else {
+                        $this->addFlash('message', 'vous devrez vous connecter entant que client pour pouvoir acheter un programme');
+                        return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+                    }
+                }
+                else {
+                    $this->addFlash('message', "vous avez déja acheté ce programme , vous pouvez le retrouver dans votre liste des programmes sur votre espace personelle ");
+                    return $this->redirectToRoute('show_programme',['id'=>$programme->getId()]);
+                }
+                
             } else {
-                $this->addFlash('message', 'vous devrez vous connecter entant que client pour pouvoir acheter un programme');
-                return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+                $this->addFlash('message', "vous devrez vous connecté pour pouvoir acheter un programme ");
+                return $this->redirectToRoute('app_login');
             }
-        } else {
-            $this->addFlash('message', "vous devrez vous connecté pour pouvoir acheter un programme ");
-            return $this->redirectToRoute('app_login');
+        }else{
+            $this->addFlash('message','accés refusé ');
+            return $this->redirectToRoute('app_home');
         }
+        
     }
     #[Route('/paeiment', name: 'panier_paeiment')]
     public function PanierPaiement(SessionInterface $session,ProgrammeRepository $programmeRepository):Response
