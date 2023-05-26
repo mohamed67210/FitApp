@@ -42,7 +42,7 @@ class CommandeController extends AbstractController
     #[Route('/paeiment/{id}', name: 'paeiment')]
     public function startPayment(Programme $programme = null,UserRepository $userRepository): Response
     {
-        if ($programme) {
+        if ($programme && ($programme->isIsValid())== true) {
             $userConnecte = $this->getUser();
             $user = $userRepository->findOneBy(['id'=> $userConnecte]);
             if ($userConnecte) {
