@@ -7,6 +7,7 @@ use App\Entity\Programme;
 use App\Form\CommandeType;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use phpDocumentor\Reflection\Types\Boolean;
 use Stripe\Checkout\Session;
@@ -80,7 +81,7 @@ class CommandeController extends AbstractController
                                 ]
                             ],
                             'mode' => 'payment',
-                            'success_url' => 'http://127.0.0.1:8000/valider'.$programme->getId().'',
+                            'success_url' => 'http://127.0.0.1:8000/validate/'.$programme->getId().'',
                             'cancel_url' => 'http://127.0.0.1:8000/programme/'.$programme->getId().'',
                             'billing_address_collection' => 'required',
                             "metadata" => [
@@ -147,5 +148,41 @@ class CommandeController extends AbstractController
             ]
         ]);
         return $this->redirect($session->url);
+    }
+
+    // creer la commande apres la validation de peiement pas stripe
+    #[Route('/validate/{id}', name: 'app_validate')]
+    public function createCommande(Programme $programme = null,ManagerRegistry $doctrine,Commande $commande = null): Response
+    {
+        if ($this->getUser()) {
+            if ($programme) {
+                if ($programme->getPrixPromo() == null) {
+                    $montant = $programme->getPrix();
+                }
+                else{
+                    $montant = $programme->getPrixPromo();
+                }
+                $commande = new Commande();
+                $commande->setUser($this->getUser());
+                $commande->setProgramme($programme);
+                $commande->setAdresseFacturation('test@outlook.fr');
+                $commande->setPaysFacturation('France');
+                $commande->setMontant($montant);
+                $commande->setCreateAt(new \DateTime());
+                
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($commande);
+                $entityManager->flush();
+                return $this->redirectToRoute('show_profile');
+            } else {
+                return $this->render('programme/allProgrammes.html.twig', [
+                    'controller_name' => 'ProgrammeController',
+                ]);
+            }
+        }
+        else{
+            return $this->redirectToRoute('app_login');
+        }
+        
     }
 }
