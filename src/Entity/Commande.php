@@ -13,8 +13,8 @@ class Commande
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $create_at = null;
+    #[ORM\Column(options:["default"=>"CURRENT_TIMESTAMP"])]
+    private ?\DateTime $create_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
@@ -37,12 +37,12 @@ class Commande
         return $this->id;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTime
     {
         return $this->create_at;
     }
 
-    public function setCreateAt(\DateTimeImmutable $create_at): self
+    public function setCreateAt(\DateTime $create_at): self
     {
         $this->create_at = $create_at;
 

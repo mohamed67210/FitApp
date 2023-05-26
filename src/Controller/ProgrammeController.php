@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Commentaire;
 use App\Entity\Programme;
 use App\Entity\User;
@@ -240,11 +241,5 @@ class ProgrammeController extends AbstractController
             return $this->redirectToRoute("show_programmes");
         }
     }
-    // #[Route('/programme', name: 'app_programme')]
-    // public function index(ProgrammeRepository $programmeRepository): Response
-    // {
-    //     return $this->render('programme/allProgrammes.html.twig', [
-    //         'controller_name' => 'ProgrammeController',
-    //     ]);
-    // }
+    
 }

@@ -84,6 +84,7 @@ class CommandeController extends AbstractController
                             'success_url' => 'http://127.0.0.1:8000/validate/'.$programme->getId().'',
                             'cancel_url' => 'http://127.0.0.1:8000/programme/'.$programme->getId().'',
                             'billing_address_collection' => 'required',
+                            "customer_email" => $user->getEmail(),
                             "metadata" => [
                                 'programme_id' => $programme,
                             ]
