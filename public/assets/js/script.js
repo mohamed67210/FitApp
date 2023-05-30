@@ -116,6 +116,35 @@ if (modules_link != null) {
     })
 }
 
+// popup diplomes
+const popup = document.querySelector('.diplomes_popup');
+const popup_btn = document.querySelector('.btn_popup');
+const popup_close = document.querySelector('.diplomes_popup_close')
+if(popup_btn != null){
+    // console.log('yes');
+    popup_btn.addEventListener('click',function () {
+        popup.style.display = 'flex'
+    })
+    popup_close.addEventListener('click',()=>{
+        popup.style.display = 'none'
+    })
+}
+// popup infos
+const popup_infos = document.getElementById('infos_popup');
+const infos_btn = document.querySelector('.infos_btn');
+const infos_popup_close = document.querySelector('.infos_popup_close')
+console.log(infos_popup_close)
+if (infos_btn != null) {
+    infos_btn.addEventListener('click',function () {
+        console.log(popup_close);
+        popup_infos.style.display = 'flex';
+    })
+    infos_popup_close.addEventListener('click',function () {
+        popup_infos.style.display = 'none';
+        
+    })
+}
+
 
 // menu coach ou admin au milieu de la navbar
 const menuUser = document.getElementById('menu_user');

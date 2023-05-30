@@ -39,7 +39,7 @@
                 {% if app.user %}
                 {# si le compte connecté est validé #}
                 {% if app.user.isVerified %}
-                <li><a href="{{ path('show_profile')}}">{{app.user}}</a></li>
+                <li><a href="{{ path('show_profile_test')}}">Profile</a></li>
                 <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                 <li>
                     <a href="{{ path('delete_compte') }}">Supprimer Compte</a>
