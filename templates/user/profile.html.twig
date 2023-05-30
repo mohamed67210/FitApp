@@ -25,6 +25,7 @@
                 {# nav pour membre profil #}
                 {% if user.roles.0 == "ROLE_USER"  %}
                 <li><button class="infos_btn">infos</button></li>
+                <li><button>programmes</button></li>
                 <li><button >Favories</button></li>
                 {# <li><button href="">Editer</button></li> #}
                 {% endif %}
@@ -90,6 +91,32 @@
                     </div>
                 </div>
             {% endif %}
+            {# -------------------------- si user connecté est membre #}
+            {% if user.roles.0 == "ROLE_USER" %}
+            {# {{ dump(user.commandes) }} #}
+
+            {% for commande in user.commandes %}
+            <div class="programme_cart">
+                <div class="programme_image">
+                    <img src="{{ asset('assets/images/programmes/'~ commande.programme.image ~'') }}"
+                        alt="{{commande.programme.intitule}}">
+                </div>
+                <div class="programme_contenu">
+                    <h5>{{commande.programme.intitule|upper}}</h5>
+                    <p>{{commande.programme.description}}</p>
+                    {% if commande.programme.prixPromo is defined and commande.programme.prixPromo is not null %}
+                    <span class="prix"><del>{{commande.programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                    <span class="prix">{{commande.programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                    {% else %}
+                    <span class="prix">{{commande.programme.prix|number_format(2, ',', '.')}} €</span>
+                    {% endif %}
+                </div>
+                <a href="{{path('show_programme',{'id':commande.programme.id})}}" class="btn_achat">Commencer</a>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
             {# -------------------------affichage infos user #}
             <div id="infos_popup">
                 <div class="popup_content">

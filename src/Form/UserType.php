@@ -22,8 +22,8 @@ class UserType extends AbstractType
         $builder
             // ->add('email', EmailType::class)
             // ->add('password', PasswordType::class)
-            ->add('prenom', TextType::class, ['label' => 'Votre Prénom', 'attr' => ['class' => 'form-control']])
-            ->add('nom', TextType::class, ['label' => 'Votre Nom', 'attr' => ['class' => 'form-control']])
+            ->add('prenom', TextType::class, ['required'=>false,'label' => 'Votre Prénom', 'attr' => ['class' => 'form-control']])
+            ->add('nom', TextType::class, ['required'=>false,'label' => 'Votre Nom', 'attr' => ['class' => 'form-control']])
             ->add('image', FileType::class, ['label'=>'Votre image de profile','attr' => ['class' => 'form-control'],'required' => false, 'mapped' => false, 'constraints' => [
                 new File([
                     'maxSize' => '5000k',
