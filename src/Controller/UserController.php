@@ -146,7 +146,7 @@ class UserController extends AbstractController
             dd('erreur');
             // $this->redirectToRoute('app_home');
         };
-        return $this->render('user/showUser.html.twig', [
+        return $this->render('user/profile.html.twig', [
             'user' => $user,
         ]);
         // }

@@ -22,22 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CommandeController extends AbstractController
 {
-    // #[Route('/commande/{id}', name: 'app_commande')]
-    // public function index(Request $request, Programme $programme): Response
-    // {
-    //     dd($this->getUser());
-    //     //on verifie si ya un user connecté
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute("app_login");
-    //     } else {
-    //         $form = $this->createForm(CommandeType::class, null, ['user' => $this->getUser()]);
-    //         return $this->render('commande/index.html.twig', [
-    //             'CommandeForm' => $form->createView(),
-    //             'programme' => $programme
-    //         ]);
-    //     }
-    // }
-
+  
     //paeiment d'un seul programme sans passer par panier session
     #[Route('/paeiment/{id}', name: 'paeiment')]
     public function startPayment(Programme $programme = null,UserRepository $userRepository): Response
@@ -109,6 +94,8 @@ class CommandeController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
     }
+
+    // --------------------paeiment de un ou plusieurs programmes a artir du panier en utilisant session
     #[Route('/paeiment', name: 'panier_paeiment')]
     public function PanierPaiement(SessionInterface $session,ProgrammeRepository $programmeRepository):Response
     {
@@ -151,7 +138,7 @@ class CommandeController extends AbstractController
         return $this->redirect($session->url);
     }
 
-    // creer la commande apres la validation de peiement pas stripe
+    // creer la commande apres la validation de peiement par stripe
     #[Route('/validate/{id}', name: 'app_validate')]
     public function createCommande(Programme $programme = null,ManagerRegistry $doctrine,Commande $commande = null,UserRepository $userRepository): Response
     {

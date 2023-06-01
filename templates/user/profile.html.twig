@@ -25,8 +25,8 @@
                 {# nav pour membre profil #}
                 {% if user.roles.0 == "ROLE_USER"  %}
                 <li><button class="infos_btn">infos</button></li>
-                <li><button>programmes</button></li>
-                <li><button >Favories</button></li>
+                <li><button class="programmes_btn">programmes</button></li>
+                <li><button class="favories_btn" >Favories</button></li>
                 {# <li><button href="">Editer</button></li> #}
                 {% endif %}
             </ul>
@@ -91,32 +91,52 @@
                     </div>
                 </div>
             {% endif %}
-            {# -------------------------- si user connecté est membre #}
+            {# -------------------------- profile membre #}
             {% if user.roles.0 == "ROLE_USER" %}
-            {# {{ dump(user.commandes) }} #}
-
-            {% for commande in user.commandes %}
-            <div class="programme_cart">
-                <div class="programme_image">
-                    <img src="{{ asset('assets/images/programmes/'~ commande.programme.image ~'') }}"
-                        alt="{{commande.programme.intitule}}">
+            {# ------------------------- affichage des programmes achetés #}
+            <div id="programmes_achete_container_membre">
+                {% for commande in user.commandes %}
+                <div class="programme_cart">
+                    <div class="programme_image">
+                        <a href="{{ path('show_user', {'id': commande.programme.coach.id}) }}"><span> By :
+                                {{commande.programme.coach}}</span></a>
+                        <img src="{{ asset('assets/images/programmes/'~ commande.programme.image ~'') }}"
+                            alt="{{commande.programme.intitule}}">
+                    </div>
+                    <div class="programme_contenu">
+                        <h5>{{commande.programme.intitule|upper}}</h5>
+                    </div>
+                    <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</i></a>
                 </div>
-                <div class="programme_contenu">
-                    <h5>{{commande.programme.intitule|upper}}</h5>
-                    <p>{{commande.programme.description}}</p>
-                    {% if commande.programme.prixPromo is defined and commande.programme.prixPromo is not null %}
-                    <span class="prix"><del>{{commande.programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
-                    <span class="prix">{{commande.programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
-                    {% else %}
-                    <span class="prix">{{commande.programme.prix|number_format(2, ',', '.')}} €</span>
-                    {% endif %}
-                </div>
-                <a href="{{path('show_programme',{'id':commande.programme.id})}}" class="btn_achat">Commencer</a>
+                {% endfor %}
             </div>
-            {% endfor %}
+            {# ---------------------------- affichage de programmes en favories #}
+            <div id="programmes_favories_container_membre">
+                {% for programme in user.favories %}
+                <div class="programme_cart">
+                    <div class="programme_image">
+                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span> By :
+                                {{programme.coach}}</span></a>
+                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                            alt="{{programme.intitule}}">
+                    </div>
+                    <div class="programme_contenu">
+                        <h5>{{programme.intitule|upper}}</h5>
+                        <div class="programme_contenu_prix">
+                            {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                            <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                            <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                            {% else %}
+                            <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+                </div>
+                {% endfor %}
+            </div>
+
             {% endif %}
-
-
             {# -------------------------affichage infos user #}
             <div id="infos_popup">
                 <div class="popup_content">

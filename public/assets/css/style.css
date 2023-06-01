@@ -884,6 +884,7 @@ a {
     font-size: xx-small;
     background-color: var(--couleur-secondaire);
     padding: 0.5rem;
+    border-radius: 10px 0;
 }
 
 .programme_image img {
@@ -896,18 +897,23 @@ a {
     height: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    padding: 0 0.5rem;
-    gap: 0.5rem;
     position: absolute;
-    top: 49%;
-    /* background-color: #467326; */
+    top: 40%;
+    background-color: transparent;
 }
 
 .programme_contenu p {
     color: #9b8f8f;
     font-size: xx-small;
+}
+.programme_cart a{
+    background-color: var(--couleur-secondaire);
+    color: white;
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
 }
 
 /* page show Coachs */
@@ -1623,6 +1629,7 @@ ul li{
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
+    gap: 2rem;
     justify-content: center;
     align-items: center;
 }
@@ -1691,6 +1698,15 @@ ul li{
 #popup_close{
     width: 40%;
     margin: 0 30%;
+}
+#programmes_achete_container_membre{
+    display: flex;
+    width: 100%;
+}
+#programmes_favories_container_membre{
+    display: none;
+    width: 100%;
+    height: fit-content;
 }
 @media only screen and (max-width: 77.5rem
 /* 1240px */

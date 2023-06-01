@@ -22,7 +22,11 @@ class UserType extends AbstractType
         $builder
             // ->add('email', EmailType::class)
             // ->add('password', PasswordType::class)
-            ->add('prenom', TextType::class, ['required'=>false,'label' => 'Votre Prénom', 'attr' => ['class' => 'form-control']])
+            ->add('prenom', TextType::class, [
+                'required'=>false,
+                'label' => 'Votre Prénom', 
+                'attr' => 
+                ['class' => 'form-control']])
             ->add('nom', TextType::class, ['required'=>false,'label' => 'Votre Nom', 'attr' => ['class' => 'form-control']])
             ->add('image', FileType::class, ['label'=>'Votre image de profile','attr' => ['class' => 'form-control'],'required' => false, 'mapped' => false, 'constraints' => [
                 new File([
@@ -33,7 +37,6 @@ class UserType extends AbstractType
                     'mimeTypesMessage' => 'Veuillez télécharger une image valide',
                 ])
             ],])
-            // ->add('biographie', TextareaType::class, ['required' => false])
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn btn-success']]);
     }
 

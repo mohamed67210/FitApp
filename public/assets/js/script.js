@@ -133,15 +133,31 @@ if(popup_btn != null){
 const popup_infos = document.getElementById('infos_popup');
 const infos_btn = document.querySelector('.infos_btn');
 const infos_popup_close = document.querySelector('.infos_popup_close')
-console.log(infos_popup_close)
 if (infos_btn != null) {
     infos_btn.addEventListener('click',function () {
-        console.log(popup_close);
         popup_infos.style.display = 'flex';
     })
     infos_popup_close.addEventListener('click',function () {
         popup_infos.style.display = 'none';
         
+    })
+}
+// afficher les favories membre 
+const favories_btn = document.querySelector('.favories_btn');
+const programmes_btn = document.querySelector('.programmes_btn');
+const favories_container = document.querySelector('#programmes_favories_container_membre')
+const programmes_container = document.querySelector('#programmes_achete_container_membre')
+
+if (favories_btn != null) {
+    favories_btn.addEventListener('click',function(){
+        console.log('favories');
+        favories_container.style.display = 'flex';
+        programmes_container.style.display = 'none';
+    })
+    programmes_btn.addEventListener('click',function(){
+        console.log('favories');
+        favories_container.style.display = 'none';
+        programmes_container.style.display = 'flex';
     })
 }
 
