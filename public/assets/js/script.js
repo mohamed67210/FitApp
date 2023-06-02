@@ -194,7 +194,7 @@ if (deleteLinks != null) {
 // slider pour nouveauté
 document.addEventListener( 'DOMContentLoaded', function() {
     var splide = new Splide( '.splide',{
-        perPage : 2,
+        perPage : 3,
         breakpoints :{
             640 :{
                 perPage :1,

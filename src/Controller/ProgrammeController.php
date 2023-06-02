@@ -219,19 +219,23 @@ class ProgrammeController extends AbstractController
                 }
             }
             // verifier si l'user connecté  a deja acheter le programme pour l'affiche des bouton d'achat
-            $userConnect = $this->getUser();
-            $user = $userRepository->findOneBy(['id'=> $userConnect]);
-            // dd($user);
-            $commandes =$user->getCommandes();
             $programmeAchete = false;
-            foreach($commandes as $commande){
-                if (($commande->getProgramme() === $programme)) {
-                    $programmeAchete = true;
-                }
-                else {
-                    $programmeAchete = false;
+            $userConnect = $this->getUser();
+            if ($userConnect) {
+                $user = $userRepository->findOneBy(['id'=> $userConnect]);
+                // dd($user);
+                $commandes =$user->getCommandes();
+                
+                foreach($commandes as $commande){
+                    if (($commande->getProgramme() === $programme)) {
+                        $programmeAchete = true;
+                    }
+                    else {
+                        $programmeAchete = false;
+                    }
                 }
             }
+            
             return $this->render('programme/showProgramme.html.twig', [
                 'programme' => $programme,
                 'programmeAchete' => $programmeAchete,
