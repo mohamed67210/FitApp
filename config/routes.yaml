@@ -10,3 +10,4 @@ stripe_webhook:
     path: /stripe/webhook
     controller: App\Controller\StripeWebhookController::handle
     methods: [POST]
+

@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\Url;
 
 class RegistrationFormType extends AbstractType
 {
@@ -33,10 +34,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('image', HiddenType::class, ['data' => 'defaultUser.png',])
             // ->add('nom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Nom']])
-            // ->add('prenom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Prenom']])
+            ->add('prenom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Prenom']])
             ->add('email', EmailType::class, ['label' => false,'attr'=>['placeholder'=>'VotreEmail']])
             ->add('agreeTerms', CheckboxType::class, [
-                'label'=>"Conditions d'utilisateur",
+                'label'=>"Lu et accepté ",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([

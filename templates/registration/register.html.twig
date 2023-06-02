@@ -24,10 +24,10 @@
     <div class="input_container">
         {{ form_row(registrationForm.image) }}
     </div>
-    {# <div class="input_container">
+    <div class="input_container">
         {{ form_row(registrationForm.prenom) }}
     </div>
-    <div class="input_container">
+    {# <div class="input_container">
         {{ form_row(registrationForm.nom) }}
     </div> #}
     <div class="input_container">
@@ -36,10 +36,13 @@
     <div class="input_container">
         {{ form_row(registrationForm.plainPassword) }}
     </div>
-
+    <small class="conditions_link">Conditions de confidentialité </small>
     {{ form_row(registrationForm.agreeTerms) }}
 
     <button type="submit" class="btn btn-success">Je m'inscrit</button>
     {{ form_end(registrationForm) }}
 </main>
+<article id="conditions_confidentialite">
+    {% include "_partials/politiques/confidentialite.html.twig" %}
+</article>
 {% endblock %}

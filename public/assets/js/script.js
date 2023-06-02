@@ -203,6 +203,27 @@ document.addEventListener( 'DOMContentLoaded', function() {
     } );
     splide.mount();
   } );
+  document.addEventListener('DOMContentLoaded', function () {
+    new Splide('.programmes_container', {
+        // Options de configuration de Splide.js
+        type: 'slide',
+        perPage: 1,
+        gap: 2,
+        // Ajoutez d'autres options selon vos besoins
+    }).mount();
+});
 
+// afficher conditions popup
+const cc_link = document.querySelector('.conditions_link');
+const cc_container =document.querySelector('#conditions_confidentialite');
+const cc_popup_close = document.querySelector('#close_cc_popup')
+if (cc_link != null) {
+    cc_link.addEventListener('click',function(){
+        cc_container.style.display = 'flex';
+    })
+    cc_popup_close.addEventListener('click',function(){
+        cc_container.style.display ='none'
+    })
+}
   
   

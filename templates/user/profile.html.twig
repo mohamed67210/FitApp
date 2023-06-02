@@ -38,38 +38,36 @@
             {% if user.roles.0 == "ROLE_COACH" %}
             {# --------------------------------------affichage des programmes creer #}
                 {% for programme in user.programsCreated %}
-                    <div class="programme_cart">
-                        {% if app.user == user %}
-                        <div class="btn_panel">
-                            <a href="{{ path('programme_modules',{'id': programme.id}) }}"><i class="fa-solid fa-list"></i></a>
-                            <a href="{{ path('edit_programme',{'id': programme.id}) }}"><i
-                                    class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="{{ path('delete_programme',{'id': programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
-                        </div>
-                        {% endif %}
-
-                        <div class="programme_image">
-                            <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
-                                alt="{{programme.intitule}}">
-                        </div>
-                        <div class="programme_contenu">
-                            <h5>{{programme.intitule|upper}}</h5>
-                            <p>{{programme.description}}</p>
+                <div class="programme_cart">
+                    <div class="programme_image">
+                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span> By :
+                                {{programme.coach}}</span></a>
+                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                            alt="{{programme.intitule}}">
+                    </div>
+                    <div class="programme_contenu">
+                        <h5>{{programme.intitule|upper}}</h5>
+                        <div class="programme_contenu_prix">
                             {% if programme.prixPromo is defined and programme.prixPromo is not null %}
                             <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
                             <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
                             {% else %}
-                            <span class="prix">{{programme.prix|number_format(2, ',', '.')}} €</span>
+                            <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
                             {% endif %}
                         </div>
-                        <a href="{{path('show_programme',{'id':programme.id})}}" class="btn_achat">Voir detail</a>
                     </div>
+                    <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+                </div>
                 {% endfor %}
                 {# ----------------------------------------------affichage de diplomes #}
                 <div class="diplomes_popup">
                     <div class="popup_content">
                     <div>
-                        <h2>mes diplomes</h2><i id="diplome_form_btn" class="fa-solid fa-plus"></i>
+                        <h2>mes diplomes</h2>
+                        {% if app.user == user %}
+                        <i id="diplome_form_btn" class="fa-solid fa-plus"></i>
+                            
+                        {% endif %}
                     </div>
                         <ul>
                         {% for diplome in user.diplomes %}
@@ -95,6 +93,7 @@
             {% if user.roles.0 == "ROLE_USER" %}
             {# ------------------------- affichage des programmes achetés #}
             <div id="programmes_achete_container_membre">
+                {% if user.commandes is not empty %}
                 {% for commande in user.commandes %}
                 <div class="programme_cart">
                     <div class="programme_image">
@@ -109,9 +108,14 @@
                     <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</i></a>
                 </div>
                 {% endfor %}
+                {% else %}
+                <h3>Vous n'avez pas encore acheté des cours</h3>
+                {% endif %}
+                
             </div>
             {# ---------------------------- affichage de programmes en favories #}
             <div id="programmes_favories_container_membre">
+                {% if user.favories is not empty %}
                 {% for programme in user.favories %}
                 <div class="programme_cart">
                     <div class="programme_image">
@@ -134,6 +138,9 @@
                     <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
                 </div>
                 {% endfor %}
+                {% else %}<h3>Pas de programmes dans votre liste de souhait</h3>
+                {% endif %}
+                
             </div>
 
             {% endif %}
@@ -142,12 +149,14 @@
                 <div class="popup_content">
                 <div>
                     <h2>mes infos</h2>
-                    <a href="{{ path('edit_user',{'id':user.id}) }}"><i id="diplome_form_btn" class="fa-solid fa-user-pen"></i></a>
+                        {% if app.user == user %}
+                        <a href="{{ path('edit_user',{'id':user.id}) }}"><i id="diplome_form_btn" class="fa-solid fa-user-pen"></i></a>
+                        {% endif %}
                 </div>
                 <ul>
                     <li><h4>nom : {{user.nom}}</h4></li>
-                    <li><h4>nom : {{user.prenom}}</h4></li>
-                    <li><h4>nom : {{user.email}}</h4></li>
+                    <li><h4>Prenom : {{user.prenom}}</h4></li>
+                    <li><h4>Email : {{user.email}}</h4></li>
                 </ul>
                     
                     <button id="popup_close" class="infos_popup_close">fermer</button>

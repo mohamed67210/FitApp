@@ -180,7 +180,6 @@ class UserController extends AbstractController
                         );
                     } catch (FileException $e) {
                     }
-
                     $user->setImage($newFilename);
                 }
                 // recuperer donnees de formulaire
