@@ -217,6 +217,10 @@ document.addEventListener( 'DOMContentLoaded', function() {
 const cc_link = document.querySelector('.conditions_link');
 const cc_container =document.querySelector('#conditions_confidentialite');
 const cc_popup_close = document.querySelector('#close_cc_popup')
+const vc_link = document.querySelector('.vc_link')
+const vc_container = document.querySelector('#conditions_vente')
+const vc_popup_close = document.querySelector('.vc_close')
+
 if (cc_link != null) {
     cc_link.addEventListener('click',function(){
         cc_container.style.display = 'flex';
@@ -225,5 +229,15 @@ if (cc_link != null) {
         cc_container.style.display ='none'
     })
 }
+if (vc_link != null) {
+    vc_link.addEventListener('click',function(){
+        vc_container.style.display = 'flex'
+    })
+    vc_popup_close.addEventListener('click',function(){
+        vc_container.style.display = 'none'
+
+    })
+}
+
   
   
