@@ -36,29 +36,59 @@
         <div class="user_body_content">
             {# -------------------------------------profile coach #}
             {% if user.roles.0 == "ROLE_COACH" %}
-            {# --------------------------------------affichage des programmes creer #}
-                {% for programme in user.programsCreated %}
-                <div class="programme_cart">
-                    <div class="programme_image">
-                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span> By :
-                                {{programme.coach}}</span></a>
-                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
-                            alt="{{programme.intitule}}">
-                    </div>
-                    <div class="programme_contenu">
-                        <h5>{{programme.intitule|upper}}</h5>
-                        <div class="programme_contenu_prix">
-                            {% if programme.prixPromo is defined and programme.prixPromo is not null %}
-                            <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
-                            <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
-                            {% else %}
-                            <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+            {# --------------------------------si le user connecté est coach on affiche tt les programmes valider en non valider #}
+            {% if user == app.user %}
+            {% for programme in user.programsCreated %}
+            <div class="programme_cart">
+                <div class="programme_image">
+                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span> By :
+                            {{programme.coach}}</span></a>
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                        alt="{{programme.intitule}}">
                 </div>
-                {% endfor %}
+                <div class="programme_contenu">
+                    <h5>{{programme.intitule|upper}}</h5>
+                    <div class="programme_contenu_prix">
+                        {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                        <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                        <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                        {% else %}
+                        <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+            </div>
+            {% endfor %}
+            {% else %}
+            {% for programme in user.programsCreated %}
+            {% if programme.isValid == true %}
+            <div class="programme_cart">
+                <div class="programme_image">
+                    <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span> By :
+                            {{programme.coach}}</span></a>
+                    <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                        alt="{{programme.intitule}}">
+                </div>
+                <div class="programme_contenu">
+                    <h5>{{programme.intitule|upper}}</h5>
+                    <div class="programme_contenu_prix">
+                        {% if programme.prixPromo is defined and programme.prixPromo is not null %}
+                        <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
+                        <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
+                        {% else %}
+                        <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+            </div>
+            {% endif %}
+            
+            {% endfor %}
+            {% endif %}
+            {# --------------------------------------affichage des programmes creer #}
+               
                 {# ----------------------------------------------affichage de diplomes #}
                 <div class="diplomes_popup">
                     <div class="popup_content">

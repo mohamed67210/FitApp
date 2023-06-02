@@ -1214,6 +1214,9 @@ a {
     gap: 1rem;
     width: 100%;
 }
+.container_modules h1,h3{
+    color: white;
+}
 
 #modules_list {
     width: 100%;
