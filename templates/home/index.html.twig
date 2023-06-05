@@ -20,10 +20,10 @@
                 <strong>bien-être</strong>
             </h2>
         </div>
-        <div class="banniere_btn_container">
+        {# <div class="banniere_btn_container">
             <a class="contact_btn" href="">Contactez Nous</a>
             <a class="info_btn" href="#commentcamarche_section">Plus d'infos</a>
-        </div>
+        </div> #}
     </section>
     <section id="about_section">
         <article class="about_container">
@@ -40,34 +40,9 @@
             </div>
         </article>
     </section>
-    {# <section id="statics_section">
-        <h2>Accélérez votre succès avec nous</h2>
-        <div>
-            <article>
-                <h2>{{coachs|length}}+<br> Coachs</h2>
-            </article>
-            <article>
-                <h2>{{ membres|length}}+<br> Membres</h2>
-            </article>
-            <article>
-                <h2>{{programmes|length}}+<br> Programmes</h2>
-            </article>
-        </div>
-    </section> #}
-    {# <section id="about_section">
-        <article class="about_text">
-            <h2>à propos de nous</h2>
-            <p>Nous avons créé <strong>JUSTRAINE</strong> pour aider les <strong>Coachs</strong> à partager leurs
-                connaissances avec un
-                public plus large. Nous croyons que tout le monde peut bénéficier d'un <strong>Coaching</strong> de
-                qualité, et nous
-                voulons rendre cela accessible à tous.
-            </p>
-        </article>
-        <figure class="about_image">
-            <img src="{{asset('assets/images/banniere/imagehome.jpg')}}" alt="">
-        </figure>
-    </section> #}
+    
+
+    
     <section class="splide" aria-label="Splide Basic HTML Example">
         <h2>Nouveauté !</h2>
         <div class="splide__track">
@@ -86,7 +61,7 @@
                                 <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
                                 <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
                                 {% else %}
-                                <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                                <span class="prix">{{programme.prix|number_format(2, ',', '.')}} €</span>
                                 {% endif %}
                             </div>
                         </div>

@@ -28,9 +28,10 @@ class UserController extends AbstractController
     public function deleteProgramme(ManagerRegistry $doctrine, Request $request, CommentaireRepository $commentaireRepository): Response
     {
         $user = $this->getUser();
-        $commentaires = $commentaireRepository->findBy(['user' => $user]);
-        $entityManager = $doctrine->getManager();
-        foreach ($commentaires as $commentaire) {
+        if ($user) {
+            $commentaires = $commentaireRepository->findBy(['user' => $user]);
+            $entityManager = $doctrine->getManager();
+            foreach ($commentaires as $commentaire) {
             $commentaire->setUser(null);
             $entityManager->persist($commentaire);
         }
@@ -41,6 +42,12 @@ class UserController extends AbstractController
         $this->container->get('security.token_storage')->setToken(null);
         $this->addFlash('message', 'le compte est supprimé !');
         return  $this->redirectToRoute('app_home');
+        }
+        else {
+            $this->addFlash('message','accés refusé !');
+            return $this->redirectToRoute('app_home');
+        }
+        
     }
 
     // afficher les coachs ,barre de recherche

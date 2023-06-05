@@ -32,7 +32,10 @@ body {
 }
 
 strong {
-    color: var(--couleur-secondaire);
+    background-color: var(--couleur-secondaire);
+    color: white;
+    padding: 0.2rem;
+    text-transform: uppercase;
 }
 
 a {
@@ -513,20 +516,11 @@ footer a {
     border-radius: 10px;
 }
 
-/* .image {
+.contenu h2{
+    line-height: 1.5;
 
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
+
 }
-
-.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(40%);
-} */
 
 /* section statics */
 #statics_section {
@@ -594,9 +588,9 @@ footer a {
     top: 10%;
     left: 20%;
     width: 35%;
-    height: 80%;
+    height: 90%;
     display: block;
-
+    overflow: hidden;
 }
 
 #about_text h2 {
@@ -625,7 +619,7 @@ footer a {
 
 
 #commentcamarche_section div {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -712,25 +706,23 @@ a {
 
 /* section dernier programmes */
 
+
+
+
 /* splide pour les nouveauté home page */
 .splide{
-    /* background-color: #3250bf; */
-    width: 90vw;
-    /* background-color: yellow; */
+    width: 80vw;
+    /* padding: 2rem; */
+    /* background-color: var(--couleur-secondaire); */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
 }
 .splide__track{
-    /* background-color: #ccccccab; */
     width: 100%;
 }
-.splide__list{
-    display: flex;
-    flex-direction: row;
-    /* gap: 1rem; */
-}
+
 /* Styles pour les cartes */
 .card-swiper {
     border: 1px solid #ddd;
@@ -740,7 +732,7 @@ a {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
     transform: scale(0.95);
-    width: 350px;
+    /* width: 350px; */
     height: 350px;
     position: relative;
 }
@@ -816,7 +808,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
 }
 .categories_container {
     /* background-color: #ccccccab; */
@@ -878,7 +870,8 @@ a {
 /* page categorie programmes */
 .programmes_container {
     width: 100%;
-    background-color: #D9D9D9;
+    background-color: transparent;
+    border: 1px solid white;
     padding: 1.5rem;
     display: flex;
     flex-wrap: wrap;
@@ -1309,6 +1302,8 @@ video {
     flex-direction: row;
     height: fit-content;
     padding: 0.5rem;
+    box-shadow: rgba(238, 234, 234, 0.432) 0px 5px 15px;
+    border-radius: 10px;
 }
 
 #programmes_categ .programmes_container .programme_cart {
@@ -1892,4 +1887,33 @@ input[type="submit"] {
     justify-content: center;
     /* align-items: center; */
     gap: 0.5rem;
+}
+/* responsive */
+@media (max-width: 767px) {
+
+    /* page accueil */
+    h2{
+        text-align: center;
+        font-size: large;
+    }
+    .contenu h2{
+        font-size: medium;
+    }
+    #about_text{
+        top: 0;
+        left: 0;
+        padding: 10%;
+        width: fit-content;
+        height: fit-content;
+    }
+    #about_text h2 {
+        font-size: small;
+        background-color: var(--couleur-secondaire);
+        width: fit-content;
+        padding: 0.2rem;
+    }
+    
+    #about_text p {
+        font-size: small;
+    }
 }

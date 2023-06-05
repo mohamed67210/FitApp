@@ -23,7 +23,7 @@
                                 <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
                                 <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
                                 {% else %}
-                                <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                                <span class="prix">{{programme.prix|number_format(2, ',', '.')}} €</span>
                                 {% endif %}
                             </div>
                         </div>

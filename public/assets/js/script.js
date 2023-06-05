@@ -195,6 +195,7 @@ if (deleteLinks != null) {
 document.addEventListener( 'DOMContentLoaded', function() {
     var splide = new Splide( '.splide',{
         perPage : 3,
+        focus: "center",
         breakpoints :{
             640 :{
                 perPage :1,
@@ -203,15 +204,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
     } );
     splide.mount();
   } );
-  document.addEventListener('DOMContentLoaded', function () {
-    new Splide('.programmes_container', {
-        // Options de configuration de Splide.js
-        type: 'slide',
-        perPage: 1,
-        gap: 2,
-        // Ajoutez d'autres options selon vos besoins
-    }).mount();
-});
+
 
 // afficher conditions popup
 const cc_link = document.querySelector('.conditions_link');
@@ -233,10 +226,13 @@ if (vc_link != null) {
     vc_link.addEventListener('click',function(){
         vc_container.style.display = 'flex'
     })
+
+if (vc_popup_close != null) {
     vc_popup_close.addEventListener('click',function(){
         vc_container.style.display = 'none'
-
     })
+}
+    
 }
 
   
