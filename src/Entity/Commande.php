@@ -17,6 +17,7 @@ class Commande
     private ?\DateTime $create_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]

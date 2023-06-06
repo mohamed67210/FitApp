@@ -1309,6 +1309,7 @@ video {
 #programmes_categ .programmes_container .programme_cart {
     height: 250px;
     width: 250px;
+    background-color: #041017;
 }
 
 #programmes_categ .programme_cart .programme_contenu {
@@ -1733,6 +1734,7 @@ ul li{
 #programmes_achete_container_membre{
     display: flex;
     width: 100%;
+    gap: 2rem;
 }
 #programmes_favories_container_membre{
     display: none;
@@ -1887,6 +1889,9 @@ input[type="submit"] {
     justify-content: center;
     /* align-items: center; */
     gap: 0.5rem;
+}
+.container h2{
+    color: #000;
 }
 /* responsive */
 @media (max-width: 767px) {

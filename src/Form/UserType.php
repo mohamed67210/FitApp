@@ -23,7 +23,7 @@ class UserType extends AbstractType
             // ->add('email', EmailType::class)
             // ->add('password', PasswordType::class)
             ->add('prenom', TextType::class, [
-                
+                'required'=> false,
                 'label' => 'Votre Prénom', 
                 'attr' => 
                 ['class' => 'form-control']])

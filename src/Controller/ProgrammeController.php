@@ -194,7 +194,8 @@ class ProgrammeController extends AbstractController
     public function showProgramme(ManagerRegistry $doctrine, Programme $programme = null, Commentaire $commentaire = null, Request $request,UserRepository $userRepository): Response
     {
         if ($programme) {
-            $commentaire = new Commentaire;
+            if (($programme->isIsValid()) == true) {
+                $commentaire = new Commentaire;
             // dd(new DateTimeImmutable('now'));
             $form = $this->createForm(CommentaireType::class);
             $form->handleRequest($request);
@@ -241,6 +242,11 @@ class ProgrammeController extends AbstractController
                 'programmeAchete' => $programmeAchete,
                 'commentaireForm' => $form->createView()
             ]);
+            }
+            else {
+                $this->addFlash('message','Accés refusé !');
+                return $this->redirectToRoute('app_home');
+            }
         } else {
             return $this->redirectToRoute("show_programmes");
         }

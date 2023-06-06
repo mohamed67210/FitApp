@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\DiplomeType;
 use App\Form\SearchCoachType;
 use App\Form\UserType;
+use App\Repository\CommandeRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -25,12 +26,19 @@ class UserController extends AbstractController
 {
     // supprission de compte
     #[Route('/delete', name: 'delete_compte')]
-    public function deleteProgramme(ManagerRegistry $doctrine, Request $request, CommentaireRepository $commentaireRepository): Response
+    public function deleteProgramme(ManagerRegistry $doctrine, Request $request, CommentaireRepository $commentaireRepository,CommandeRepository $commandeRepository): Response
     {
         $user = $this->getUser();
         if ($user) {
-            $commentaires = $commentaireRepository->findBy(['user' => $user]);
             $entityManager = $doctrine->getManager();
+            $commandes = $commandeRepository->findBy(['user'=>$user]);
+            foreach ($commandes as $commande) {
+                $commande->setUser(null);
+                $entityManager->persist($commande);
+
+            }
+            $commentaires = $commentaireRepository->findBy(['user' => $user]);
+            
             foreach ($commentaires as $commentaire) {
             $commentaire->setUser(null);
             $entityManager->persist($commentaire);
@@ -80,69 +88,69 @@ class UserController extends AbstractController
     }
 
     // afficher profile user connecté
-    #[Route('/user/profile', name: 'show_profile')]
-    public function showProfile(Request $request, SluggerInterface $slugger, ManagerRegistry $doctrine): Response
-    {
-        $user = $this->getUser();
-        if (($user->getRoles()[0]) == "ROLE_COACH") {
-            // on cree le forulaire d'ajout de diplomes
-            $diplome = new Diplome;
-            $form = $this->createForm(DiplomeType::class, $diplome);
-            $form->handleRequest($request);
-            $diplome->setUser($user);
-            $diplome->setIsVerified(false);
-            if ($form->isSubmitted() && $form->isValid()) {
-                // upload image
-                $uploadedFile = $form['image']->getData();
-                // dd($uploadedFile);
-                if ($uploadedFile) {
-                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                    // dd($newFilename);
+    // #[Route('/user/profile', name: 'show_profile')]
+    // public function showProfile(Request $request, SluggerInterface $slugger, ManagerRegistry $doctrine): Response
+    // {
+    //     $user = $this->getUser();
+    //     if (($user->getRoles()[0]) == "ROLE_COACH") {
+    //         // on cree le forulaire d'ajout de diplomes
+    //         $diplome = new Diplome;
+    //         $form = $this->createForm(DiplomeType::class, $diplome);
+    //         $form->handleRequest($request);
+    //         $diplome->setUser($user);
+    //         $diplome->setIsVerified(false);
+    //         if ($form->isSubmitted() && $form->isValid()) {
+    //             // upload image
+    //             $uploadedFile = $form['image']->getData();
+    //             // dd($uploadedFile);
+    //             if ($uploadedFile) {
+    //                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+    //                 // this is needed to safely include the file name as part of the URL
+    //                 $safeFilename = $slugger->slug($originalFilename);
+    //                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+    //                 // dd($newFilename);
 
-                    // Move the file to the directory where Programme images are stored
-                    try {
-                        $uploadedFile->move(
-                            $this->getParameter('diplomeImage_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
+    //                 // Move the file to the directory where Programme images are stored
+    //                 try {
+    //                     $uploadedFile->move(
+    //                         $this->getParameter('diplomeImage_directory'),
+    //                         $newFilename
+    //                     );
+    //                 } catch (FileException $e) {
+    //                     // ... handle exception if something happens during file upload
 
-                    }
+    //                 }
 
-                    // updates the 'brochureFilename' property to store the PDF file name
-                    // instead of its contents
-                    $diplome->setImage(
-                        $newFilename
-                    );
-                }
-                // recuperer les données de diplome si il existe deja et si il est nul
-                $diplome = $form->getData();
+    //                 // updates the 'brochureFilename' property to store the PDF file name
+    //                 // instead of its contents
+    //                 $diplome->setImage(
+    //                     $newFilename
+    //                 );
+    //             }
+    //             // recuperer les données de diplome si il existe deja et si il est nul
+    //             $diplome = $form->getData();
 
-                // on recupere le managere doctrine
-                $entityManager = $doctrine->getManager();
+    //             // on recupere le managere doctrine
+    //             $entityManager = $doctrine->getManager();
 
-                // persist remplace prepare en pdo , on prepare l'objet diplome 
-                $entityManager->persist($diplome);
+    //             // persist remplace prepare en pdo , on prepare l'objet diplome 
+    //             $entityManager->persist($diplome);
 
-                //on execute 
-                $entityManager->flush();
-                $this->addFlash('message', "Le diplome est enregistré ! il sera bientot validé par l'admistration ,merci pour votre patience");
+    //             //on execute 
+    //             $entityManager->flush();
+    //             $this->addFlash('message', "Le diplome est enregistré ! il sera bientot validé par l'admistration ,merci pour votre patience");
 
-                return $this->redirectToRoute('show_profile', ['id' => $diplome->getUser()]);
-            }
-            return $this->render('user/showUser.html.twig', [
-                'user' => $user,
-                'formDiplome' => $form->createView()
-            ]);
-        }
-        return $this->render('user/showUser.html.twig', [
-            'user' => $user,
-        ]);
-    }
+    //             return $this->redirectToRoute('show_profile', ['id' => $diplome->getUser()]);
+    //         }
+    //         return $this->render('user/showUser.html.twig', [
+    //             'user' => $user,
+    //             'formDiplome' => $form->createView()
+    //         ]);
+    //     }
+    //     return $this->render('user/showUser.html.twig', [
+    //         'user' => $user,
+    //     ]);
+    // }
 
     // recuperer detail d'un Coach
     #[Route('/user/{id}', name: 'show_user')]
@@ -245,7 +253,7 @@ class UserController extends AbstractController
     }
 
     // profile
-    #[Route('/user/profile/test', name: 'show_profile_test')]
+    #[Route('/user/profile/test', name: 'show_profile')]
     public function showProfileTest(UserRepository $userRepository,Request $request,SluggerInterface $slugger,ManagerRegistry $doctrine) : Response
     {
         $userConnect = $this->getUser();

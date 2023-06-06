@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\Programme;
+use App\Entity\User;
 use App\Form\CommandeType;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
@@ -100,46 +101,53 @@ class CommandeController extends AbstractController
     #[Route('/paeiment', name: 'panier_paeiment')]
     public function PanierPaiement(SessionInterface $session,ProgrammeRepository $programmeRepository):Response
     {
-        //recuperer la session panier
-        $montantTotal = 0;
-        $panier = $session->get('panier',[]);
-        foreach ($panier as $programmeId) {
-            $programme = $programmeRepository->find($programmeId);
-            if ($programme->getPrixPromo() == null) {
-                $prixProgramme = $programme->getPrix();
-            }else{
-                $prixProgramme = $programme->getPrixPromo();
-            }
-            // dd($programme);
-            $montantTotal += $prixProgramme;
-        // dd($montantTotal);
+        $userConnect = $this->getUser();
+        if ($userConnect) {
+            //recuperer la session panier
+                $montantTotal = 0;
+                $panier = $session->get('panier',[]);
+                foreach ($panier as $programmeId) {
+                    $programme = $programmeRepository->find($programmeId);
+                    if ($programme->getPrixPromo() == null) {
+                        $prixProgramme = $programme->getPrix();
+                    }else{
+                        $prixProgramme = $programme->getPrixPromo();
+                    }
+                    // dd($programme);
+                    $montantTotal += $prixProgramme;
+                // dd($montantTotal);
 
-        }
-        $montantEnCentimes = (int) round($montantTotal * 100);
-        Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
-        $session = Session::create([
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'EUR',
-                        'product_data' => [
-                            'name' => 'le montant total de votre commande est :',
-                        ],
-                        'unit_amount' => $montantEnCentimes 
+                }
+                $montantEnCentimes = (int) round($montantTotal * 100);
+                Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
+                $session = Session::create([
+                    'line_items' => [
+                        [
+                            'price_data' => [
+                                'currency' => 'EUR',
+                                'product_data' => [
+                                    'name' => 'le montant total de votre commande est :',
+                                ],
+                                'unit_amount' => $montantEnCentimes 
+                            ],
+                            'quantity' => 1,
+                        ]
                     ],
-                    'quantity' => 1,
-                ]
-            ],
-            // dd($programme),
-            'mode' => 'payment',
-            'success_url' => 'http://127.0.0.1:8000/validate',
-            'cancel_url' => 'http://127.0.0.1:8000/',
-            'billing_address_collection' => 'required',
-            "metadata" => [
-                'programme_id' => $programme,
-            ]
-        ]);
-        return $this->redirect($session->url);
+                    // dd($programme),
+                    'mode' => 'payment',
+                    'success_url' => 'http://127.0.0.1:8000/validate',
+                    'cancel_url' => 'http://127.0.0.1:8000/',
+                    'billing_address_collection' => 'required',
+                    "metadata" => [
+                        'programme_id' => $programme,
+                    ]
+                ]);
+                return $this->redirect($session->url);
+        }
+        else{
+            return $this->redirectToRoute('app_login');
+        }
+        
     }
 
     // creer la commande apres la validation de peiement par stripe
@@ -183,9 +191,11 @@ class CommandeController extends AbstractController
 
     // creation de la commande en validant le stipe passant par session
     #[Route('/validate',name:('app_validate_session'))]
-    public function createCommandSession(SessionInterface $session,ProgrammeRepository $programmeRepository,ManagerRegistry $doctrine,Commande $commande = null):Response
+    public function createCommandSession(SessionInterface $session,ProgrammeRepository $programmeRepository,ManagerRegistry $doctrine,Commande $commande = null,UserRepository $userRepository):Response
     {
         $userConnect =$this->getUser();
+        // verifier si le programme est deja acheté par l'user 
+        $user = $userRepository->findOneBy(['id'=> $userConnect]);
         if ($userConnect) {
             // recuperer panier et verifier si elle n'est pas vide
             $panier = $session->get('panier',[]);
@@ -203,7 +213,7 @@ class CommandeController extends AbstractController
                 $commande->setProgramme($programme);
                 $commande->setCreateAt(new \DateTime());
                 $commande->setUser($userConnect);
-                $commande->setAdresseFacturation('hello@test.fr');
+                $commande->setAdresseFacturation($user->getEmail());
                 $commande->setMontant($montant);
                 
                 $entityManager = $doctrine->getManager();
@@ -213,7 +223,6 @@ class CommandeController extends AbstractController
             $session->clear();
             $this->addFlash('message','votre commande est bien validé, merci ! ');
             return $this->redirectToRoute('show_profile');
-
         }
         else {
         return $this->redirectToRoute('app_login');

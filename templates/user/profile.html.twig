@@ -47,7 +47,7 @@
                         alt="{{programme.intitule}}">
                 </div>
                 <div class="programme_contenu">
-                    <h5>{{programme.intitule|upper}}</h5>
+                    <h5>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
                     <div class="programme_contenu_prix">
                         {% if programme.prixPromo is defined and programme.prixPromo is not null %}
                         <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
@@ -71,7 +71,7 @@
                         alt="{{programme.intitule}}">
                 </div>
                 <div class="programme_contenu">
-                    <h5>{{programme.intitule|upper}}</h5>
+                    <h5>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
                     <div class="programme_contenu_prix">
                         {% if programme.prixPromo is defined and programme.prixPromo is not null %}
                         <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
@@ -133,7 +133,7 @@
                             alt="{{commande.programme.intitule}}">
                     </div>
                     <div class="programme_contenu">
-                        <h5>{{commande.programme.intitule|upper}}</h5>
+                        <h5>{{commande.programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (commande.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
                     </div>
                     <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</i></a>
                 </div>
@@ -155,7 +155,7 @@
                             alt="{{programme.intitule}}">
                     </div>
                     <div class="programme_contenu">
-                        <h5>{{programme.intitule|upper}}</h5>
+                        <h5>{{programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
                         <div class="programme_contenu_prix">
                             {% if programme.prixPromo is defined and programme.prixPromo is not null %}
                             <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
