@@ -47,10 +47,11 @@ class CommandeController extends AbstractController
                     if ($userConnecte->getRoles()[0] == 'ROLE_USER') {
                         // recuperer le prix en promos si il existe
                         if ($programme->getPrixPromo() == null) {
-                            $prix = $programme->getPrix() . '00';
+                            $prix = $programme->getPrix() ;
                         } else {
-                            $prix = $programme->getPrixPromo() . '00';
+                            $prix = $programme->getPrixPromo() ;
                         }
+                        $prixEnCentimes = (int) round($prix * 100);
                         Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
                         $session = Session::create([
                             'line_items' => [
@@ -60,7 +61,7 @@ class CommandeController extends AbstractController
                                         'product_data' => [
                                             'name' => $programme->getIntitule(),
                                         ],
-                                        'unit_amount' => $prix
+                                        'unit_amount' => $prixEnCentimes
                                     ],
                                     'quantity' => 1,
                                 ]
@@ -95,7 +96,7 @@ class CommandeController extends AbstractController
         }
     }
 
-    // --------------------paeiment de un ou plusieurs programmes a artir du panier en utilisant session
+    // --------------------paeiment de un ou plusieurs programmes a partir du panier en utilisant session
     #[Route('/paeiment', name: 'panier_paeiment')]
     public function PanierPaiement(SessionInterface $session,ProgrammeRepository $programmeRepository):Response
     {
@@ -105,13 +106,16 @@ class CommandeController extends AbstractController
         foreach ($panier as $programmeId) {
             $programme = $programmeRepository->find($programmeId);
             if ($programme->getPrixPromo() == null) {
-                $prixProgramme = $programme->getPrix().'00';
+                $prixProgramme = $programme->getPrix();
             }else{
-                $prixProgramme = $programme->getPrixPromo().'00';
+                $prixProgramme = $programme->getPrixPromo();
             }
             // dd($programme);
             $montantTotal += $prixProgramme;
+        // dd($montantTotal);
+
         }
+        $montantEnCentimes = (int) round($montantTotal * 100);
         Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
         $session = Session::create([
             'line_items' => [
@@ -121,14 +125,14 @@ class CommandeController extends AbstractController
                         'product_data' => [
                             'name' => 'le montant total de votre commande est :',
                         ],
-                        'unit_amount' => $montantTotal 
+                        'unit_amount' => $montantEnCentimes 
                     ],
                     'quantity' => 1,
                 ]
             ],
             // dd($programme),
             'mode' => 'payment',
-            'success_url' => 'http://127.0.0.1:8000/stripe/webhook',
+            'success_url' => 'http://127.0.0.1:8000/validate',
             'cancel_url' => 'http://127.0.0.1:8000/',
             'billing_address_collection' => 'required',
             "metadata" => [
@@ -175,6 +179,44 @@ class CommandeController extends AbstractController
         else{
             return $this->redirectToRoute('app_login');
         }
-        
+    }
+
+    // creation de la commande en validant le stipe passant par session
+    #[Route('/validate',name:('app_validate_session'))]
+    public function createCommandSession(SessionInterface $session,ProgrammeRepository $programmeRepository,ManagerRegistry $doctrine,Commande $commande = null):Response
+    {
+        $userConnect =$this->getUser();
+        if ($userConnect) {
+            // recuperer panier et verifier si elle n'est pas vide
+            $panier = $session->get('panier',[]);
+            foreach ($panier as $programmeId) {
+                $programme =$programmeRepository->findOneBy(['id'=>$programmeId]);
+                // recuperer le prix du programme
+                if ($programme->getPrixPromo() == null) {
+                    $montant = $programme->getPrix();
+                }
+                else{
+                    $montant = $programme->getPrixPromo();
+                }
+                // dd($programme);
+                $commande = new Commande;
+                $commande->setProgramme($programme);
+                $commande->setCreateAt(new \DateTime());
+                $commande->setUser($userConnect);
+                $commande->setAdresseFacturation('hello@test.fr');
+                $commande->setMontant($montant);
+                
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($commande);
+                $entityManager->flush();
+            }
+            $session->clear();
+            $this->addFlash('message','votre commande est bien validé, merci ! ');
+            return $this->redirectToRoute('show_profile');
+
+        }
+        else {
+        return $this->redirectToRoute('app_login');
+        }
     }
 }
