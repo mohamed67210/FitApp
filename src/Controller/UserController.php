@@ -37,6 +37,7 @@ class UserController extends AbstractController
                 $entityManager->persist($commande);
 
             }
+
             $commentaires = $commentaireRepository->findBy(['user' => $user]);
             
             foreach ($commentaires as $commentaire) {
@@ -168,12 +169,13 @@ class UserController extends AbstractController
     }
 
     // editer user
-    #[Route('/user/edit/{id}', name: 'edit_user')]
-    public function edit(ManagerRegistry $doctrine, User $user = null, Request $request, SluggerInterface $slugger): Response
+    #[Route('/profile/edit', name: 'edit_user')]
+    public function edit(ManagerRegistry $doctrine, User $user = null, Request $request, SluggerInterface $slugger,UserRepository $userRepository): Response
     {
         // si l'id de l'user envoyer par l'url est le meme id de l'user connecté 
-        if (($this->getUser()) == $user) {
-
+        if ($this->getUser()) {
+            $user = $userRepository->findOneBy(['id'=>$this->getUser()]);
+            // dd($user);
             // construire le formulaire 
             // si le user est un client on affiche pas le champs biographie
             if ($user->getRoles()[0] != 'ROLE_COACH') {
@@ -203,7 +205,7 @@ class UserController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('message', 'votre profile est bien modifié 😄');
-                return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
+                return $this->redirectToRoute('show_profile');
             }
             return $this->render('user/editUser.html.twig', [
                 'formUser' => $form->createView()
