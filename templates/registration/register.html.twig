@@ -13,8 +13,6 @@
     <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-
-
     {{ form_start(registrationForm, {'attr': {'class': 'authentification_form'}}) }}
     <h1>Inscrivez-Vous</h1>
     <div class="inputChoice_container">
@@ -41,6 +39,7 @@
 
     <button type="submit" class="btn btn-success">Je m'inscrit</button>
     {{ form_end(registrationForm) }}
+    <a href="{{path('app_login')}}">J'ai déja un compte</a>
 </main>
 <article id="conditions_confidentialite">
     {% include "_partials/politiques/confidentialite.html.twig" %}

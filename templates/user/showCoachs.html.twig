@@ -7,7 +7,7 @@
     {{ form_start(searchform) }}
     {{ form_row(searchform.nom) }}
     {{ form_end(searchform) }}
-    <h2>Découvrez nos <strong>coachs sportifs</strong> inscrits sur notre site web !</h2>
+    <h2 class="titre-blanc">Découvrez nos <strong>coachs sportifs</strong> inscrits sur notre site web !</h2>
     <section id="coachs_container">
         {% if coachs is defined %}
         {% for coach in coachs %}

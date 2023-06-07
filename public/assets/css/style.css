@@ -46,7 +46,6 @@ h2 {
     margin-top: 1.5rem;
     color: var(--couleur-title);
 }
-
 h3 {
     color: #5c0808;
 }
@@ -451,13 +450,18 @@ footer a {
 }
 
 .container {
-    padding-top: 2.5rem;
+    padding-top: 5rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
+}
+.container h3{
+    width: 75%;
+    text-align: center;
+    line-height: 2;
 }
 
 /* banniere */
@@ -518,8 +522,6 @@ footer a {
 
 .contenu h2{
     line-height: 1.5;
-
-
 }
 
 /* section statics */
@@ -720,7 +722,7 @@ a {
     gap: 1rem;
 }
 .splide__track{
-    width: 100%;
+    width: 80%;
 }
 
 /* Styles pour les cartes */
@@ -1890,11 +1892,13 @@ input[type="submit"] {
     /* align-items: center; */
     gap: 0.5rem;
 }
-.container h2{
-    color: #000;
-}
+
 /* responsive */
 @media (max-width: 767px) {
+    nav{
+        justify-content: space-between;
+        padding: 0.5rem;
+    }
 
     /* page accueil */
     h2{

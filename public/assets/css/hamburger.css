@@ -123,3 +123,16 @@
     align-items: center;
     padding: 1.5rem;
 }
+
+@media screen and (max-width: 690px)  {
+    #nav-links.open{
+        background-color:#011826;
+        right: -0.5rem;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
