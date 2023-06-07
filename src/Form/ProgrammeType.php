@@ -22,18 +22,33 @@ class ProgrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('intitule', TextType::class)
-            ->add('description', TextareaType::class, ['constraints' => [
+            ->add('intitule', TextType::class,[
+                'attr'=>['class' => 'form-control']
+                    ])
+            ->add('description', TextareaType::class, [
+                'attr'=>[
+                    'class' => 'form-control'
+                ],
+                'constraints' => [
                 new Length([
-                    'max' => 255,
-                    'maxMessage' => 'La description ne peut pas dépasser 255 caractères.'
+                    'max' => 500,
+                    'maxMessage' => 'La description ne peut pas dépasser 500 caractères.'
                 ])
             ]])
-            ->add('prix', NumberType::class)
+            ->add('prix', NumberType::class,['attr'=>[
+                'class' => 'form-control'
+            ]])
             ->add('prixPromo', NumberType::class, [
+                'attr'=>['class' => 'form-control'],
                 'required'   => false,
             ])
-            ->add('image', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
+            ->add('image', FileType::class, [
+                'attr'=>[
+                    'class' => 'form-control'
+                ],
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [
                 new File([
                     'maxSize' => '5000k',
                     'mimeTypes' => [
@@ -42,7 +57,9 @@ class ProgrammeType extends AbstractType
                     'mimeTypesMessage' => 'Please upload a valid image',
                 ])
             ],])
-            ->add('isValid', HiddenType::class, ['data' => '0'])
+            ->add('isValid', HiddenType::class, [
+                'attr'=>['class' => 'form-control'],
+                'data' => '0'])
             ->add('categorie')
             // ->add('coach')
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);
