@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Diplome;
 use App\Entity\Programme;
 use App\Entity\User;
@@ -213,6 +214,26 @@ class UserController extends AbstractController
         } else {
             $this->addFlash('message', 'accés refusé !');
             return $this->redirectToRoute("show_profile");
+        }
+    }
+
+    // supprission d'un programme acheter de la liste
+    #[Route('/user/programme/demove/{id}',name:'remove_programme_achete')]
+    public function removeProgrammeAchete(Commande $commande =null,UserRepository $userRepository,ManagerRegistry $doctrine) :Response
+    {
+        $userConnect = $this->getUser();
+        $user =$userRepository->findOneBy(['id'=>$userConnect]);
+        if ($userConnect) {
+            if ($commande) {
+                 // supprimer le programme de la liste 
+                 $user->removeCommande($commande);
+                 // enregister dans la bdd
+                 $entityManager = $doctrine->getManager();
+                 // on execute
+                 $entityManager->flush();
+                 $this->addFlash('message', 'Le commande est retiré de votre liste de souhait !');
+                 return $this->redirectToRoute('show_profile');
+            }
         }
     }
 
