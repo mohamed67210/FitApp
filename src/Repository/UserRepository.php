@@ -60,6 +60,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.roles LIKE  :role')
+            ->andWhere('u.isVerified = true')
             ->setParameter('role', '%' . $role . '%')
             ->getQuery()
             ->getResult();
