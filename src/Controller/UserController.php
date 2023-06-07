@@ -218,21 +218,29 @@ class UserController extends AbstractController
     }
 
     // supprission d'un programme acheter de la liste
-    #[Route('/user/programme/demove/{id}',name:'remove_programme_achete')]
+    #[Route('/user/programme/remove/{id}',name:'remove_programme_achete')]
     public function removeProgrammeAchete(Commande $commande =null,UserRepository $userRepository,ManagerRegistry $doctrine) :Response
     {
         $userConnect = $this->getUser();
         $user =$userRepository->findOneBy(['id'=>$userConnect]);
         if ($userConnect) {
             if ($commande) {
-                 // supprimer le programme de la liste 
-                 $user->removeCommande($commande);
-                 // enregister dans la bdd
-                 $entityManager = $doctrine->getManager();
-                 // on execute
-                 $entityManager->flush();
-                 $this->addFlash('message', 'Le commande est retiré de votre liste de souhait !');
-                 return $this->redirectToRoute('show_profile');
+                $commandes = $user->getCommandes();
+                if ($commandes->contains($commande)){
+                    // supprimer le programme de la liste 
+                    $user->removeCommande($commande);
+                    // enregister dans la bdd
+                    $entityManager = $doctrine->getManager();
+                    // on execute
+                    $entityManager->flush();
+                    $this->addFlash('message', 'Le commande est retiré de votre liste de souhait !');
+                    return $this->redirectToRoute('show_profile');
+                }
+                else{
+                    $this->addFlash('message','Accés refusé !');
+                    return $this->redirectToRoute('show_profile');
+                }
+                 
             }
         }
     }

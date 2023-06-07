@@ -7,9 +7,11 @@
     <h1>{{programme.intitule}}</h1>
     <h3>nombre de Cours : {{modules|length}}</h3>
     {% if app.user == programme.coach %}
-    <a href="{{path('add_module',{'id':programme.id})}}">Ajouter module</a>
+        <a href="{{path('add_module',{'id':programme.id})}}">Ajouter module</a>
     {% endif %}
-
+    {% if programmeAcheter == true %}
+        <a href="{{path('remove_programme_achete',{'id':commande.id})}}">retirer ce cours de ma liste</a>
+    {% endif %}
     <section id="modules_list">
         {% for module in modules %}
         <article id="module_container">

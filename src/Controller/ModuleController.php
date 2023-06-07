@@ -80,14 +80,18 @@ class ModuleController extends AbstractController
         if ($programme) {
             // recuperer l'user connecter 
         $user = $userRepository->findOneBy(['id' => $this->getUser()]);
-        // recuperer les commandes de user connecté 
-        $command = $commandeRepository->findBy(['user' => $user, 'programme' => $programme]);
-        if (!empty($command) && $programme == $command[0]->getProgramme()) {
+        $programmeACheter = false;
+        // recuperer la commande de user connecté 
+        $command = $commandeRepository->findOneBy(['user' => $user, 'programme' => $programme]);
+        if ($command && $programme == $command->getProgramme()) {
+            $programmeACheter = true;
             $programmeModules = $moduleRepository->findBy(['programme' => $id]);
             // dd($programmeModules);
             return $this->render('module/index.html.twig', [
                 'programme' => $programme,
                 'modules' => $programmeModules,
+                'programmeAcheter'=>$programmeACheter,
+                'commande'=>$command
             ]);
         } elseif (($user == $programme->getCoach())) {
             $programmeModules = $moduleRepository->findBy(['programme' => $id]);
@@ -95,6 +99,7 @@ class ModuleController extends AbstractController
             return $this->render('module/index.html.twig', [
                 'programme' => $programme,
                 'modules' => $programmeModules,
+                'programmeAcheter'=>$programmeACheter,
             ]);
         } else {
             $this->addFlash('message','accés refusé !');

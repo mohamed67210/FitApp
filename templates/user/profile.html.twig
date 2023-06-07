@@ -44,6 +44,14 @@
             {% if user == app.user %}
             {% for programme in user.programsCreated %}
             <div class="programme_cart">
+                {% if app.user == user %}
+                <div class="btn_panel">
+                    <a href="{{ path('programme_modules',{'id': programme.id}) }}"><i class="fa-solid fa-list"></i></a>
+                    <a href="{{ path('edit_programme',{'id': programme.id}) }}"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{{ path('delete_programme',{'id': programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                </div>
+                {% endif %}
                 <div class="programme_image">
                     <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span> By :
                             {{programme.coach}}</span></a>
