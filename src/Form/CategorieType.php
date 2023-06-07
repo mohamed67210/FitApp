@@ -16,8 +16,12 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('intitule',TextType::class)
-            ->add('image', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
+            ->add('intitule',TextType::class,[
+            'required'=> true,
+            'attr'=>['maxlength' => 20,
+            'maxMessage' => 'Il faut maximum 20 caractéres']
+            ])
+            ->add('image', FileType::class, ['required' => true, 'mapped' => false, 'constraints' => [
                 new File([
                     'maxSize' => '5000k',
                     'mimeTypes' => [

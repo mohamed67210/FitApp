@@ -16,6 +16,10 @@
         </div>
         <div class="nav">
             <ul>
+                {# nav pour admin #}
+                {% if user.roles.0 == "ROLE_ADMIN"  %}
+                <li><button class="infos_btn">Infos</button></li>
+                {% endif %}
                 {# nav pour coach profil #}
                 {% if user.roles.0 == "ROLE_COACH"  %}
                 <li><button class="infos_btn">Infos</button></li>

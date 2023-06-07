@@ -34,7 +34,7 @@ body {
 strong {
     background-color: var(--couleur-secondaire);
     color: white;
-    padding: 0.2rem;
+    padding: 2px 0.5rem;
     text-transform: uppercase;
 }
 

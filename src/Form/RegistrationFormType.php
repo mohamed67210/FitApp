@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Url;
 
 class RegistrationFormType extends AbstractType
@@ -34,19 +35,26 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('image', HiddenType::class, ['data' => 'defaultUser.png',])
             // ->add('nom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Nom']])
-            ->add('prenom', TextType::class, ['label' => false,'attr'=>['placeholder'=>'Votre Prenom']])
+            ->add('prenom', TextType::class, [
+                'label' => false,
+                'attr'=>['placeholder'=>'Votre Prenom'],
+                ])
             ->add('email', EmailType::class, ['label' => false,'attr'=>['placeholder'=>'VotreEmail']])
             ->add('agreeTerms', CheckboxType::class, [
                 'label'=>"Lu et accepté ",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepté nos conditions.',
                     ]),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'mapped' => false,
+                'constraints'=>[
+                    new Regex('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+                    'Il faut un mot de passe de 8 caractéres avec 1 lettre majuscule, 1 lettre miniscule, 1 chiffre, 1 caractere spéciale')
+                ],
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],

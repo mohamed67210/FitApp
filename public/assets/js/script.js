@@ -1,4 +1,3 @@
-console.log('hello')
 // changer couleur de la nav apres scroll
 var navbar = document.querySelector('nav');
 window.onscroll = function () {
@@ -94,7 +93,6 @@ const btn = document.getElementById('diplome_form_btn')
 const form = document.getElementById('diplome_form')
 if (btn != null) {
     btn.addEventListener('click', function () {
-        console.log('yesyesy')
         form.classList.toggle('open')
     })
 }
@@ -150,12 +148,10 @@ const programmes_container = document.querySelector('#programmes_achete_containe
 
 if (favories_btn != null) {
     favories_btn.addEventListener('click',function(){
-        console.log('favories');
         favories_container.style.display = 'flex';
         programmes_container.style.display = 'none';
     })
     programmes_btn.addEventListener('click',function(){
-        console.log('favories');
         favories_container.style.display = 'none';
         programmes_container.style.display = 'flex';
     })
@@ -194,8 +190,7 @@ if (deleteLinks != null) {
 // slider pour nouveauté
 document.addEventListener( 'DOMContentLoaded', function() {
     var splide = new Splide( '.splide',{
-        perPage : 3,
-        focus: "center",
+        perPage : 2,
         breakpoints :{
             800 :{
                 perPage : 2,
