@@ -187,10 +187,13 @@ if (deleteLinks != null) {
         });
     });
 }
+
 // slider pour nouveauté
 document.addEventListener( 'DOMContentLoaded', function() {
     var splide = new Splide( '.splide',{
-        perPage : 2,
+        perPage : 4,
+        gap : '2rem',
+        pagination :false,
         breakpoints :{
             800 :{
                 perPage : 2,
@@ -203,6 +206,8 @@ document.addEventListener( 'DOMContentLoaded', function() {
     splide.mount();
   } );
 
+
+  
 
 // afficher conditions popup
 const cc_link = document.querySelector('.conditions_link');

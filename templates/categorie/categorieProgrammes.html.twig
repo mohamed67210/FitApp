@@ -11,13 +11,17 @@
               <ul class="splide__list">
                 {% for programme in categorie.programmes %}
                 <div class="splide__slide">
-                    <div class="card-swiper">
-                        <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
-                            alt="{{programme.intitule}}">
-                        <div class="card-body">
-                            <h4>{{programme.intitule|split(' ')|slice(0, 4)|join(' ')~ '...'}}</h4>
-                            <span><a href="{{path('categorie_programmes', { 'id': programme.categorie.id })}}">{{programme.categorie}}</a> </span>
-                            <p>Créateur : {{programme.coach}}</p>
+                    <div class="programme_cart">
+                        <div class="programme_image">
+                            <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
+                            <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
+                                alt="{{programme.intitule}}">
+                        </div>
+                        <div class="programme_contenu">
+                            <h5>{{programme.intitule|upper|split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
+                            <p>{{programme.commandes|length }} membres</p>
+                            <p>{{programme.commentaires|length }} avis</p>
+    
                             <div class="programme_contenu_prix">
                                 {% if programme.prixPromo is defined and programme.prixPromo is not null %}
                                 <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
@@ -27,7 +31,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <a href="{{path('show_programme',{'id':programme.id})}}" class="btn">S'inscrire</a>
+                        <a class="btn" href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
                     </div>
                 </div>
                 {% endfor %}

@@ -158,15 +158,18 @@ class UserController extends AbstractController
     #[Route('/user/{id}', name: 'show_user')]
     public function showUser(UserRepository $userRepository, $id): Response
     {
+        
         $user = $userRepository->findOneBy(['id' => $id]);
-        if (($user->getRoles()[0]) == "ROLE_ADMIN") {
-            dd('erreur');
-            // $this->redirectToRoute('app_home');
-        };
-        return $this->render('user/profile.html.twig', [
-            'user' => $user,
-        ]);
-        // }
+        if (($user->getRoles()[0]) == "ROLE_COACH") {
+            return $this->render('user/profile.html.twig', [
+                'user' => $user,
+            ]);
+        }
+        else {
+            $this->addFlash('message','accés refusé');
+            return $this->redirectToRoute('app_home');
+        }
+        
     }
 
     // editer user

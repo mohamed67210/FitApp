@@ -1,36 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Programmes{% endblock %}
-
 {% block body %}
 <main class="container">
     <h3>Découvrez notre sélection de <strong>programmes sportifs</strong>  classés par catégorie pour vous aider à atteindre vos objectifs de <strong>remise en forme.</strong> </h3>
     {% for categorie in categories %}
     <section id="programmes_categ">
         <h2>{{categorie.intitule}}</h2>
-        <div class="programmes_container">
+        <div class="programmes_container container_allprogrammes">
             {% if categorie.programmes is not empty %}
                 {% for programme in categorie.programmes  %}
                 {% if programme.isValid == true %}
                 <div class="programme_cart">
                     <div class="programme_image">
-                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By :
-                                {{programme.coach}}</span></a>
+                        <a href="{{ path('show_user', {'id': programme.coach.id}) }}"><span>By : {{programme.coach}}</span></a>
                         <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}"
                             alt="{{programme.intitule}}">
                     </div>
                     <div class="programme_contenu">
-                        <h5>{{programme.intitule|upper}}</h5>
+                        <h5>{{programme.intitule|upper|split(' ')|slice(0, 3)|join(' ') ~ (programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
+                        <p>{{programme.commandes|length }} membres</p>
+                        <p>{{programme.commentaires|length }} avis</p>
+
                         <div class="programme_contenu_prix">
                             {% if programme.prixPromo is defined and programme.prixPromo is not null %}
                             <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
                             <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
                             {% else %}
-                            <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                            <span class="prix">{{programme.prix|number_format(2, ',', '.')}} €</span>
                             {% endif %}
                         </div>
                     </div>
-                    <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+                    <a class="btn" href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -44,3 +45,4 @@
 </main>
 
 {% endblock %}
+

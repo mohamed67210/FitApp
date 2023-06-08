@@ -65,11 +65,11 @@
                         <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
                         <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
                         {% else %}
-                        <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+                        <span class="prix">{{programme.prix|number_format(2, ',', '.')}} €</span>
                         {% endif %}
                     </div>
                 </div>
-                <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+                <a class="btn" href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
             </div>
             {% endfor %}
             {% else %}
@@ -93,7 +93,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+                <a class="btn" href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
             </div>
             {% endif %}
             
@@ -147,7 +147,7 @@
                     <div class="programme_contenu">
                         <h5>{{commande.programme.intitule |split(' ')|slice(0, 3)|join(' ') ~ (commande.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</h5>
                     </div>
-                    <a href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</i></a>
+                    <a class="btn" href="{{path('programme_modules',{'id':commande.programme.id})}}">Commencer le programme</i></a>
                 </div>
                 {% endfor %}
                 {% else %}
@@ -177,7 +177,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    <a href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
+                    <a class="btn" href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
                 </div>
                 {% endfor %}
                 {% else %}<h3>Pas de programmes dans votre liste de souhait</h3>

@@ -31,8 +31,8 @@ class ProgrammeType extends AbstractType
                 ],
                 'constraints' => [
                 new Length([
-                    'max' => 500,
-                    'maxMessage' => 'La description ne peut pas dépasser 500 caractères.'
+                    'max' => 1000,
+                    'maxMessage' => 'La description ne peut pas dépasser 1000 caractères.'
                 ])
             ]])
             ->add('prix', NumberType::class,['attr'=>[
