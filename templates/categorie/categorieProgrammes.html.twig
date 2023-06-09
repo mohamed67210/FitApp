@@ -10,6 +10,7 @@
         <div class="splide__track">
               <ul class="splide__list">
                 {% for programme in categorie.programmes %}
+                {% if programme.isValid == true %}
                 <div class="splide__slide">
                     <div class="programme_cart">
                         <div class="programme_image">
@@ -34,6 +35,8 @@
                         <a class="btn" href="{{path('show_programme',{'id':programme.id})}}">Voir le programme</i></a>
                     </div>
                 </div>
+                {% endif %}
+                
                 {% endfor %}
               </ul>
         </div>

@@ -349,6 +349,7 @@ footer a {
     padding: 10rem;
     display: none;
     flex-direction: column;
+    z-index: 2;
 }
 #conditions_confidentialite h2{
     color: #000;
@@ -365,10 +366,12 @@ footer a {
     width: 100%;
     height: 100%;
     background-color: white;
-    top: 6rem;
-    padding: 10rem;
+    top: 2.5rem;
+    padding: 2rem 10rem;
     display: none;
     flex-direction: column;
+    z-index: 99;
+    justify-content: end;
 }
 #conditions_vente h2{
     color: #000;

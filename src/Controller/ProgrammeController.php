@@ -194,7 +194,8 @@ class ProgrammeController extends AbstractController
     public function showProgramme(ManagerRegistry $doctrine, Programme $programme = null, Commentaire $commentaire = null, Request $request,UserRepository $userRepository): Response
     {
         if ($programme) {
-            if (($programme->isIsValid()) == true) {
+            // on verifie si le programme est deja valider par l'admin ou si l'user connecté est le proprié de programme
+            if (($programme->isIsValid()) == true || ($this->getUser())== $programme->getCoach()) {
                 $commentaire = new Commentaire;
             // dd(new DateTimeImmutable('now'));
             $form = $this->createForm(CommentaireType::class);
