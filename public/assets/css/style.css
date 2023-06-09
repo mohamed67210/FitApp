@@ -707,7 +707,9 @@ a {
 }
 
 /* section dernier programmes */
-
+#home_slide{
+    border-top: 1px solid white;
+}
 /* splide pour les nouveauté home page */
 .splide{
     width: 95vw;
@@ -808,6 +810,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-top: 1px solid white;
 }
 .categories_container {
     /* background-color: #ccccccab; */
@@ -831,6 +834,9 @@ a {
 }
 .categories_container p {
     color: white;
+    line-height: 1.5;
+    width: 70%;
+    text-align: center;
 }
 .categorie_cart {
     position: relative;
@@ -873,7 +879,6 @@ a {
     border: 1px solid white;
     padding: 1.5rem;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
@@ -921,10 +926,11 @@ a {
 .programme_contenu {
     margin-top: 5%;
     height: 40%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     position: absolute;
     top: 40%;
     background-color: transparent;
@@ -1109,7 +1115,9 @@ a {
     font-size: x-small;
     font-weight: bold;
 }
-
+.profile_programme_cart{
+    width: 250px;
+}
 #user_bio {
     background-color: var(--couleur-primaire);
     width: 90%;
@@ -1293,10 +1301,18 @@ video {
     /* margin-top: 1rem; */
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
     /* gap: 0.5rem; */
     height: fit-content;
 }
+.scrollable-div {
+    width: 100%; /* Largeur souhaitée de la div */
+    overflow-x: scroll; /* Active la barre de défilement horizontale */
+    box-shadow: rgba(238, 234, 234, 0.432) 0px 5px 15px;
+    border-radius: 10px;
+    border: 1px solid white;
+    text-align: center;
+  }
 .programmes_container {
     display: flex;
     flex-direction: row;
@@ -1306,7 +1322,10 @@ video {
     border-radius: 10px;
 }
 .container_allprogrammes{
-    overflow-y: scroll;
+    justify-content: start;
+    width: fit-content;
+    border: none;
+    box-shadow: none;
 }
 #programmes_categ .programmes_container .programme_cart {
     height: 250px;
@@ -1361,7 +1380,7 @@ video {
     min-height: 10rem;
     width: 100%;
     display: flex;
-    padding: 0 0.5rem;
+    padding: 1rem;
     flex-direction: column;
     gap: 0.2rem;
 }

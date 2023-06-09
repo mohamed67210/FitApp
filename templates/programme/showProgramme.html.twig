@@ -20,7 +20,7 @@
             <span class="prix"><del>{{programme.prix|striptags|number_format(2, ',', '.')}} €</del></span>
             <span class="prix">{{programme.prixPromo|striptags|number_format(2, ',', '.')}} €</span>
             {% else %}
-            <span class="prix">{{programme.prix|number_format(2, ',', '.')}}</span>
+            <span class="prix">{{programme.prix|number_format(2, ',', '.')}} €</span>
             {% endif %}
             <br><br>
             <p>Garantie satisfait ou remboursé de 14 jours, Accès complet illimité</p>
@@ -58,6 +58,7 @@
                     href="{{ path('show_user', {'id': programme.coach.id}) }}">{{programme.coach}}</a></span>
         </article>
         <article id="programme_avis_container">
+            {% if programme.commentaires is not empty %}
             <h3>Avis :</h3>
             {% for commentaire in programme.commentaires %}
             {# {{ dump(commentaire.createAt) }} #}
@@ -66,7 +67,14 @@
                 {% if commentaire.user != null %}
                 <div id="user_infos_container">
                     <img src="{{ asset('assets/images/user/'~ commentaire.user.image ~'') }}" alt="commentaire.user">
-                    <h5>{{commentaire.user}}<br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
+                    <h5>
+                        {% if commentaire.user.nom == null and commentaire.user.prenom == null %}
+                        Nom et prénom non renseigné 
+                        {% else %}
+                        {{commentaire.user}}
+                        {% endif %}
+                        
+                        <br><span>Le {{commentaire.createAt|date("d/m/Y à H:i")}}</span></h5>
                 </div>
                 {% else %}
                 <div id="user_infos_container">
@@ -85,6 +93,8 @@
                 </div>
             </div>
             {% endfor %}
+            {% endif %}
+            
         </article>
         {% if app.user %}
         <article class="commentaire_form">
