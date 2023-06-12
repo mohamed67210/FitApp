@@ -17,7 +17,9 @@
     </div>
     <div class="form-group">
         {{form_row(formUser.image)}}
-        <a href="{{path('remove_image')}}">Supprimer l'image acctuel</a>
+        {% if app.user.image != 'defaultUser.png' %}
+            <a href="{{path('remove_image')}}">Supprimer l'image</a>
+        {% endif %}
     </div>
     {{form_end (formUser)}}
     <br><br>
