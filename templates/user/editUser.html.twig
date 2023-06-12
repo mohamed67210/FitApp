@@ -19,5 +19,9 @@
         {{form_row(formUser.image)}}
     </div>
     {{form_end (formUser)}}
+    <br><br>
+    {% if app.user %}
+        <a href="{{path('delete_compte')}}">Supprimer mon compte</a>
+    {% endif %}
 </main>
 {% endblock body %}

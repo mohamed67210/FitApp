@@ -41,9 +41,6 @@
                 {% if app.user.isVerified %}
                 <li><a href="{{ path('show_profile')}}">Profile</a></li>
                 <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-                <li>
-                    <a href="{{ path('delete_compte') }}">Supprimer Compte</a>
-                </li>
                 {# si le compte n'est pas valider #}
                 {% else %}<li><a href="{{ path('app_logout') }}">Déconnexion</a> </li>
 
