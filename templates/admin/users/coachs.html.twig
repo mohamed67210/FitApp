@@ -14,7 +14,6 @@
                         <th scope="col">Photo</th>
                         <th scope="col">Nom et prenom</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Biographie</th>
                         <th scope="col">Verifié ?</th>
                         <th scope="col">Diplomes</th>
                     </tr>
@@ -27,8 +26,6 @@
                                 alt="{{coach}}"></td>
                         <td>{{coach}}</td>
                         <td>{{coach.email}}</td>
-                        <td>{{coach.biographie|slice(0, 20) ~ '...' }}</td>
-                        
                         <td><a href="">{% if coach.isVerified == true %}
                                 <i class="fa-solid fa-square-check" style="color: #378122;"></i>
                                 {% else %}

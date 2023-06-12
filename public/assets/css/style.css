@@ -402,7 +402,7 @@ footer a {
 
 /* page panier */
 .container.panier {
-    padding: 5rem;
+    padding: 10rem;
     /* background-color: #467326; */
 }
 
@@ -419,7 +419,7 @@ footer a {
 
 .panier_programme_container {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 20%;
     background-color: white;
     display: flex;
     flex-wrap: wrap;
@@ -541,44 +541,8 @@ footer a {
     border-radius: 10px;
 }
 
-.contenu h2{
+.contenu h3{
     line-height: 1.5;
-}
-
-/* section statics */
-#statics_section {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-#statics_section div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 8rem;
-    gap: 4rem;
-    background-color: white;
-    padding: 1rem;
-}
-
-#statics_section article {
-    width: 15rem;
-
-}
-
-#statics_section article h2 {
-    font-family: 'Rampart One', cursive;
-    color: #D9D9D9;
-    font-size: x-large;
-    background-color: var(--couleur-primaire);
-    width: 100%;
-    padding: 1rem;
-    text-align: center;
 }
 
 /* section about */
@@ -1224,6 +1188,9 @@ a {
 .favories_container {
     display: none;
 }
+.user_biographie{
+    padding: 1rem;
+}
 
 /* pour la page programme modules */
 .container_modules {
@@ -1408,7 +1375,6 @@ video {
 
 #programme_infos_container h2 {
     color: var(--couleur-primaire);
-    font-size: xx-large;
 }
 
 #programme_infos_container p {
@@ -1950,9 +1916,6 @@ input[type="submit"] {
         text-align: center;
         font-size: large;
     }
-    .contenu h2{
-        font-size: medium;
-    }
     #about_text{
         top: 0;
         left: 0;
@@ -1991,5 +1954,8 @@ input[type="submit"] {
     }
     #conditions_confidentialite li{
         font-size: x-small;
+    }
+    .panier_programme_container{
+        flex-direction: column;
     }
 }

@@ -15,7 +15,7 @@
             <article class="panier_programme_container">
                 <img src="{{ asset('assets/images/programmes/'~ item.programme.image ~'') }}"
                     alt="{{item.programme.intitule}}">
-                <div><a href="{{path('show_programme',{'id':item.programme.id})}}">{{item.programme.intitule}}</a> </div>
+                <div><a href="{{path('show_programme',{'id':item.programme.id})}}">{{item.programme.intitule|upper|split(' ')|slice(0, 3)|join(' ') ~ (item.programme.intitule |split(' ')|length > 3 ? '...' : '') }}</a> </div>
                 {% if item.programme.prixPromo is defined and item.programme.prixPromo is not null %}
                     <div>{{item.programme.prixPromo}}€</div>
                     {% else %}
