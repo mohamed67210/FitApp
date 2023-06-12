@@ -23,7 +23,7 @@
                         <th scope="col">Prix</th>
                         {# <th scope="col">Promo</th> #}
                         <th scope="col">Statu</th>
-                        <th scope="col">Createur</th>
+                        <th scope="col">Créateur</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                             {% endif %}
 
                         </td>
-                        <td><a href="">{{programme.coach}}</a></td>
+                        <td><a href="{{path('show_user',{'id':programme.coach.id})}}">{{programme.coach}}</a></td>
                     </tr>
 
                     {% endfor %}

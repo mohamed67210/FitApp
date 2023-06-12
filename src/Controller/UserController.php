@@ -220,6 +220,21 @@ class UserController extends AbstractController
         }
     }
 
+    #[Route('/user/image/remove',name:'remove_image')]
+    public function removeImageProfile(UserRepository $userRepository,ManagerRegistry $doctrine):Response
+    {
+        $userConnect = $this->getUser();
+        if ($userConnect) {
+            $user = $userRepository->findOneBy(['id'=>$userConnect]);
+            $user->setImage('defaultUser.png');
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_profile');
+        }
+    }
+
     // supprission d'un programme acheter de la liste
     #[Route('/user/programme/remove/{id}',name:'remove_programme_achete')]
     public function removeProgrammeAchete(Commande $commande =null,UserRepository $userRepository,ManagerRegistry $doctrine) :Response
