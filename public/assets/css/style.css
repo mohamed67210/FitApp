@@ -24,7 +24,9 @@ body {
     position: relative;
     background-color: var(--couleur-primaire);
 }
-
+#favicon{
+    font-size: x-large;
+}
 /* en commun */
 .prix {
     color: #ECD71A;
@@ -133,7 +135,7 @@ h2 span {
 }
 
 
-/* nav abr */
+/* nav bar */
 nav {
     /* background-color: #467326; */
     display: flex;
@@ -142,7 +144,7 @@ nav {
     align-items: center;
     padding: 1rem;
     width: 100%;
-    height: 2.5rem;
+    height: 5rem;
     position: fixed;
     top: 0;
     z-index: 9000;
@@ -154,18 +156,33 @@ nav.nav-active {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-#left {}
+#left {
+    /* background-color: yellow; */
+    /* width: 30%; */
+    height: fit-content;
+}
 
 .logo_container {
     /* background-color: #467326; */
-    width: 90px;
-    height: 30px;
+    /* width: 100%;
+    height: 100%; */
+    /* background-color: green; */
+    font-size: small;
+    padding: 0.5rem;
 }
-
-.logo {
+.logo_container a{
     width: 100%;
     height: 100%;
+    /* background-color: #0062cc; */
+}
+.logo {
+    width: 65px;
+    height: 65px;
     object-fit: contain;
+    background-color: var(--couleur-secondaire);
+    border-radius: 50%;
+    padding: 0.2rem;
+    margin-top: 10%;
 }
 
 /* middle nav */
@@ -454,7 +471,7 @@ footer a {
 }
 
 .container {
-    padding-top: 5rem;
+    padding-top: 10rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -1959,5 +1976,20 @@ input[type="submit"] {
     .coach_container{
         width: 80px;
         
+    }
+    #conditions_vente{
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+    #conditions_vente li{
+        font-size: x-small;
+    }
+    #conditions_confidentialite{
+        text-align: center;
+        padding: 2rem 2rem;
+
+    }
+    #conditions_confidentialite li{
+        font-size: x-small;
     }
 }
