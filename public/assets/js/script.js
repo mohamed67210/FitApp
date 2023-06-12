@@ -206,9 +206,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
     splide.mount();
   } );
 
-
-  
-
 // afficher conditions popup
 const cc_links = document.querySelectorAll('.conditions_link');
 const cc_container = document.querySelector('#conditions_confidentialite');
@@ -234,11 +231,11 @@ if (vc_link != null) {
         vc_container.style.display = 'flex'
     })
 
-if (vc_popup_close != null) {
-    vc_popup_close.addEventListener('click',function(){
-        vc_container.style.display = 'none'
-    })
-}
+    if (vc_popup_close != null) {
+        vc_popup_close.addEventListener('click',function(){
+            vc_container.style.display = 'none'
+        })
+    }
     
 }
 
