@@ -23,6 +23,12 @@
     {% include "_partials/_nav.html.twig" %}
     {% block body %}{% endblock %}
     {% include "_partials/_footer.html.twig" %}
+    <article id="conditions_confidentialite">
+        {% include "_partials/politiques/confidentialite.html.twig" %}
+    </article>
+    <article id="conditions_vente">
+        {% include "_partials/politiques/conditions_vente.html.twig" %}
+    </article>
     {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>

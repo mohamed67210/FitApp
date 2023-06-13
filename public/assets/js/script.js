@@ -191,7 +191,7 @@ if (deleteLinks != null) {
 }
 // ------- alerter avant supprission de compte 
 if (deleteCompteLink != null) {
-    // Ajoute un gestionnaire d'événements de clic au lien de suppression compte
+        // Ajoute un gestionnaire d'événements de clic au lien de suppression compte
             deleteCompteLink.addEventListener('click', e => {
             // Empêche le comportement par défaut du lien de suppression
             e.preventDefault();
@@ -202,8 +202,9 @@ if (deleteCompteLink != null) {
                 window.location.href = deleteCompteLink.href;
             }
         });
-    
 }
+
+
 
 // slider pour nouveauté
 document.addEventListener( 'DOMContentLoaded', function() {
@@ -244,6 +245,7 @@ if (cc_links) {
     })
 }
 if (vc_link != null) {
+
     vc_link.addEventListener('click',function(){
         vc_container.style.display = 'flex'
     })
