@@ -32,59 +32,67 @@ class CommandeController extends AbstractController
             $userConnecte = $this->getUser();
             $user = $userRepository->findOneBy(['id'=> $userConnecte]);
             if ($userConnecte) {
-                // verifier si l'user a deja acheter ce programme
-                $programmeAcheter = false;
-                $commandes = $user->getCommandes();
-                foreach ($commandes as $commande) {
-                    // dd($commande->getProgramme());
-                    if(($commande->getProgramme()) === $programme){
-                        $programmeAcheter = true;
+                if ($userConnecte->IsVerified() == true) {
+                        // verifier si l'user a deja acheter ce programme
+                        $programmeAcheter = false;
+                        $commandes = $user->getCommandes();
+                        foreach ($commandes as $commande) {
+                            // dd($commande->getProgramme());
+                            if(($commande->getProgramme()) === $programme){
+                                $programmeAcheter = true;
+                            }
+                            else {
+                                $programmeAcheter = false;
+                            }
+                        }
+                        // ----- verifier si le programme est deja acheter par l'user
+                        if ($programmeAcheter === false) {
+                            if ($userConnecte->getRoles()[0] == 'ROLE_USER') {
+                                // recuperer le prix en promos si il existe
+                                if ($programme->getPrixPromo() == null) {
+                                    $prix = $programme->getPrix() ;
+                                } else {
+                                    $prix = $programme->getPrixPromo() ;
+                                }
+                                $prixEnCentimes = (int) round($prix * 100);
+                                Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
+                                $session = Session::create([
+                                    'line_items' => [
+                                        [
+                                            'price_data' => [
+                                                'currency' => 'EUR',
+                                                'product_data' => [
+                                                    'name' => $programme->getIntitule(),
+                                                ],
+                                                'unit_amount' => $prixEnCentimes
+                                            ],
+                                            'quantity' => 1,
+                                        ]
+                                    ],
+                                    'mode' => 'payment',
+                                    'success_url' => 'http://127.0.0.1:8000/validate/'.$programme->getId().'',
+                                    'cancel_url' => 'http://127.0.0.1:8000/programme/'.$programme->getId().'',
+                                    'billing_address_collection' => 'required',
+                                    "customer_email" => $user->getEmail(),
+                                    "metadata" => [
+                                        'programme_id' => $programme,
+                                    ]
+                                ]);
+                                return $this->redirect($session->url);
+                        } 
+                        else {
+                            $this->addFlash('message', 'vous devrez vous connecter entant que client pour pouvoir acheter un programme');
+                            return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
+                        }
                     }
                     else {
-                        $programmeAcheter = false;
+                        $this->addFlash('message', "vous avez déja acheté ce programme , vous pouvez le retrouver dans votre liste des programmes sur votre espace personelle ");
+                        return $this->redirectToRoute('show_programme',['id'=>$programme->getId()]);
                     }
                 }
-                if ($programmeAcheter === false) {
-                    if ($userConnecte->getRoles()[0] == 'ROLE_USER') {
-                        // recuperer le prix en promos si il existe
-                        if ($programme->getPrixPromo() == null) {
-                            $prix = $programme->getPrix() ;
-                        } else {
-                            $prix = $programme->getPrixPromo() ;
-                        }
-                        $prixEnCentimes = (int) round($prix * 100);
-                        Stripe::setApiKey('sk_test_51MyBkxH7jmQ7y8JFjhlj5nkQbrcZlmFYQTuIJ1s8wjxBbm2U8oy9MzpfT3I7b437smvqQYR9pvKPdpuKAeOlxlT400XvRAT6Yc');
-                        $session = Session::create([
-                            'line_items' => [
-                                [
-                                    'price_data' => [
-                                        'currency' => 'EUR',
-                                        'product_data' => [
-                                            'name' => $programme->getIntitule(),
-                                        ],
-                                        'unit_amount' => $prixEnCentimes
-                                    ],
-                                    'quantity' => 1,
-                                ]
-                            ],
-                            'mode' => 'payment',
-                            'success_url' => 'http://127.0.0.1:8000/validate/'.$programme->getId().'',
-                            'cancel_url' => 'http://127.0.0.1:8000/programme/'.$programme->getId().'',
-                            'billing_address_collection' => 'required',
-                            "customer_email" => $user->getEmail(),
-                            "metadata" => [
-                                'programme_id' => $programme,
-                            ]
-                        ]);
-                        return $this->redirect($session->url);
-                    } else {
-                        $this->addFlash('message', 'vous devrez vous connecter entant que client pour pouvoir acheter un programme');
-                        return $this->redirectToRoute('show_programme', ['id' => $programme->getId()]);
-                    }
-                }
-                else {
-                    $this->addFlash('message', "vous avez déja acheté ce programme , vous pouvez le retrouver dans votre liste des programmes sur votre espace personelle ");
-                    return $this->redirectToRoute('show_programme',['id'=>$programme->getId()]);
+                else{
+                    $this->addFlash('message', "Il faut valider votre compte pour acheter un programme ");
+                    return $this->redirectToRoute('app_home');
                 }
                 
             } else {
@@ -103,7 +111,8 @@ class CommandeController extends AbstractController
     {
         $userConnect = $this->getUser();
         if ($userConnect) {
-            //recuperer la session panier
+            if ($userConnect->isVerified()==true) {
+                //recuperer la session panier
                 $montantTotal = 0;
                 $panier = $session->get('panier',[]);
                 foreach ($panier as $programmeId) {
@@ -143,6 +152,11 @@ class CommandeController extends AbstractController
                     ]
                 ]);
                 return $this->redirect($session->url);
+            }
+            else {
+                $this->addFlash('message','Il faut valider votre compte');
+                return $this->redirectToRoute('app_home');
+            }
         }
         else{
             return $this->redirectToRoute('app_login');

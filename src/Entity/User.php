@@ -50,9 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biographie = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $adressePostale = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
@@ -238,18 +235,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBiographie(?string $biographie): self
     {
         $this->biographie = $biographie;
-
-        return $this;
-    }
-
-    public function getAdressePostale(): ?string
-    {
-        return $this->adressePostale;
-    }
-
-    public function setAdressePostale(?string $adressePostale): self
-    {
-        $this->adressePostale = $adressePostale;
 
         return $this;
     }
