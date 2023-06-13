@@ -16,6 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/admin/categories', name: 'admin_categorie_')]
 class CategorieController extends AbstractController
 {
+    // -------------------afficher les categorie
     #[Route('/', name: 'index')]
     public function index(CategorieRepository $categorieRepository): Response
     {
@@ -24,6 +25,8 @@ class CategorieController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
+    // ------------------ ajouter une categorie
     #[Route('/add', name: 'add')]
     public function addCategorie(ManagerRegistry $doctrine, Request $request, Categorie $categorie = null, SluggerInterface $slugger): Response
     {
@@ -101,7 +104,6 @@ class CategorieController extends AbstractController
                     // ... handle exception if something happens during file upload
 
                 }
-
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $categorie->setImage(
@@ -124,7 +126,7 @@ class CategorieController extends AbstractController
     #[Route('/delete/{id}', name: 'delete')]
     public function deleteCategorie(ManagerRegistry $doctrine, Categorie $categorie): Response
     {
-        // supprission d'imade de dossier image
+        // supprission d'image de dossier image
         $image = $categorie->getImage();
         if ($image) {
             // le chemin de l'image
