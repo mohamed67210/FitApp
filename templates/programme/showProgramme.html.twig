@@ -85,7 +85,7 @@
                 <div id="commentaire_message_container">
                     <p>{{commentaire.message}}</p>
                     {% if app.user %}
-                    {% if app.user == commentaire.user %}
+                    {% if app.user == commentaire.user or  is_granted('ROLE_ADMIN') %}
                     <a href="{{path('delete_commentaire',{'id':commentaire.id})}}">Supprimer</a>
                     {% endif %}
 

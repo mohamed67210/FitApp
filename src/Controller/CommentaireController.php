@@ -16,8 +16,9 @@ class CommentaireController extends AbstractController
     #[Route('/commentaire/delete/{id}', name: 'delete_commentaire')]
     public function deleteCommentaire(ManagerRegistry $doctrine, Commentaire $commentaire = null, CommentaireRepository $commentaireRepository): Response
     {
-        if ($this->getUser()) {
-            if ($this->getUser() == $commentaire->getUser()) {
+        $userConnect = $this->getUser();
+        if ($userConnect) {
+            if ($userConnect == $commentaire->getUser() || $userConnect->getRoles()[0] == 'ROLE_ADMIN')  {
                 // 1 methode avec ManagerRegistry 
                 // $entityManager = $doctrine->getManager();
                 // $entityManager->remove($commentaire);

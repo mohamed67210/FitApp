@@ -189,6 +189,7 @@ if (deleteLinks != null) {
         });
     });
 }
+// ------- alerter avant supprission de compte 
 if (deleteCompteLink != null) {
     // Ajoute un gestionnaire d'événements de clic au lien de suppression compte
             deleteCompteLink.addEventListener('click', e => {
