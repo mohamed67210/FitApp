@@ -29,7 +29,7 @@ class AdminProgrammeController extends AbstractController
         $entityManager->persist($programme);
         $entityManager->flush();
         $programmes = $programmeRepository->findBy([], ['id' => 'DESC']);
-        $this->addFlash("success", "vous venez d'activé le programme : " . $programme->getIntitule() . " !");
+        $this->addFlash("message", "vous venez d'activé le programme : " . $programme->getIntitule() . " !");
         return $this->render('admin/programmes/index.html.twig', [
             'programmes' => $programmes,
         ]);
@@ -42,7 +42,7 @@ class AdminProgrammeController extends AbstractController
         $entityManager->persist($programme);
         $entityManager->flush();
         $programmes = $programmeRepository->findBy([], ['id' => 'DESC']);
-        $this->addFlash('success', 'vous venez de desactivé le programme : ' . $programme->getIntitule() . ' !');
+        $this->addFlash('message', 'vous venez de desactivé le programme : ' . $programme->getIntitule() . ' !');
 
         return $this->render('admin/programmes/index.html.twig', [
             'programmes' => $programmes,

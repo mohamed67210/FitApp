@@ -21,7 +21,7 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Programme::class)]
+    #[ORM\OneToMany(mappedBy: 'categorie',orphanRemoval:true, targetEntity: Programme::class)]
     private Collection $programmes;
 
     public function __construct()

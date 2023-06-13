@@ -36,11 +36,8 @@ class UserController extends AbstractController
             foreach ($commandes as $commande) {
                 $commande->setUser(null);
                 $entityManager->persist($commande);
-
             }
-
             $commentaires = $commentaireRepository->findBy(['user' => $user]);
-            
             foreach ($commentaires as $commentaire) {
             $commentaire->setUser(null);
             $entityManager->persist($commentaire);
@@ -174,8 +171,6 @@ class UserController extends AbstractController
             $this->addFlash('message','Accés refusé ');
             return $this->redirectToRoute('app_home');
         }
-        
-        
     }
 
     // editer user
@@ -225,7 +220,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute("show_profile");
         }
     }
-
+    // supprimeer photo de profile et remettre photo initial
     #[Route('/user/image/remove',name:'remove_image')]
     public function removeImageProfile(UserRepository $userRepository,ManagerRegistry $doctrine):Response
     {
@@ -360,7 +355,7 @@ class UserController extends AbstractController
             $entityManager->flush();
             $this->addFlash('message', "Le diplome est enregistré ! il sera bientot validé par l'admistration ,merci pour votre patience");
 
-            return $this->redirectToRoute('show_profile_test');
+            return $this->redirectToRoute('show_profile');
         }
             return $this->render('user/profile.html.twig',[
                 'user'=>$user,

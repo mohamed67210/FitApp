@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategorieController extends AbstractController
 {
+    // afficher les programmes d'une categorie
     #[Route('/categorie/{id}', name: 'categorie_programmes')]
     public function index(CategorieRepository $categorieRepository, Request $request): Response
     {

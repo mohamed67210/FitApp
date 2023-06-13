@@ -34,7 +34,7 @@ body {
 }
 
 strong {
-    background-color: var(--couleur-secondaire);
+    background-color: #5e308cab;
     color: white;
     padding: 2px 0.5rem;
     text-transform: uppercase;
@@ -176,13 +176,13 @@ nav.nav-active {
     /* background-color: #0062cc; */
 }
 .logo {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     background-color: var(--couleur-secondaire);
     border-radius: 50%;
     padding: 0.2rem;
-    margin-top: 10%;
+    margin: 10% 0;
 }
 
 /* middle nav */
@@ -197,8 +197,8 @@ nav.nav-active {
     position: absolute;
     width: 25%;
     z-index: 201;
-    background-color: #D9D9D9;
-    border: 1px solid #5E308C;
+    background-color: var(--couleur-primaire);
+    border: 1px solid var(--couleur-secondaire);
     top: -100%;
     list-style: none;
     display: none;
@@ -207,14 +207,14 @@ nav.nav-active {
 #user_links li a {
 
     text-decoration: none;
-    color: #011826;
+    color: white;
     width: 15px;
 }
 
 #user_links.open {
     transition: 0.8s;
     display: flex;
-    top: 2.5rem;
+    top: 5rem;
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem;
@@ -222,9 +222,8 @@ nav.nav-active {
 
 #menu_user {
     border-radius: 10px;
-    border: 1px solid #D9D9D9;
+    border: 1px solid var(--couleur-secondaire);
     padding: 0.2rem;
-    /* height: 90%; */
     width: 100px;
     display: flex;
     flex-direction: row;
@@ -1619,13 +1618,24 @@ video {
     margin-top: 5rem;
     padding: 1rem;
 }
-
+.admin_container .row main{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
 .image_panel_admin {
     width: 150px !important;
     height: 100px !important;
     object-fit: cover;
 }
-
+.admin_container form{
+    margin-top: 5rem;
+    flex-direction: column;
+    width: 50%;
+    gap: 2rem;
+}
 /* profile user responsive */
 .main_user{
     /* width: 80vw; */

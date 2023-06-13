@@ -46,3 +46,9 @@
         </div>
     </article>
 </aside>
+{% for message in app.flashes('message') %}
+    <div class="notification">
+        <p>{{ message }}</p>
+        <span class="notification_progress"></span>
+    </div>
+    {% endfor %}

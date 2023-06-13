@@ -28,9 +28,11 @@
                         <td><img class="image_panel_admin" src="{{asset('assets/images/diplomes/'~ diplome.image ~'')}}"
                                 alt="{{diplome.intitule}}"></td>
                         <td>{{diplome.intitule}}</td>
+                        <td>{{diplome.user}}</td>
+
                         <td><a class="btn btn-primary"
                                 href="{{path('admin_diplomes_activer',{'id':diplome.id})}}">Activer</a>
-                            <a class="btn btn-danger delete-article" href="">Supprimer</a>
+                            <a class="btn btn-danger delete-article" href="{{path('admin_diplomes_supprimer',{'id':diplome.id})}}">Supprimer</a>
                         </td>
                     </tr>
 

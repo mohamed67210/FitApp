@@ -178,7 +178,7 @@ if (deleteLinks != null) {
             e.preventDefault();
 
             // Affiche le popup de confirmation
-            const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cette categorie ?');
+            const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cet element?');
 
             // Si l'utilisateur a confirmé, redirige vers l'URL de suppression
             if (confirmed) {

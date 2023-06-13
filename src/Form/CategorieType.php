@@ -19,9 +19,16 @@ class CategorieType extends AbstractType
             ->add('intitule',TextType::class,[
             'required'=> true,
             'attr'=>['maxlength' => 20,
-            'maxMessage' => 'Il faut maximum 20 caractéres']
+            'maxMessage' => 'Il faut maximum 20 caractéres',
+            'class' => 'form-control']
             ])
-            ->add('image', FileType::class, ['required' => true, 'mapped' => false, 'constraints' => [
+            ->add('image', FileType::class, [
+                'attr'=>[
+                    'class' => 'form-control',
+                ],
+            'required' => true,
+            'mapped' => false,
+            'constraints' => [
                 new File([
                     'maxSize' => '5000k',
                     'mimeTypes' => [
@@ -30,7 +37,9 @@ class CategorieType extends AbstractType
                     'mimeTypesMessage' => 'Please upload a valid image',
                 ])
             ],])
-            ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);;
+            ->add('submit', SubmitType::class, [
+                'label' => 'Enregistrer',
+                 'attr' => ['class' => 'btn btn-primary']])
         ;
     }
 
