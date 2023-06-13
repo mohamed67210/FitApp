@@ -31,7 +31,8 @@
                         <td>{{categorie.intitule}}</td>
                         <td>{{categorie.programmes|length}} programme(s)</td>
 
-                        <td><a class="btn btn-primary" href="{{path('admin_categorie_edit',{'id':categorie.id})}}">Editer</a>
+                        <td>
+                            <a class="btn btn-primary" href="{{path('admin_categorie_edit',{'id':categorie.id})}}">Editer</a>
                             <a class="btn btn-danger delete-article" href="{{ path('admin_categorie_delete', {'id': categorie.id}) }}">Supprimer</a>
                         </td>
                     </tr>

@@ -1914,6 +1914,24 @@ input[type="submit"] {
     gap: 0.5rem;
 }
 
+/* -----------reset mot de passe form */
+.container_reset{
+    background-color: #FFFFFF;
+}
+.reset_form{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    border: 1px solid var(--couleur-primaire);
+    padding: 1rem;
+}
+.reset_form input {
+    border: 1px solid var(--couleur-secondaire);
+    margin-left: 1rem;
+    width: 60%;
+}
 /* responsive */
 @media (max-width: 767px) {
     nav{

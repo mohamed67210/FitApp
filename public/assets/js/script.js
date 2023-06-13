@@ -169,14 +169,16 @@ if (menuUser != null) {
 
 // popup supprission de categorie panel admin
 // Sélectionne tous les liens de suppression avec la classe "delete-article"
+const deleteCompteLink = document.querySelector('.delete-compte');
+console.log(deleteCompteLink);
 const deleteLinks = document.querySelectorAll('.delete-article');
+// ------- pour les boutons de supprission page admin
 if (deleteLinks != null) {
     // Ajoute un gestionnaire d'événements de clic à chaque lien de suppression
     deleteLinks.forEach(link => {
         link.addEventListener('click', e => {
             // Empêche le comportement par défaut du lien de suppression
             e.preventDefault();
-
             // Affiche le popup de confirmation
             const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cet element?');
 
@@ -186,6 +188,20 @@ if (deleteLinks != null) {
             }
         });
     });
+}
+if (deleteCompteLink != null) {
+    // Ajoute un gestionnaire d'événements de clic au lien de suppression compte
+            deleteCompteLink.addEventListener('click', e => {
+            // Empêche le comportement par défaut du lien de suppression
+            e.preventDefault();
+            // Affiche le popup de confirmation
+            const confirmed = confirm('Êtes-vous sûr de vouloir supprimer votre compte ? On vous rappele que vous allez perdre vos programmes achetés !');
+            // Si l'utilisateur a confirmé, redirige vers l'URL de suppression
+            if (confirmed) {
+                window.location.href = deleteCompteLink.href;
+            }
+        });
+    
 }
 
 // slider pour nouveauté

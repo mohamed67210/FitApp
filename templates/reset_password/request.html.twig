@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+{# integrer du bootsrap #}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock stylesheets %}
 {% block title %}réinitialiser de votre mot de passe{% endblock %}
 
 {% block body %}
+<main class="container container_reset">
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <h1>Reset your password</h1>
-
+    <h1>Reinitialiser mon mot de passe</h1>
     {{ form_start(requestForm) }}
         {{ form_row(requestForm.email) }}
         <div>
@@ -18,4 +22,6 @@
 
         <button class="btn btn-primary">Valider mon Email</button>
     {{ form_end(requestForm) }}
+</main>
+    
 {% endblock %}

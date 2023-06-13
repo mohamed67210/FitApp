@@ -24,7 +24,7 @@
     {{form_end (formUser)}}
     <br><br>
     {% if app.user %}
-        <a href="{{path('delete_compte')}}">Supprimer mon compte</a>
+        <a class="btn btn-danger delete-compte" href="{{path('delete_compte')}}">Supprimer mon compte</a>
     {% endif %}
 </main>
 {% endblock body %}
