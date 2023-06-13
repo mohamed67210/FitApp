@@ -46,7 +46,7 @@ class UserController extends AbstractController
         $compte =  $entityManager->getRepository(User::class)->remove($user);
         $entityManager->flush();
         // supprission d'image de dossier image
-        if ($image) {
+        if ($image && $image != 'defaultUser.png') {
             // le chemin de l'image
             $nomImage = $this->getParameter('userImage_directory') . '/' . $image;
             // verifier si le file existe dans le dossier
