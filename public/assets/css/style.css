@@ -365,7 +365,7 @@ footer a {
 #conditions_confidentialite {
     position: absolute;
     width: 100%;
-    height: fit-content;
+    height: 100%;
     background-color: white;
     top: 2.5rem;
     padding: 2rem 10rem;
@@ -373,6 +373,17 @@ footer a {
     flex-direction: column;
     z-index: 99;
     justify-content: end;
+}
+#conditions_confidentialite main{
+    background-color: transparent;
+    border: 1px solid var(--couleur-primaire);
+    border-radius: 5px;
+    width: 70%;
+    height: 60%;
+    position: fixed;
+    top: 10rem;
+    overflow-y: scroll;
+    padding: 2rem;
 }
 #conditions_confidentialite h2{
     color: #000;
