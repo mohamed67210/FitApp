@@ -122,7 +122,7 @@ class CategorieController extends AbstractController
             'CategorieForm' => $form->createView(),
         ]);
     }
-
+    // -----------------------supprisson de categorie
     #[Route('/delete/{id}', name: 'delete')]
     public function deleteCategorie(ManagerRegistry $doctrine, Categorie $categorie): Response
     {

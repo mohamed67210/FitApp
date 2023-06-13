@@ -30,6 +30,7 @@ class UserController extends AbstractController
     public function deleteProgramme(ManagerRegistry $doctrine, Request $request, CommentaireRepository $commentaireRepository,CommandeRepository $commandeRepository): Response
     {
         $user = $this->getUser();
+        $image = $user->getImage();
         if ($user) {
             $entityManager = $doctrine->getManager();
             $commandes = $commandeRepository->findBy(['user'=>$user]);
@@ -44,6 +45,15 @@ class UserController extends AbstractController
         }
         $compte =  $entityManager->getRepository(User::class)->remove($user);
         $entityManager->flush();
+        // supprission d'image de dossier image
+        if ($image) {
+            // le chemin de l'image
+            $nomImage = $this->getParameter('userImage_directory') . '/' . $image;
+            // verifier si le file existe dans le dossier
+            if (file_exists($nomImage)) {
+                unlink($nomImage);
+            }
+        }
 
         $request->getSession()->invalidate();
         $this->container->get('security.token_storage')->setToken(null);
@@ -307,59 +317,68 @@ class UserController extends AbstractController
     public function showProfileTest(UserRepository $userRepository,Request $request,SluggerInterface $slugger,ManagerRegistry $doctrine) : Response
     {
         $userConnect = $this->getUser();
-        if($userConnect){
-            $user = $userRepository->findOneBy(['id'=>$userConnect]);
-            // on cree le forulaire d'ajout de diplomes
-        $diplome = new Diplome;
-        $form = $this->createForm(DiplomeType::class, $diplome);
-        $form->handleRequest($request);
-        $diplome->setUser($user);
-        $diplome->setIsVerified(false);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // upload image
-            $uploadedFile = $form['image']->getData();
-            // dd($uploadedFile);
-            if ($uploadedFile) {
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                // dd($newFilename);
+        if($userConnect)
+        {
+            if (($userConnect->isVerified()) == true) {
+                $user = $userRepository->findOneBy(['id'=>$userConnect]);
+                // on cree le formulaire d'ajout de diplomes
+                $diplome = new Diplome;
+                $form = $this->createForm(DiplomeType::class, $diplome);
+                $form->handleRequest($request);
+                $diplome->setUser($user);
+                $diplome->setIsVerified(false);
+                // -------------- formulaire ajout diplome
+                if ($form->isSubmitted() && $form->isValid()) {
+                    // upload image
+                    $uploadedFile = $form['image']->getData();
+                    // dd($uploadedFile);
+                    if ($uploadedFile) {
+                        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                        // this is needed to safely include the file name as part of the URL
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                        // dd($newFilename);
 
-                // Move the file to the directory where Programme images are stored
-                try {
-                    $uploadedFile->move(
-                        $this->getParameter('diplomeImage_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                        // Move the file to the directory where Programme images are stored
+                        try {
+                            $uploadedFile->move(
+                                $this->getParameter('diplomeImage_directory'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            // ... handle exception if something happens during file upload
 
+                        }
+                        // updates the 'brochureFilename' property to store the PDF file name
+                        // instead of its contents
+                        $diplome->setImage(
+                            $newFilename
+                        );
+                    }
+                    // recuperer les données de diplome si il existe deja et si il est nul
+                    $diplome = $form->getData();
+
+                    // on recupere le managere doctrine
+                    $entityManager = $doctrine->getManager();
+
+                    // persist remplace prepare en pdo , on prepare l'objet diplome 
+                    $entityManager->persist($diplome);
+
+                    //on execute 
+                    $entityManager->flush();
+                    $this->addFlash('message', "Le diplome est enregistré ! il sera bientot validé par l'admistration ,merci pour votre patience");
+                    return $this->redirectToRoute('show_profile');
                 }
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $diplome->setImage(
-                    $newFilename
-                );
+                return $this->render('user/profile.html.twig',[
+                    'user'=>$user,
+                    'formDiplome' => $form->createView()
+                ]);
             }
-            // recuperer les données de diplome si il existe deja et si il est nul
-            $diplome = $form->getData();
-
-            // on recupere le managere doctrine
-            $entityManager = $doctrine->getManager();
-
-            // persist remplace prepare en pdo , on prepare l'objet diplome 
-            $entityManager->persist($diplome);
-
-            //on execute 
-            $entityManager->flush();
-            $this->addFlash('message', "Le diplome est enregistré ! il sera bientot validé par l'admistration ,merci pour votre patience");
-
-            return $this->redirectToRoute('show_profile');
-        }
-            return $this->render('user/profile.html.twig',[
-                'user'=>$user,
-                'formDiplome' => $form->createView()]);
+            else {
+                $this->addFlash('message',"il faut valider votre compte pour acceder a votre espace personnelle");
+            return $this->redirectToRoute('app_home');
+                
+            }
         }
         else{
             $this->addFlash('message','Vous devez vous connecter');
