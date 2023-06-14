@@ -313,7 +313,6 @@ footer a {
 .auth {
     background-color: white !important;
 }
-
 .authentification_form {
     width: 25rem;
     display: flex;
@@ -385,7 +384,9 @@ footer a {
     overflow-y: scroll;
     padding: 2rem;
 } */
-
+.cgu_link{
+    cursor: pointer;
+}
 #close_cc_popup{
     font-size: large;
     background-color: var(--couleur-primaire);
@@ -423,14 +424,11 @@ footer a {
     cursor: pointer;
     font-size: medium;
 }
-
-
 /* page panier */
 .container.panier {
     padding: 10rem;
     /* background-color: #467326; */
 }
-
 .programmes_panier {
     width: 80vw;
     background-color: #B1ACAC;
@@ -441,7 +439,6 @@ footer a {
     gap: 1rem;
     padding: 1rem;
 }
-
 .panier_programme_container {
     width: 100%;
     padding: 1rem 20%;
@@ -452,18 +449,14 @@ footer a {
     align-items: center;
     gap: 1rem;
 }
-
 .icon_rmove {
     color: #5c0808;
 }
-
 .panier_programme_container img {
     width: 200px;
     height: 150px;
     object-fit: cover;
-
 }
-
 .total_panier {
     background-color: #B1ACAC;
     width: 30rem;
@@ -474,11 +467,9 @@ footer a {
     justify-content: space-between;
     align-items: center;
 }
-
 .total_panier small {
     font-size: xx-small;
 }
-
 .total_panier .btn_achat {
     width: 50%;
     border-radius: 5px;

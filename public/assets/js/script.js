@@ -1,3 +1,4 @@
+
 // changer couleur de la nav apres scroll
 var navbar = document.querySelector('nav');
 window.onscroll = function () {
@@ -7,6 +8,7 @@ window.onscroll = function () {
         navbar.classList.remove('nav-active');
     }
 }
+
 // menu burger
 var navLinks = document.getElementById("nav-links");
 var btnMenu = document.getElementById("hamburger");
@@ -21,20 +23,19 @@ navLinks.addEventListener('mouseleave',function () {
     btnMenu.classList.toggle('is-active');
 })
 // animation after scroll (pour categories et section about)
+
 // Changing the defaults
 window.sr = ScrollReveal({ reset: true });
-// Customizing a reveal set
+// Customizing a reveal set 
 sr.reveal('#about_section', { scale: 0.5 });
 sr.reveal('.categorie_cart', { interval: 200, scale: 0.2, reset: true });
 sr.reveal('.about_categorie', { interval: 600, scale: 0.2 });
-
 
 // section about
 window.onload = function () {
     const textAbout = "<br>Nous avons créé <strong>JUSTRAINE</strong> pour aider les <strong>Coachs</strong> à partager leurs connaissances avec un public plus large. Nous croyons que tout le monde peut bénéficier d'un <strong>Coaching</strong> de qualité, et nous voulons rendre cela accessible à tous."
     const textCoach = "<br>Êtes-vous prêt à atteindre de nouveaux sommets dans votre carrière de coach sportif ? Rejoignez notre plateforme de coaching sportif freelance et connectez-vous avec des clients à la recherche de professionnels passionnés et dévoués pour les aider à atteindre leurs objectifs de fitness."
     const textMembre = "<br>Vous êtes à la recherche d'un coach sportif compétent et passionné pour vous aider à atteindre vos objectifs de fitness ? Rejoignez notre plateforme de coaching sportif freelance et découvrez une communauté de coachs de talent prêts à vous accompagner dans votre parcours de transformation physique."
-
 
     var monTexte = document.getElementById("monTexte");
     var monTitle = document.getElementById("monTitle");
@@ -87,33 +88,32 @@ function showSlide() {
     // console.log(slides[currentSlide])
 }
 
-
 // afficher cacher formulaire ajout diplome das page profile
 const btn = document.getElementById('diplome_form_btn')
 const form = document.getElementById('diplome_form')
 if (btn != null) {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (){
         form.classList.toggle('open')
     })
 }
 
-
-// page membre bouton tous les cours /liste de souhaits
+// page membre bouton tous les cours liste de souhaits
 const modules_link = document.querySelector('.modules_link')
 const favorie_link = document.querySelector('.favories_link')
 const favorie_items = document.querySelector('.favories_container')
 const modules_items = document.querySelector('.modules_container')
+
+
 if (modules_link != null) {
-    modules_link.addEventListener('click', function () {
+    modules_link.addEventListener('click', function (){
         favorie_items.style.display = "none"
         modules_items.style.display = "flex"
     })
-    favorie_link.addEventListener('click', function () {
+    favorie_link.addEventListener('click', function (){
         favorie_items.style.display = "flex"
         modules_items.style.display = "none"
     })
 }
-
 // popup diplomes
 const popup = document.querySelector('.diplomes_popup');
 const popup_btn = document.querySelector('.btn_popup');
@@ -156,8 +156,6 @@ if (favories_btn != null) {
         programmes_container.style.display = 'flex';
     })
 }
-
-
 // menu coach ou admin au milieu de la navbar
 const menuUser = document.getElementById('menu_user');
 const menuUserLinks = document.getElementById('user_links');
@@ -166,11 +164,10 @@ if (menuUser != null) {
         menuUserLinks.classList.toggle('open')
     })
 }
-
 // popup supprission de categorie panel admin
 // Sélectionne tous les liens de suppression avec la classe "delete-article"
 const deleteCompteLink = document.querySelector('.delete-compte');
-console.log(deleteCompteLink);
+// console.log(deleteCompteLink);
 const deleteLinks = document.querySelectorAll('.delete-article');
 // ------- pour les boutons de supprission page admin
 if (deleteLinks != null) {
@@ -204,8 +201,6 @@ if (deleteCompteLink != null) {
         });
 }
 
-
-
 // slider pour nouveauté
 document.addEventListener( 'DOMContentLoaded', function() {
     var splide = new Splide( '.splide',{
@@ -220,7 +215,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
                 perPage :1,
             },
         },
-    } );
+    });
     splide.mount();
   } );
 
@@ -231,27 +226,23 @@ const cc_popup_close = document.querySelector('#close_cc_popup')
 const vc_link = document.querySelector('.vc_link')
 const vc_container = document.querySelector('#conditions_vente')
 const vc_popup_close = document.querySelector('.vc_close')
-const cgu_container = document.querySelector('#cgu')
+const cgu_container = document.querySelectorAll('.conditions')
 const cgu_link = document.querySelector('.cgu_link')
 
 if (cc_links) {
     cc_links.forEach(cc_link => {
         cc_link.addEventListener('click',function(){
-            console.log('hahahha')
                 cc_container.style.display = 'flex';
             })
     });
-    
     cc_popup_close.addEventListener('click',function(){
         cc_container.style.display ='none'
     })
 }
 if (vc_link != null) {
-
     vc_link.addEventListener('click',function(){
         vc_container.style.display = 'flex'
     })
-
     if (vc_popup_close != null) {
         vc_popup_close.addEventListener('click',function(){
             vc_container.style.display = 'none'
@@ -259,17 +250,14 @@ if (vc_link != null) {
     }
 }
 if (cgu_link != null) {
-
     cgu_link.addEventListener('click',function(){
-        cgu_container.style.display = 'flex'
+        cgu_container[2].style.display = 'flex'
     })
-
     if (vc_popup_close != null) {
         vc_popup_close.addEventListener('click',function(){
             vc_container.style.display = 'none'
         })
     }
-    
 }
 
   
