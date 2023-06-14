@@ -231,6 +231,8 @@ const cc_popup_close = document.querySelector('#close_cc_popup')
 const vc_link = document.querySelector('.vc_link')
 const vc_container = document.querySelector('#conditions_vente')
 const vc_popup_close = document.querySelector('.vc_close')
+const cgu_container = document.querySelector('#cgu')
+const cgu_link = document.querySelector('.cgu_link')
 
 if (cc_links) {
     cc_links.forEach(cc_link => {
@@ -248,6 +250,18 @@ if (vc_link != null) {
 
     vc_link.addEventListener('click',function(){
         vc_container.style.display = 'flex'
+    })
+
+    if (vc_popup_close != null) {
+        vc_popup_close.addEventListener('click',function(){
+            vc_container.style.display = 'none'
+        })
+    }
+}
+if (cgu_link != null) {
+
+    cgu_link.addEventListener('click',function(){
+        cgu_container.style.display = 'flex'
     })
 
     if (vc_popup_close != null) {

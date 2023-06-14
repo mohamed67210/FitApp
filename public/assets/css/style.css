@@ -362,7 +362,7 @@ footer a {
 .conditions_link{
     cursor: pointer;
 }
-#conditions_confidentialite {
+/* #conditions_confidentialite {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -373,8 +373,8 @@ footer a {
     flex-direction: column;
     z-index: 99;
     justify-content: end;
-}
-#conditions_confidentialite main{
+} */
+/* #conditions_confidentialite main{
     background-color: transparent;
     border: 1px solid var(--couleur-primaire);
     border-radius: 5px;
@@ -384,10 +384,8 @@ footer a {
     top: 10rem;
     overflow-y: scroll;
     padding: 2rem;
-}
-#conditions_confidentialite h2{
-    color: #000;
-}
+} */
+
 #close_cc_popup{
     font-size: large;
     background-color: var(--couleur-primaire);
@@ -395,7 +393,7 @@ footer a {
     border: none;
     padding: 1rem;margin-bottom: 2rem;
 }
-#conditions_vente{
+.conditions{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -407,7 +405,7 @@ footer a {
     z-index: 99;
     justify-content: end;
 }
-#conditions_vente main{
+.conditions main{
     background-color: transparent;
     border: 1px solid var(--couleur-primaire);
     border-radius: 5px;
@@ -418,7 +416,7 @@ footer a {
     overflow-y: scroll;
     padding: 2rem;
 }
-#conditions_vente h2{
+.conditions h2{
     color: #000;
 }
 .vc_link {
@@ -1996,22 +1994,18 @@ input[type="submit"] {
         width: 80px;
         
     }
-    #conditions_vente{
-        padding: 2rem 1rem;
-        text-align: center;
-    }
-    #conditions_vente li{
+    .conditions li{
         font-size: x-small;
     }
-    #conditions_confidentialite{
+    .conditions{
         text-align: center;
         padding: 2rem 2rem;
 
     }
-    #conditions_confidentialite li{
-        font-size: x-small;
-    }
     .panier_programme_container{
         flex-direction: column;
+    }
+    .splide__track{
+        width: 80%;
     }
 }
