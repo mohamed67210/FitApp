@@ -57,9 +57,9 @@ class ProgrammeType extends AbstractType
                     'mimeTypesMessage' => 'Please upload a valid image',
                 ])
             ],])
-            ->add('isValid', HiddenType::class, [
-                'attr'=>['class' => 'form-control'],
-                'data' => '0'])
+            // ->add('isValid', HiddenType::class, [
+            //     'attr'=>['class' => 'form-control'],
+            //     'data' => '0'])
             ->add('categorie')
             // ->add('coach')
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);

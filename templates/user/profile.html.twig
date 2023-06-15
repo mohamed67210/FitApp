@@ -14,6 +14,10 @@
         <div class="user_image">
             <img src="{{ asset('assets/images/user/'~ user.image ~'') }}" alt="photo-user">
         </div>
+        {% if user.roles.0 == "ROLE_COACH"  %}
+        <p>Coach {{user}}</p>
+        {% endif %}
+        
         <div class="nav">
             <ul>
                 {# nav pour admin #}

@@ -61,7 +61,7 @@ class ProgrammeController extends AbstractController
         return  $this->redirectToRoute('show_user', ['id' => $userId]);
     }
 
-    //ajouter un programme ou editer
+    //ajouter un programme 
     #[Route('/programme/add', name: 'add_programme')]
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
@@ -103,6 +103,8 @@ class ProgrammeController extends AbstractController
             }
             // recuperer les données de programme si il existe deja et si il est nul
             $programme = $form->getData();
+            // isValid sera en false pour chaque nouveau programme
+            $programme->setIsValid(false);
             // on recupere le managere doctrine
             $entityManager = $doctrine->getManager();
             // persist remplace prepare en pdo , on prepare l'objet Programmme 
@@ -167,13 +169,19 @@ class ProgrammeController extends AbstractController
                     }
                     // recuperer les données de programme si il existe deja et si il est nul
                     $programme = $form->getData();
+                    // si le programme est active on le laisse active
+                    if ($programme->isIsValid() === true) {
+                        $programme->setIsValid(true);
+                    }
+                    
                     // on recupere le managere doctrine
                     $entityManager = $doctrine->getManager();
                     // persist remplace prepare en pdo , on prepare l'objet Programmme 
                     $entityManager->persist($programme);
                     //on execute 
                     $entityManager->flush();
-                    $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
+
+                    $this->addFlash('message', "Le Programme est bien edité");
                     return $this->redirectToRoute('show_profile');
                 }
             }
