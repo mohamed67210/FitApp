@@ -254,7 +254,7 @@ if (cgu_link != null) {
         cgu_container[2].style.display = 'flex'
     })
     if (vc_popup_close != null) {
-        vc_popup_close.addEventListener('click',function(){
+        cgu_popup_close.addEventListener('click',function(){
             vc_container.style.display = 'none'
         })
     }
