@@ -28,4 +28,10 @@ class HomeController extends AbstractController
             'lastProgrammes' => $lastFive
         ]);
     }
+
+    #[Route('/erreur', name: 'app_404')]
+    public function erreurPage():Response
+    {
+        return $this->render('page_erreur/erreur404.html.twig');
+    }
 }

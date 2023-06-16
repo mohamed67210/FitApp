@@ -29,10 +29,11 @@ class ProgrammeController extends AbstractController
 {
 
 
-    // afficher tout les programmes active
+    // afficher tous les programmes active
     #[Route('/programmes', name: 'show_programmes')]
     public function allProgrammesByCateg(CategorieRepository $categorieRepository): Response
     {
+        // on recupere les categories pour afficher leurs programmes dans la vue
         $categories = $categorieRepository->findBy([], ['id' => 'asc']);
         return $this->render('programme/allProgrammes.html.twig', [
             'categories' => $categories,
@@ -43,7 +44,7 @@ class ProgrammeController extends AbstractController
     #[Route('/programme/delete/{id}', name: 'delete_programme')]
     public function deleteProgramme(ManagerRegistry $doctrine, Programme $programme): Response
     {
-        // supprission d'imade de dossier image
+        // supprission d'image de dossier image
         $image = $programme->getImage();
         if ($image) {
             // le chemin de l'image
@@ -53,22 +54,20 @@ class ProgrammeController extends AbstractController
                 unlink($nomImage);
             }
         }
-        $userId = $programme->getCoach()->getId();
         $entityManager = $doctrine->getManager();
         $programme =  $entityManager->getRepository(Programme::class)->remove($programme);
         $entityManager->flush();
-        $this->addFlash('success', 'le programme est supprimé !');
-        return  $this->redirectToRoute('show_user', ['id' => $userId]);
+        $this->addFlash('message', 'le programme est supprimé !');
+        return  $this->redirectToRoute('show_profile');
     }
 
     //ajouter un programme 
     #[Route('/programme/add', name: 'add_programme')]
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
+        // vérifier si l'utilisateur actuellement connecté possède le rôle "ROLE_COACH" 
         $this->denyAccessUnlessGranted('ROLE_COACH');
-        if (!$programme) {
-            $programme = new programme;
-        }
+        $programme = new programme;   
         // dd($programme);
         $programme->setCoach($this->getUser());
         $userId = $programme->getCoach()->getId();

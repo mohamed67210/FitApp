@@ -228,6 +228,8 @@ const vc_container = document.querySelector('#conditions_vente')
 const vc_popup_close = document.querySelector('.vc_close')
 const cgu_container = document.querySelectorAll('.conditions')
 const cgu_link = document.querySelector('.cgu_link')
+const cgu_popup_close = document.querySelector('.close_cc_popup')
+
 
 if (cc_links) {
     cc_links.forEach(cc_link => {

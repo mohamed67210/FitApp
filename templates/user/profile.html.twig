@@ -79,6 +79,7 @@
             </div>
             {% endfor %}
             {% else %}
+            {# ------ si c un membre qui veux voir le profile d'un coach on affiche juste les programmes valide #}
             {% for programme in user.programsCreated %}
             {% if programme.isValid == true %}
             <div class="programme_cart profile_programme_cart">
