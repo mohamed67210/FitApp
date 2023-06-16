@@ -135,7 +135,7 @@ h2 span {
 }
 
 .container .background{
-    background-color: red;
+    background-color: transparent;
     width: 100%;
     height: 100vh;
     position: absolute;
@@ -204,7 +204,21 @@ nav.nav-active {
     border-radius: 50%;
     padding: 0.2rem;
     margin: 10% 0;
+    
 }
+.logo:hover{
+    transition: transform 0.5s ease-in-out;
+    animation: rotateAnimation 2s infinite linear;
+}
+@keyframes rotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
 
 /* middle nav */
 #middle {
@@ -286,11 +300,12 @@ nav.nav-active {
 }
 
 #right ul li a {
-
+    letter-spacing: 2px;
     text-decoration: none;
-    color: white;
+    color: var(--couleur-secondaire);
     width: 20px;
     font-weight: bold;
+    font-size: large;
 }
 
 /* panier */
@@ -580,6 +595,7 @@ footer a {
 
 .contenu h3{
     line-height: 1.5;
+    letter-spacing: 3px;
 }
 
 /* section about */
@@ -653,7 +669,7 @@ footer a {
 #commentcamarche_section div article {
     width: 30rem;
     padding: 1.5rem;
-    background-color: #9b8f8f;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -664,8 +680,7 @@ footer a {
 }
 #commentcamarche_section div article p {
     font-size: small;
-    color: #011826;
-
+    color: #fff;
     text-shadow: 0 0 10px #FFFFFF;
 }
 
@@ -693,7 +708,7 @@ footer a {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccccccab;
+    background-color: #041017bd;
     filter: blur(5px);
     z-index: 0;
 }

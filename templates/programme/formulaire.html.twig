@@ -6,6 +6,12 @@
 {% block title %}Nouveau programme{% endblock title %}
 {% block body %}
 <main class="container">
+    {% for message in app.flashes('message') %}
+        <div class="notification">
+        <p>{{ message }}</p>
+        <span class="notification_progress"></span>
+        </div>
+    {% endfor %}
     <h3>Nouveau Programme</h3>
     <div id="inputes_container">
         {{form_start (formProgramme)}}
@@ -19,9 +25,6 @@
         <p>image actuelle </p>
         <img src="{{ asset('assets/images/programmes/'~ programme.image ~'') }}" alt="programme.intitule">
     </div>
-    {% if programme %}
-    <h3><a class="btn_achat" href="{{ path('add_module',{'id':programme.id}) }}">Ajouter un cour</a></h3>
-    {% endif %}
     <section>
 
     </section>

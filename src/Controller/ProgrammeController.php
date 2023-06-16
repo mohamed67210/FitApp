@@ -102,6 +102,14 @@ class ProgrammeController extends AbstractController
             }
             // recuperer les données de programme si il existe deja et si il est nul
             $programme = $form->getData();
+            // verifier si le prix promos est inferieur au prix de base 
+            if ($programme->getPrixPromo() != null && ($programme->getPrix() < $programme->getPrixPromo())) {
+                $this->addFlash('message','Le prix promo doit etres inferieure au pris de base');
+                return $this->render('programme/formulaire.html.twig', [
+                    'formProgramme' => $form->createView(),
+                    'programme' => $programme
+                ]);
+            }else {
             // isValid sera en false pour chaque nouveau programme
             $programme->setIsValid(false);
             // on recupere le managere doctrine
@@ -112,6 +120,8 @@ class ProgrammeController extends AbstractController
             $entityManager->flush();
             $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
             return $this->redirectToRoute('show_user', ['id' => $userId]);
+            }
+            
         }
         return $this->render('programme/formulaire.html.twig', [
             'formProgramme' => $form->createView(),
@@ -172,7 +182,14 @@ class ProgrammeController extends AbstractController
                     if ($programme->isIsValid() === true) {
                         $programme->setIsValid(true);
                     }
-                    
+                    // verifier si le prix promos est inferieur au prix de base 
+                    if ($programme->getPrixPromo() != null && ($programme->getPrix() <= $programme->getPrixPromo())) {
+                        $this->addFlash('message','Le prix promo doit etres inferieure au pris de base');
+                        return $this->render('programme/formulaire.html.twig', [
+                            'formProgramme' => $form->createView(),
+                            'programme' => $programme
+                        ]);
+                    }
                     // on recupere le managere doctrine
                     $entityManager = $doctrine->getManager();
                     // persist remplace prepare en pdo , on prepare l'objet Programmme 
@@ -184,7 +201,6 @@ class ProgrammeController extends AbstractController
                     return $this->redirectToRoute('show_profile');
                 }
             }
-
             return $this->render('programme/formulaire.html.twig', [
                 'formProgramme' => $form->createView(),
                 'programme' => $programme
