@@ -17,26 +17,17 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('intitule',TextType::class)
-            ->add('description',TextareaType::class)
-            ->add('video', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
+            ->add('intitule',TextType::class,['required' => true,'attr'=>['class' => 'form-control']])
+            ->add('description',TextareaType::class,['required' => true,'attr'=>['class' => 'form-control']])
+            ->add('video', FileType::class, ['required' => true, 'constraints' => [
                 new File([
-                    // 'maxSize' => '5000k',
+                    // 'maxSize' => '50000k',
                     'mimeTypes' => [
                         'video/mp4',
                     ],
                     'mimeTypesMessage' => 'Please upload a valid video',
                 ])
             ],])
-            // ->add('miniature', FileType::class, ['required' => false, 'mapped' => false, 'constraints' => [
-            //     new File([
-            //         'maxSize' => '5000k',
-            //         'mimeTypes' => [
-            //             'image/jpeg',
-            //         ],
-            //         'mimeTypesMessage' => 'Please upload a valid image',
-            //     ])
-            // ],])
             // ->add('programme')
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => 'btn_achat']]);
         ;

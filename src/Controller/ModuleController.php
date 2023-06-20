@@ -31,12 +31,13 @@ class ModuleController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_COACH');
         $module = new Module;
         $module->setProgramme($programme);
+        // dd($module);
         $form = $this->createForm(ModuleType::class, $module);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() ) {
             // upload video et miniature
             $uploadedFile = $form['video']->getData();
+            // dd($uploadedFile);
             // dd($uploadedFile);
             if ($uploadedFile) {
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -54,7 +55,6 @@ class ModuleController extends AbstractController
                     // ... handle exception if something happens during file upload
 
                 }
-
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
                 $module->setVideo(

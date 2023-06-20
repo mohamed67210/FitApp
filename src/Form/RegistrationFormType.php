@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
                     'Il faut un mot de passe de 8 caractéres avec 1 lettre majuscule, 1 lettre miniscule, 1 chiffre, 1 caractere spéciale')
                 ],
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => "le mot de passe n'est pas identique.",
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => false,'attr'=>['placeholder'=>'Votre mot de passe']],

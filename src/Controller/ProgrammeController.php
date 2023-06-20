@@ -65,6 +65,8 @@ class ProgrammeController extends AbstractController
     #[Route('/programme/add', name: 'add_programme')]
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
+        // ------ creer une variable pour afficher le titre dans la vue ajout programme
+        $edit = false;
         // vérifier si l'utilisateur actuellement connecté possède le rôle "ROLE_COACH" 
         $this->denyAccessUnlessGranted('ROLE_COACH');
         $programme = new programme;   
@@ -107,7 +109,7 @@ class ProgrammeController extends AbstractController
                 $this->addFlash('message','Le prix promo doit etres inferieure au pris de base');
                 return $this->render('programme/formulaire.html.twig', [
                     'formProgramme' => $form->createView(),
-                    'programme' => $programme
+                    'programme' => $programme,
                 ]);
             }else {
             // isValid sera en false pour chaque nouveau programme
@@ -134,8 +136,8 @@ class ProgrammeController extends AbstractController
     public function edit(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
         if ($programme) {
-
             $this->denyAccessUnlessGranted('ROLE_COACH');
+            $edit = true;
             // Vérifier si l'utilisateur actuel est le créateur du programme
             if ($programme->getCoach() !== $this->getUser()) {
                 $this->addFlash('message', 'accés réfusé ff!');
@@ -203,7 +205,8 @@ class ProgrammeController extends AbstractController
             }
             return $this->render('programme/formulaire.html.twig', [
                 'formProgramme' => $form->createView(),
-                'programme' => $programme
+                'programme' => $programme,
+                'edit' =>$edit
             ]);
         } else {
             $this->addFlash('message', 'Accés refusé !');

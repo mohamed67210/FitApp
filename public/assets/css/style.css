@@ -679,7 +679,6 @@ footer a {
     color: var(--couleur-secondaire);
 }
 #commentcamarche_section div article p {
-    font-size: small;
     color: #fff;
     text-shadow: 0 0 10px #FFFFFF;
 }
@@ -1450,7 +1449,7 @@ video {
     flex-direction: column;
     /* justify-content: space-between; */
     background-color: white;
-    height: fit-content;
+    height: 60vh;
     top: 5rem;
     right: 2rem;
 }
@@ -1996,6 +1995,10 @@ input[type="submit"] {
     h2{
         text-align: center;
         font-size: large;
+    }
+    .contenu h3{
+        font-size: medium;
+        letter-spacing: 1px;
     }
     #about_text{
         top: 0;

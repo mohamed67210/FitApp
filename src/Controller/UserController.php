@@ -86,7 +86,6 @@ class UserController extends AbstractController
             else {
                 return $this->redirectToRoute('show_coachs');
             }
-            
         } else {
             $coachs = $userRepository->findByRole('ROLE_COACH');
             return $this->render('user/showCoachs.html.twig', [
