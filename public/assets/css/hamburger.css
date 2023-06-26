@@ -124,6 +124,13 @@
     align-items: center;
     padding: 1.5rem;
 }
+#nav-links ul li{
+    /* background-color: white; */
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid white;
+    padding: 0.2rem;
+}
 
 @media screen and (max-width: 690px)  {
     #nav-links.open{

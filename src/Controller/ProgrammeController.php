@@ -65,70 +65,74 @@ class ProgrammeController extends AbstractController
     #[Route('/programme/add', name: 'add_programme')]
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
-        // ------ creer une variable pour afficher le titre dans la vue ajout programme
-        $edit = false;
-        // vérifier si l'utilisateur actuellement connecté possède le rôle "ROLE_COACH" 
-        $this->denyAccessUnlessGranted('ROLE_COACH');
-        $programme = new programme;   
-        // dd($programme);
-        $programme->setCoach($this->getUser());
-        $userId = $programme->getCoach()->getId();
-        // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
-        $form = $this->createForm(ProgrammeType::class, $programme);
-        $form->handleRequest($request);
-        // dd($form['image']->getData());
-        if ($form->isSubmitted() && $form->isValid()) {
-            // upload image
-            $uploadedFile = $form['image']->getData();
-            // dd($uploadedFile);
-            if ($uploadedFile) {
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                // dd($newFilename);
-                // Move the file to the directory where Programme images are stored
-                try {
-                    $uploadedFile->move(
-                        $this->getParameter('programmeImage_directory'),
+        if($this->getUser()){
+            
+            // vérifier si l'utilisateur actuellement connecté possède le rôle "ROLE_COACH" 
+            $this->denyAccessUnlessGranted('ROLE_COACH');
+            $programme = new programme;   
+            // dd($programme);
+            $programme->setCoach($this->getUser());
+            $userId = $programme->getCoach()->getId();
+            // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
+            $form = $this->createForm(ProgrammeType::class, $programme);
+            $form->handleRequest($request);
+            // dd($form['image']->getData());
+            if ($form->isSubmitted() && $form->isValid()) {
+                // ------------upload image
+                $uploadedFile = $form['image']->getData();
+                // dd($uploadedFile);
+                if ($uploadedFile) {
+                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                    // dd($newFilename);
+                    // Move the file to the directory where Programme images are stored
+                    try {
+                        $uploadedFile->move(
+                            $this->getParameter('programmeImage_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $programme->setImage(
                         $newFilename
                     );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
                 }
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $programme->setImage(
-                    $newFilename
-                );
+                // recuperer les données de programme 
+                $programme = $form->getData();
+                // verifier si le prix promos est inferieur au prix de base 
+                if ($programme->getPrixPromo() != null && ($programme->getPrix() < $programme->getPrixPromo())) {
+                    $this->addFlash('message','Le prix promo doit etres inferieure au pris de base');
+                    return $this->render('programme/formulaire.html.twig', [
+                        'formProgramme' => $form->createView(),
+                        'programme' => $programme,
+                    ]);
+                }else {
+                // isValid sera en false pour chaque nouveau programme
+                $programme->setIsValid(false);
+                // on recupere le managere doctrine
+                $entityManager = $doctrine->getManager();
+                // persist remplace prepare en pdo , on prepare l'objet Programmme 
+                $entityManager->persist($programme);
+                //on execute 
+                $entityManager->flush();
+                $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
+                return $this->redirectToRoute('show_user', ['id' => $userId]);
+                }
+                
             }
-            // recuperer les données de programme si il existe deja et si il est nul
-            $programme = $form->getData();
-            // verifier si le prix promos est inferieur au prix de base 
-            if ($programme->getPrixPromo() != null && ($programme->getPrix() < $programme->getPrixPromo())) {
-                $this->addFlash('message','Le prix promo doit etres inferieure au pris de base');
-                return $this->render('programme/formulaire.html.twig', [
-                    'formProgramme' => $form->createView(),
-                    'programme' => $programme,
-                ]);
-            }else {
-            // isValid sera en false pour chaque nouveau programme
-            $programme->setIsValid(false);
-            // on recupere le managere doctrine
-            $entityManager = $doctrine->getManager();
-            // persist remplace prepare en pdo , on prepare l'objet Programmme 
-            $entityManager->persist($programme);
-            //on execute 
-            $entityManager->flush();
-            $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
-            return $this->redirectToRoute('show_user', ['id' => $userId]);
-            }
-            
+            return $this->render('programme/formulaire.html.twig', [
+                'formProgramme' => $form->createView(),
+                'programme' => $programme
+            ]);
+        }else {
+            $this->addFlash('message','Accés refusé !');
+            return $this->redirectToRoute('app_login');
         }
-        return $this->render('programme/formulaire.html.twig', [
-            'formProgramme' => $form->createView(),
-            'programme' => $programme
-        ]);
     }
 
     // editer un programme par son coach

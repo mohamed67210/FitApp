@@ -40,7 +40,7 @@ class ModuleType extends AbstractType
                 ])
             ->add('video', FileType::class, ['required' => true, 'constraints' => [
                 new File([
-                    'maxSize' => '50000k',
+                    'maxSize' => '500000k',
                     'mimeTypes' => [
                         'video/mp4',
                     ],

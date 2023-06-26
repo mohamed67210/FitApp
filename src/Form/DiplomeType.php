@@ -33,6 +33,9 @@ class DiplomeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Diplome::class,
+            'attr' => [
+                'class' => 'diplome-form',
+            ]
         ]);
     }
 }

@@ -69,26 +69,26 @@ class PanierController extends AbstractController
     #[Route('/panier/add/{id}', name: 'add_panier')]
     public function AddToPanier(Programme $programme, SessionInterface $session): Response
     {
-            if ($this->getUser()) {
-                if ($this->getUser()->getroles()[0] == 'ROLE_USER') {
-                    $id = $programme->getId();
-                    $panier = $session->get('panier',[]);
-                    if (!empty($panier[$id])) {
-                        $this->addFlash('message','ce programme est deja dans votre panier !');
-                        return $this->redirectToRoute('show_programme',['id'=>$id]);
-                    }else{
-                        $panier[$id]= $id;
-                    }
-                    //sauvegarder le panier dans la session
-                    $session->set('panier',$panier);
-                    return $this->redirectToRoute('show_panier');
-                } else {
-                    $this->addFlash('message', "Nous sommes désolé ! vous n'etes pas client donc vous n'avez pas accés a cette fonctionnalité !");
-                    return $this->redirectToRoute('show_panier');
+        if ($this->getUser()) {
+            if ($this->getUser()->getroles()[0] == 'ROLE_USER') {
+                $id = $programme->getId();
+                $panier = $session->get('panier',[]);
+                if (!empty($panier[$id])) {
+                    $this->addFlash('message','ce programme est deja dans votre panier !');
+                    return $this->redirectToRoute('show_programme',['id'=>$id]);
+                }else{
+                    $panier[$id]= $id;
                 }
+                //sauvegarder le panier dans la session
+                $session->set('panier',$panier);
+                return $this->redirectToRoute('show_panier');
             } else {
-                return $this->redirectToRoute('app_login');
+                $this->addFlash('message', "Nous sommes désolé ! vous n'etes pas client donc vous n'avez pas accés a cette fonctionnalité !");
+                return $this->redirectToRoute('show_panier');
             }
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
         
     }
 

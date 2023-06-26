@@ -62,9 +62,9 @@ h2 span {
 }
 
 .btn_achat {
-    width: 70%;
+    width: fit-content;
     height: 35px;
-    background-color: #467326;
+    background-color: var(--couleur-secondaire);
     color: white;
     padding: 0.5rem;
     border-radius: 10px;
@@ -1178,7 +1178,7 @@ a {
     color: #B1ACAC;
     font-size: x-small;
 }
-
+/* le div qui contient le form diplome */
 #diplome_form {
     background-color: #D9D9D9;
     display: none;
@@ -1188,7 +1188,12 @@ a {
 #diplome_form.open {
     display: block;
 }
-
+.diplome-form{
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: start;
+}
 .membre_moduls_container {
     width: 95%;
     height: 30rem;
