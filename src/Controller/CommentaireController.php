@@ -30,7 +30,7 @@ class CommentaireController extends AbstractController
                 return $this->redirectToRoute('show_programme', ['id' => $programme->getId()],);
             } else {
                 $this->addFlash('message', 'acces réfusé !');
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_home');
             }
         } else {
             $this->addFlash('message', 'acces réfusé !');

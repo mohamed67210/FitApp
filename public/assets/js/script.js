@@ -228,7 +228,7 @@ const vc_container = document.querySelector('#conditions_vente')
 const vc_popup_close = document.querySelector('.vc_close')
 const cgu_container = document.querySelectorAll('.conditions')
 const cgu_link = document.querySelector('.cgu_link')
-const cgu_popup_close = document.querySelector('.close_cc_popup')
+const cgu_popup_close = document.querySelector('.close_cgu_popup')
 
 
 if (cc_links) {
@@ -252,12 +252,16 @@ if (vc_link != null) {
     }
 }
 if (cgu_link != null) {
+   
+
     cgu_link.addEventListener('click',function(){
         cgu_container[2].style.display = 'flex'
+        console.log(cgu_popup_close);
     })
-    if (vc_popup_close != null) {
+    if (cgu_popup_close != null) {
+    
         cgu_popup_close.addEventListener('click',function(){
-            vc_container.style.display = 'none'
+            cgu_container[2].style.display = 'none'
         })
     }
 }
