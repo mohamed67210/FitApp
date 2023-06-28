@@ -96,7 +96,7 @@
             {% endif %}
             
         </article>
-        {% if app.user %}
+        {% if app.user and app.user.isVerified == true %}
         <article class="commentaire_form">
             {{form_start (commentaireForm)}}
             {{form_end (commentaireForm)}}

@@ -209,7 +209,10 @@
                 <ul>
                     <li><h4>nom : {{user.nom}}</h4></li>
                     <li><h4>Prenom : {{user.prenom}}</h4></li>
-                    <li><h4>Email : {{user.email}}</h4></li>
+                    {# <li><h4>Email : {{user.email}}</h4></li> #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="mailto:{{user.email}}"><i class="fa-solid fa-envelope" style="color: #000;"></i> &ensp; Contactez moi </a>
+                    {% endif %}
                 </ul>
                     
                     <button id="popup_close" class="infos_popup_close">fermer</button>
