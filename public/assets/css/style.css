@@ -307,6 +307,9 @@ nav.nav-active {
     font-weight: bold;
     font-size: large;
 }
+#right ul li a:hover{
+    color: white;
+}
 
 /* panier */
 #basket_container {
@@ -319,16 +322,19 @@ nav.nav-active {
 }
 
 #basket_container span {
-    padding: 0.1rem;
+    padding: 0.2rem;
     border-radius: 50%;
     position: absolute;
-    /* width: 15px;
-    height: 15px; */
+    width: 20px;
+    height: 20px; 
     font-size: small;
-    top: -5px;
-    right: -15px;
+    text-align: center;
+    top: -15px;
+    right: -5px;
     text-align: center;
     /* color: #5E308C; */
+    /* background-color: var(--couleur-secondaire);
+    border-radius: 50%; */
 }
 
 /* footer */
@@ -1668,6 +1674,9 @@ video {
     #programme_infos_avis_section {
         width: 100%;
     }
+    .search-form{
+        width: 90%;
+    }
 }
 
 /* partie admin */
@@ -1836,6 +1845,20 @@ ul li{
     }
     .user_header .nav{
         width: 95%;
+    }
+    #programmes_achete_container_membre{
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    #programmes_favories_container_membre{
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    #popup_close{
+        padding: 0.5rem;
+        margin: 1rem 30%;
     }
 }
 

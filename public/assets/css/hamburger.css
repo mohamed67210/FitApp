@@ -132,6 +132,10 @@
     border-bottom: 1px solid white;
     padding: 0.2rem;
 }
+#nav-links ul li:hover{
+    border-bottom: 1px solid #5E308C;
+
+}
 
 @media screen and (max-width: 690px)  {
     #nav-links.open{
@@ -143,5 +147,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        top: 3rem;
     }
 }
