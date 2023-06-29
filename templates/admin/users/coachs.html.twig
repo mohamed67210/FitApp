@@ -24,7 +24,7 @@
                         <th scope="row">{{coach.id}}</th>
                         <td><img class="image_panel_admin" src="{{asset('assets/images/user/'~ coach.image ~'')}}"
                                 alt="{{coach}}"></td>
-                        <td>{{coach}}</td>
+                        <td><a href="{{path('show_user', {'id': coach.id})}}">{{coach}}</a></td>
                         <td>{{coach.email}}</td>
                         <td><a href="">{% if coach.isVerified == true %}
                                 <i class="fa-solid fa-square-check" style="color: #378122;"></i>

@@ -37,6 +37,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
+    access_denied_url: /app_home
+
 when@test:
     security:
         password_hashers:
