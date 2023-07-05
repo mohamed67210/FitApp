@@ -49,7 +49,7 @@
     </section>
     <section id="programme_infos_avis_section">
         <article id="programme_infos_container">
-            <h4>Categorie : {{programme.categorie}}</h4>
+            <h4>Categorie : <a href="{{path('categorie_programmes',{'id':programme.categorie.id})}}"> {{programme.categorie}}</a></h4>
             <h2>{{programme.intitule}}</h2>
             <p>{{programme.description}}</p>
             <span>Avis({{programme.commentaires|length }}) </span>

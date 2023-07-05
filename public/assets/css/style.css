@@ -994,6 +994,12 @@ a {
     width: 100%;
     padding: 0.5rem;
     text-align: center;
+    text-decoration: none;
+    transition: 0.3s ease-out;
+}
+.programme_cart .btn:hover{
+    background-color: #944cdc;
+    
 }
 
 /* page show Coachs */
@@ -1448,6 +1454,9 @@ video {
     padding: 0.5rem;
     width: fit-content;
 }
+#programme_infos_container h4 a{
+    color: white;
+}
 #programme_infos_container h2{
     color: var(--couleur-primaire);
 }
@@ -1645,9 +1654,10 @@ video {
     height: 80%;
     padding-top: 0.5rem;
     padding-left: 0.5rem;
-
 }
-
+#commentaire_message{
+    color: black;
+}
 #commentaire_message_container p {
     font-size: xx-small;
 }

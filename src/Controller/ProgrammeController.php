@@ -123,7 +123,6 @@ class ProgrammeController extends AbstractController
                 $this->addFlash('message', "Félicitation !Le Programme est enregistré, pour l'instant il est pas en ligne,il sera dabord examiné pour étres validé ");
                 return $this->redirectToRoute('show_user', ['id' => $userId]);
                 }
-                
             }
             return $this->render('programme/formulaire.html.twig', [
                 'formProgramme' => $form->createView(),
