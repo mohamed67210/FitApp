@@ -66,38 +66,34 @@ class ProgrammeController extends AbstractController
     public function add(ManagerRegistry $doctrine, Programme $programme = null, Request $request, SluggerInterface $slugger): Response
     {
         if($this->getUser()){
-            
             // vérifier si l'utilisateur actuellement connecté possède le rôle "ROLE_COACH" 
             $this->denyAccessUnlessGranted('ROLE_COACH');
-            $programme = new programme;   
-            // dd($programme);
+            // instancie un objet de la classe Programme
+            $programme = new Programme;   
+            // le champ coach de l'objet programme prend la valeur de l'utilisateur connecté
             $programme->setCoach($this->getUser());
             $userId = $programme->getCoach()->getId();
             // construire un formulaire qui va se baser sur le $builder dans ProgrammeType
             $form = $this->createForm(ProgrammeType::class, $programme);
             $form->handleRequest($request);
-            // dd($form['image']->getData());
             if ($form->isSubmitted() && $form->isValid()) {
                 // ------------upload image
                 $uploadedFile = $form['image']->getData();
-                // dd($uploadedFile);
                 if ($uploadedFile) {
                     $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
+                    // Ceci est nécessaire pour inclure en toute sécurité le nom de fichier en tant que partie de l'URL
                     $safeFilename = $slugger->slug($originalFilename);
                     $newFilename = $safeFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                    // dd($newFilename);
-                    // Move the file to the directory where Programme images are stored
+                    //  on Déplace le fichier dans le répertoire où les images de programme sont stockées
                     try {
                         $uploadedFile->move(
                             $this->getParameter('programmeImage_directory'),
                             $newFilename
                         );
                     } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
+                        // on gère l'exception s'il se produit une erreur lors du téléchargement du fichier
                     }
-                    // updates the 'brochureFilename' property to store the PDF file name
-                    // instead of its contents
+                    // met à jour la propriété 'brochureFilename' pour stocker le nom du fichier image
                     $programme->setImage(
                         $newFilename
                     );

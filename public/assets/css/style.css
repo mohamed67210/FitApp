@@ -302,7 +302,7 @@ nav.nav-active {
 #right ul li a {
     letter-spacing: 2px;
     text-decoration: none;
-    color: var(--couleur-secondaire);
+    color: #FFFFFF;
     width: 20px;
     font-weight: bold;
     font-size: large;
@@ -688,7 +688,7 @@ footer a {
     position: relative;
 }
 #commentcamarche_section div article h3{
-    color: var(--couleur-secondaire);
+    color: #FFF;
 }
 #commentcamarche_section div article p {
     color: #fff;
@@ -1027,6 +1027,10 @@ a {
     width: 30%;
     bottom: 0;
     height: 100%;
+    cursor: pointer;
+}
+.search-btn:hover .fa-magnifying-glass{
+    color: var(--couleur-secondaire);
 }
 .fa-magnifying-glass{
     font-size: large;
@@ -1280,7 +1284,13 @@ a {
 .container_modules h1,h3{
     color: white;
 }
-
+.add_module_btn{
+    text-decoration: none;
+    color: white;
+    background-color: var(--couleur-secondaire);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
 #modules_list {
     width: 100%;
     height: 80vh;

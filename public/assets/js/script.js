@@ -39,7 +39,7 @@ window.onload = function () {
 
     var monTexte = document.getElementById("monTexte");
     var monTitle = document.getElementById("monTitle");
-    var title = ["A PROPOS", "ETES-VOUS COACH ?", "VOUS ETES  A LA RECHERCHE D'UN PROGRAMME ?"]
+    var title = ["A PROPOS", "ETES-VOUS COACH ?", "VOUS ETES A LA RECHERCHE D'UN PROGRAMME ?"]
     var messages = [textAbout,
         textCoach,
         textMembre]; // tableau des messages à afficher
@@ -54,7 +54,6 @@ window.onload = function () {
             }
         }, 15000); // temps en millisecondes (5 secondes = 5000 millisecondes)
     }
-
 }
 // nouveauté slider 
 var currentSlide = 0;
@@ -88,7 +87,7 @@ function showSlide() {
     // console.log(slides[currentSlide])
 }
 
-// afficher cacher formulaire ajout diplome das page profile
+// afficher cacher formulaire ajout diplome dans page profile
 const btn = document.getElementById('diplome_form_btn')
 const form = document.getElementById('diplome_form')
 if (btn != null) {

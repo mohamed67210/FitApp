@@ -4,10 +4,16 @@
 
 {% block body %}
 <main class="container_modules">
+    {% for message in app.flashes('message') %}
+    <div class="notification">
+        <p>{{ message }}</p>
+        <span class="notification_progress"></span>
+    </div>
+    {% endfor %}
     <h1>{{programme.intitule}}</h1>
     <h3>nombre de Cours : {{modules|length}}</h3>
     {% if app.user == programme.coach %}
-        <a href="{{path('add_module',{'id':programme.id})}}">Ajouter module</a>
+        <a class="add_module_btn" href="{{path('add_module',{'id':programme.id})}}">Ajouter module</a>
     {% endif %}
     {% if programmeAcheter == true %}
         <a href="{{path('remove_programme_achete',{'id':commande.id})}}">retirer ce cours de ma liste</a>

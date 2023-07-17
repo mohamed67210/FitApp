@@ -27,7 +27,6 @@ class ModuleController extends AbstractController
         // recuperer le programme
         $programme = $programmeRepository->findOneBy(['id' => $id]);
         $idProgramme = $programme->getId();
-        // dd($idUser);
         $this->denyAccessUnlessGranted('ROLE_COACH');
         $module = new Module;
         $module->setProgramme($programme);

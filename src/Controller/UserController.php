@@ -71,8 +71,10 @@ class UserController extends AbstractController
     #[Route('/Coachs', name: 'show_coachs')]
     public function showCoachs(UserRepository $userRepository,Request $request): Response
     {
+        // creation de formulaire de recherche avec avec la class SearchCoachType
         $form =$this->createForm(SearchCoachType::class);
         $form->handleRequest($request);
+        // si la barre de recherche est soumit et les données inserés sont valid
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             // dd($data['nom']);
@@ -86,7 +88,9 @@ class UserController extends AbstractController
             else {
                 return $this->redirectToRoute('show_coachs');
             }
-        } else {
+        } 
+        // si on utilise pas la barre de recherche on accede a la liste des tous les coachs 
+        else {
             $coachs = $userRepository->findByRole('ROLE_COACH');
             return $this->render('user/showCoachs.html.twig', [
                 'searchform' => $form->createView(),
@@ -292,7 +296,7 @@ class UserController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 // on execute
                 $entityManager->flush();
-                $this->addFlash('message', 'Le programme est retiré de votre liste de souhait !');
+                // $this->addFlash('message', 'Le programme est retiré de votre liste de souhait !');
             } else {
                 // ajouter le progtramme a la liste de user
                 $user->addFavory($programme);

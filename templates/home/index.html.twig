@@ -86,9 +86,9 @@
                     d'inscription sur notre page dédiée .une fois vous etes inscrit vous devez completé vos informations
                     pour validé votre compte.quand votre compte sera validé vous pouvez mettre en ligne vos programmes.
                 </p>
-                {% if (app.user) == null %}
+                {# {% if (app.user) == null %}
                 <a href="{{path('app_register')}}">Let's Go </a>
-                {% endif %}
+                {% endif %} #}
 
             </article>
             <article id="membre">
@@ -98,9 +98,9 @@
                     vous convient, ajoutez-le à votre panier et suivez les instructions pour finaliser votre commande en
                     toute sécurité.
                 </p>
-                {% if app.user == null %}
+                {# {% if app.user == null %}
                 <a href="{{path('app_register')}}">Let's Go </a>
-                {% endif %}
+                {% endif %} #}
             </article>
         </div>
     </section>

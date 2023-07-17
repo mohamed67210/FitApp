@@ -4,6 +4,7 @@
 
 {% block body %}
 <main class="container">
+    {# barre de recherche #}
     {{ form_start(searchform) }}
     {{ form_row(searchform.nom) }}
     {{ form_end(searchform) }}
@@ -13,7 +14,7 @@
         {% for coach in coachs %}
         <a href="{{ path('show_user', {'id': coach.id}) }}">
             <figure class="coach_container">
-                <img src="{{ asset('assets/images/user/'~ coach.image ~'') }}" alt="{{coach.image}} ">
+                <img src="{{ asset('assets/images/user/'~ coach.image ~'') }}" alt="image de {{coach}} ">
                 <figcaption>{{(coach.prenom|slice(0,1))|upper }}.{{coach.nom|upper}}</figcaption>
             </figure>
         </a>
@@ -26,7 +27,6 @@
             </figure>
         </a>
         {% endif %}
-        
     </section>
 </main>
 {% endblock %}
